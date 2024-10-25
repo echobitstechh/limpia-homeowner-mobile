@@ -1,4 +1,6 @@
-import 'package:afriprize/ui/views/auth/register.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:limpia/ui/common/app_colors.dart';
+import 'package:limpia/ui/views/auth/register.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'login.dart';
@@ -50,10 +52,22 @@ class _AuthViewState extends State<AuthView> with TickerProviderStateMixin {
                 alignment: Alignment.bottomCenter,
                 child: Padding(
                   padding: const EdgeInsets.only(top: 60.0), // Adjust the padding to move the image down
-                  child: SvgPicture.asset(
-                    "assets/images/logo_login.svg",
-                    height: 60, // Adjust the height to make the image smaller
-                    fit: BoxFit.fitHeight,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        "assets/images/limpiar_purple.png",
+                        height: 60, // Adjust the height to make the image smaller
+                        fit: BoxFit.fitHeight,
+                      ),
+                      SvgPicture.asset(
+                        "assets/images/Limpiador.svg",
+                        height: 40, // Adjust the height to make the image smaller
+                        fit: BoxFit.fitHeight,
+                        color: kcPrimaryColor,
+                      ),
+                    ],
                   ),
                 ),
               ),

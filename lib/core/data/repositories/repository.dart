@@ -1,7 +1,7 @@
-import 'package:afriprize/app/app.locator.dart';
-import 'package:afriprize/core/data/repositories/repository_interface.dart';
-import 'package:afriprize/core/network/api_response.dart';
-import 'package:afriprize/core/network/api_service.dart';
+import 'package:limpia/app/app.locator.dart';
+import 'package:limpia/core/data/repositories/repository_interface.dart';
+import 'package:limpia/core/network/api_response.dart';
+import 'package:limpia/core/network/api_service.dart';
 import 'package:dio/dio.dart';
 
 class Repository extends IRepository {

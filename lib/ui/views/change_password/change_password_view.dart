@@ -1,4 +1,4 @@
-import 'package:afriprize/state.dart';
+import 'package:limpia/state.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 

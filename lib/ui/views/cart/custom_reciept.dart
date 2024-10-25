@@ -1,9 +1,9 @@
-import 'package:afriprize/core/data/models/cart_item.dart';
-import 'package:afriprize/core/data/models/raffle_cart_item.dart';
-import 'package:afriprize/state.dart';
-import 'package:afriprize/ui/common/ui_helpers.dart';
-import 'package:afriprize/utils/date_time_utils.dart';
-import 'package:afriprize/utils/money_util.dart';
+import 'package:limpia/core/data/models/cart_item.dart';
+import 'package:limpia/core/data/models/raffle_cart_item.dart';
+import 'package:limpia/state.dart';
+import 'package:limpia/ui/common/ui_helpers.dart';
+import 'package:limpia/utils/date_time_utils.dart';
+import 'package:limpia/utils/money_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -265,7 +265,7 @@ class ReceiptPage extends StatelessWidget {
                 child:
                  Row(children: [
                   SvgPicture.asset(
-                    'assets/icons/home.svg',
+                    'assets/icons/main.svg',
                     height: 20,
                     color: Colors.black,
                   ),

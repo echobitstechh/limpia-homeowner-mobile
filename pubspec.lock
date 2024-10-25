@@ -33,6 +33,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.2"
+  animated_segmented_tab_control:
+    dependency: "direct main"
+    description:
+      name: animated_segmented_tab_control
+      sha256: "4c04f5510037b1c30dbed00efae77559cc4e11f0fe2207c2358252d1870e4ab1"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.0"
   archive:
     dependency: transitive
     description:
@@ -273,6 +281,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.3"
+  csc_picker:
+    dependency: "direct main"
+    description:
+      name: csc_picker
+      sha256: "7e5d6023a81f53b89a7fb0369953fd4dc676f7ea20e9a0c0707973a5f0aedf14"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.7"
   csslib:
     dependency: transitive
     description:
@@ -622,9 +638,10 @@ packages:
   flutter_paystack:
     dependency: "direct main"
     description:
-      path: "lib/app/flutter_paystack"
-      relative: true
-    source: path
+      name: flutter_paystack
+      sha256: b2038c8f0cfa5a3bdb7b0e2016ceaedbc57e4445180ce6aea56cb0d83a016973
+      url: "https://pub.dev"
+    source: hosted
     version: "1.0.7"
   flutter_plugin_android_lifecycle:
     dependency: transitive

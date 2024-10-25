@@ -1,9 +1,9 @@
-import 'package:afriprize/app/app.locator.dart';
-import 'package:afriprize/core/data/models/order_item.dart';
-import 'package:afriprize/core/data/repositories/repository.dart';
-import 'package:afriprize/core/network/api_response.dart';
-import 'package:afriprize/ui/common/app_colors.dart';
-import 'package:afriprize/ui/components/empty_state.dart';
+import 'package:limpia/app/app.locator.dart';
+import 'package:limpia/core/data/models/order_item.dart';
+import 'package:limpia/core/data/repositories/repository.dart';
+import 'package:limpia/core/network/api_response.dart';
+import 'package:limpia/ui/common/app_colors.dart';
+import 'package:limpia/ui/components/empty_state.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../../../app/app.logger.dart';

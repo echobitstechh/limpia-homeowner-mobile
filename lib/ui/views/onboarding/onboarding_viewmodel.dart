@@ -1,6 +1,6 @@
-import 'package:afriprize/app/app.locator.dart';
-import 'package:afriprize/core/utils/local_store_dir.dart';
-import 'package:afriprize/core/utils/local_stotage.dart';
+import 'package:limpia/app/app.locator.dart';
+import 'package:limpia/core/utils/local_store_dir.dart';
+import 'package:limpia/core/utils/local_stotage.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 

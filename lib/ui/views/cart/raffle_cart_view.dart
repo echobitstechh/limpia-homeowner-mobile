@@ -1,8 +1,8 @@
-import 'package:afriprize/core/data/models/raffle_cart_item.dart';
-import 'package:afriprize/state.dart';
-import 'package:afriprize/ui/common/app_colors.dart';
-import 'package:afriprize/ui/common/ui_helpers.dart';
-import 'package:afriprize/ui/components/empty_state.dart';
+import 'package:limpia/core/data/models/raffle_cart_item.dart';
+import 'package:limpia/state.dart';
+import 'package:limpia/ui/common/app_colors.dart';
+import 'package:limpia/ui/common/ui_helpers.dart';
+import 'package:limpia/ui/components/empty_state.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';

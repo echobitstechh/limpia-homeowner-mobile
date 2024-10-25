@@ -1,8 +1,8 @@
-import 'package:afriprize/app/app.router.dart';
-import 'package:afriprize/ui/common/app_colors.dart';
-import 'package:afriprize/ui/common/ui_helpers.dart';
-import 'package:afriprize/ui/components/submit_button.dart';
-import 'package:afriprize/ui/views/profile/profile_viewmodel.dart';
+import 'package:limpia/app/app.router.dart';
+import 'package:limpia/ui/common/app_colors.dart';
+import 'package:limpia/ui/common/ui_helpers.dart';
+import 'package:limpia/ui/components/submit_button.dart';
+import 'package:limpia/ui/views/profile/profile_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 // import 'package:flutter_paystack/flutter_paystack.dart';

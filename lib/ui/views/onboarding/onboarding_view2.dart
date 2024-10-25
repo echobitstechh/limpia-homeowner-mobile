@@ -1,14 +1,17 @@
-import 'package:afriprize/ui/common/app_colors.dart';
-import 'package:afriprize/ui/common/ui_helpers.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:limpia/ui/common/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:limpia/ui/common/ui_helpers.dart';
 import 'package:stacked_services/stacked_services.dart';
-import 'package:video_player/video_player.dart';
-
 import '../../../app/app.locator.dart';
 import '../../../app/app.router.dart';
 import '../../../core/utils/local_store_dir.dart';
 import '../../../core/utils/local_stotage.dart';
 import '../../components/empty_state.dart';
+import '../../components/submit_button.dart';
+import '../auth/auth_view.dart';
+import '../auth/auth_view.dart';
 
 class OnboardingView2 extends StatelessWidget {
   const OnboardingView2({Key? key}) : super(key: key);
@@ -17,20 +20,15 @@ class OnboardingView2 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: OnboardingPagePresenter(pages: [
+
         OnboardingPageModel(
-          title: 'Join the Excitement!',
+          title: 'Work On Your Schedule',
           description:
-          'Every ticket you purchase is your golden ticket to adventure! Imagine the thrill of winning incredible prizes while having fun.',
-          imageUrl: "second.json",
+          'Find Cleaning Jobs, Manage Your Tasks, Get Paid Quickly. ',
+          imageUrl: 'second.json',
           bgColor: kcWhiteColor,
         ),
-        // OnboardingPageModel(
-        //   title: 'Earn Points with Every Ticket!',
-        //   description:
-        //   'Every ticket isn’t just a chance to win; it’s a step towards unlocking exciting rewards! Watch your points stack up as you play.',
-        //   imageUrl: 'second.json',
-        //   bgColor: kcWhiteColor,
-        // ),
+
         OnboardingPageModel(
           title: 'Make an Impact!',
           description:
@@ -42,6 +40,7 @@ class OnboardingView2 extends StatelessWidget {
     );
   }
 }
+final LocalStorage _localStorage = locator<LocalStorage>();
 
 class OnboardingPagePresenter extends StatefulWidget {
   final List<OnboardingPageModel> pages;
@@ -79,140 +78,155 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
       body: AnimatedContainer(
         duration: const Duration(milliseconds: 250),
         color: widget.pages[_currentPage].bgColor,
-        child: SafeArea(
-          child: Column(
-            children: [
+        child: Column(
+          children: [
+            // Stack with image inside Align
+            Stack(
+              children: [
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: ClipPath(
+                    clipper: CurvedClipper(),
+                    child: Container(
+                      height: 500,
+                      color: kcPrimaryColor.withOpacity(0.6),
+                      child: Align(
+                        alignment: Alignment.bottomCenter, // Align image to bottom of the ClipPath
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 20.0), // Optional padding for spacing
+                          child: Image.asset(
+                            'assets/images/man.png',
+                            height: 350,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
 
-              Expanded(
-                child: PageView.builder(
-                  controller: _pageController,
-                  itemCount: widget.pages.length,
-                  onPageChanged: (idx) {
-                    setState(() {
-                      _currentPage = idx;
-                    });
-                  },
-                  itemBuilder: (context, idx) {
-                    final item = widget.pages[idx];
-                    return Column(
+
+            verticalSpaceMedium,
+
+            // Text content below the image
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                widget.pages[_currentPage].title,
+                style: const TextStyle(
+                  fontSize: 28,
+                  color: kcBlackColor,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Text(
+                widget.pages[_currentPage].description,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                  color: kcDarkGreyColor,
+                ),
+              ),
+            ),
+            const Spacer(), // Spacer to push the content below
+
+            // Page indicator (counter)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: widget.pages.map((item) {
+                int index = widget.pages.indexOf(item);
+                return AnimatedContainer(
+                  duration: const Duration(milliseconds: 250),
+                  width: _currentPage == index ? 30 : 8,
+                  height: 8,
+                  margin: const EdgeInsets.all(2.0),
+                  decoration: BoxDecoration(
+                    color: kcBlackColor,
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                );
+              }).toList(),
+            ),
+
+
+
+
+            // Bottom buttons
+      // Padding(
+      //   padding:
+      //   const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
+      //   child: Column(
+      //     children: [
+      //       TextButton(
+      //         style: TextButton.styleFrom(
+      //           visualDensity: VisualDensity.comfortable,
+      //           foregroundColor: Colors.white,
+      //           textStyle: const TextStyle(
+      //             fontSize: 16,
+      //             fontWeight: FontWeight.bold,
+      //           ),
+      //         ),
+      //         onPressed: () {
+      //           widget.onSkip?.call();
+      //           locator<NavigationService>().clearStackAndShow(Routes.authView);
+      //         },
+      //         child: const Text("Skip", style: TextStyle(color: kcBlackColor),),
+      //       ),]
+      //       ),
+      //       ),
+
+            // Bottom buttons
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
+              child: Column(
+                children: [
+                  SubmitButton(
+                    isLoading: false,
+                    boldText: true,
+                    label: "Sign Up",
+                    submit: ()async {
+                      await _localStorage.save(
+                          LocalStorageDir.onboarded, true);
+
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const AuthView()),
+                      );
+                      //AuthView();
+                    },
+                    color: kcPrimaryColor,
+                  ),
+                  TextButton(
+                    style: TextButton.styleFrom(
+                      visualDensity: VisualDensity.comfortable,
+                      foregroundColor: Colors.white,
+                      textStyle: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    onPressed: () {
+                      // Add logic for Sign In
+                    },
+                    child: Column(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Text(
-                            item.title,
-                            style: const TextStyle(
-                              fontSize: 28,
-                              color: kcSecondaryColor,
-                              fontWeight: FontWeight.w700,
-                              fontFamily: "Panchang",
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                          child: Text(
-                            item.description,
-                            style: const TextStyle(
-                              fontSize: 13,
-                              fontWeight: FontWeight.w400,
-                              fontFamily: "Panchang",
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 20),
-                        Expanded(
-                          child: EmptyState(
-                            animation: item.imageUrl,
-                            label: "",
-                          ),
+                        Text(
+                          "Sign in",
+                          style: TextStyle(color: kcPrimaryColor, fontSize: 18),
                         ),
                       ],
-                    );
-                  },
-                ),
-              ),
-              // Page indicator (counter)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: widget.pages.map((item) {
-                  int index = widget.pages.indexOf(item);
-                  return AnimatedContainer(
-                    duration: const Duration(milliseconds: 250),
-                    width: _currentPage == index ? 30 : 8,
-                    height: 8,
-                    margin: const EdgeInsets.all(2.0),
-                    decoration: BoxDecoration(
-                      color:  kcBlackColor,
-                      borderRadius: BorderRadius.circular(10.0),
                     ),
-                  );
-                }).toList(),
+                  ),
+                ],
               ),
-              // Bottom buttons
-              Padding(
-                padding:
-                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    TextButton(
-                      style: TextButton.styleFrom(
-                        visualDensity: VisualDensity.comfortable,
-                        foregroundColor: Colors.white,
-                        textStyle: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      onPressed: () {
-                        widget.onSkip?.call();
-                        locator<NavigationService>().clearStackAndShow(Routes.homeView);
-                      },
-                      child: const Text("Skip", style: TextStyle(color: kcBlackColor),),
-                    ),
-                    TextButton(
-                      style: TextButton.styleFrom(
-                        visualDensity: VisualDensity.comfortable,
-                        foregroundColor: Colors.white,
-                        textStyle: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      onPressed: () {
-                        if (_currentPage == widget.pages.length - 1) {
-                          widget.onFinish?.call();
-                          locator<NavigationService>().clearStackAndShow(Routes.homeView);
-                        } else {
-                          _pageController.animateToPage(
-                            _currentPage + 1,
-                            curve: Curves.easeInOutCubic,
-                            duration: const Duration(milliseconds: 250),
-                          );
-                        }
-                      },
-                      child: Row(
-                        children: [
-                          Text(
-                            _currentPage == widget.pages.length - 1
-                                ? "Finish"
-                                : "Next",
-                            style: TextStyle(color: kcBlackColor),
-                          ),
-                          const SizedBox(width: 8),
-                          Icon(
-                            _currentPage == widget.pages.length - 1
-                                ? Icons.done
-                                : Icons.arrow_forward,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -237,6 +251,30 @@ class OnboardingPageModel {
 
 
 
+class CurvedClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    final Path path = Path();
+    // Start from top-left corner
+    path.lineTo(0, size.height - 100);
+    // Create a quadratic bezier curve
+    path.quadraticBezierTo(
+      size.width / 2,
+      size.height,
+      size.width,
+      size.height - 100,
+    );
+    // Line to the top-right corner
+    path.lineTo(size.width, 0);
+    path.close();
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) {
+    return false;
+  }
+}
 
 
 

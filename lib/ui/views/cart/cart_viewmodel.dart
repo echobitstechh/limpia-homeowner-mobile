@@ -1,21 +1,21 @@
-import 'package:afriprize/app/app.locator.dart';
-import 'package:afriprize/app/app.logger.dart';
-import 'package:afriprize/core/data/models/cart_item.dart';
-import 'package:afriprize/core/data/models/raffle_cart_item.dart';
-import 'package:afriprize/core/data/repositories/repository.dart';
-import 'package:afriprize/core/network/api_response.dart';
-import 'package:afriprize/core/utils/config.dart';
-import 'package:afriprize/core/utils/local_store_dir.dart';
-import 'package:afriprize/core/utils/local_stotage.dart';
-import 'package:afriprize/state.dart';
-import 'package:afriprize/ui/views/cart/raffle_reciept.dart';
+import 'package:limpia/app/app.locator.dart';
+import 'package:limpia/app/app.logger.dart';
+import 'package:limpia/core/data/models/cart_item.dart';
+import 'package:limpia/core/data/models/raffle_cart_item.dart';
+import 'package:limpia/core/data/repositories/repository.dart';
+import 'package:limpia/core/network/api_response.dart';
+import 'package:limpia/core/utils/config.dart';
+import 'package:limpia/core/utils/local_store_dir.dart';
+import 'package:limpia/core/utils/local_stotage.dart';
+import 'package:limpia/state.dart';
+import 'package:limpia/ui/views/cart/raffle_reciept.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../app/app.dialogs.dart';
 import '../../../app/app.router.dart';
-import '../../../app/flutter_paystack/lib/flutter_paystack.dart';
+//import '../../../app/flutter_paystack/lib/flutter_paystack.dart';
 import '../../../core/data/models/order_info.dart';
 import '../../../utils/binance_pay.dart';
 import '../../../utils/money_util.dart';
@@ -244,8 +244,8 @@ class CartViewModel extends BaseViewModel {
 
 
   Future<void> loadPayStackPlugin() async{
-    final plugin = PaystackPlugin();
-    plugin.initialize(publicKey: AppConfig.paystackApiKeyTest);
+    // final plugin = PaystackPlugin();
+    // plugin.initialize(publicKey: AppConfig.paystackApiKeyTest);
   }
 
 

@@ -1,5 +1,5 @@
-import 'package:afriprize/state.dart';
-import 'package:afriprize/ui/common/app_colors.dart';
+import 'package:limpia/state.dart';
+import 'package:limpia/ui/common/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:open_mail_app/open_mail_app.dart';

@@ -1,5 +1,5 @@
-import 'package:afriprize/ui/common/app_colors.dart';
-import 'package:afriprize/ui/common/ui_helpers.dart';
+import 'package:limpia/ui/common/app_colors.dart';
+import 'package:limpia/ui/common/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 

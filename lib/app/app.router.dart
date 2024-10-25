@@ -5,33 +5,33 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:afriprize/core/data/models/order_info.dart' as _i22;
-import 'package:afriprize/core/data/models/order_item.dart' as _i26;
-import 'package:afriprize/core/data/models/product.dart' as _i24;
-import 'package:afriprize/core/data/models/profile.dart' as _i25;
-import 'package:afriprize/ui/components/payment_success_page.dart';
-import 'package:afriprize/ui/views/auth/auth_view.dart' as _i5;
-import 'package:afriprize/ui/views/auth/register.dart';
-import 'package:afriprize/ui/views/cart/add_shipping.dart';
-import 'package:afriprize/ui/views/cart/raffle_cart_view.dart' as _i8;
-import 'package:afriprize/ui/views/cart/add_shipping.dart' as _i13;
-import 'package:afriprize/ui/views/change_password/change_password_view.dart'
+import 'package:limpia/core/data/models/order_info.dart' as _i22;
+import 'package:limpia/core/data/models/order_item.dart' as _i26;
+import 'package:limpia/core/data/models/product.dart' as _i24;
+import 'package:limpia/core/data/models/profile.dart' as _i25;
+import 'package:limpia/ui/components/payment_success_page.dart';
+import 'package:limpia/ui/views/auth/auth_view.dart' as _i5;
+import 'package:limpia/ui/views/auth/register.dart';
+import 'package:limpia/ui/views/cart/add_shipping.dart';
+import 'package:limpia/ui/views/cart/raffle_cart_view.dart' as _i8;
+import 'package:limpia/ui/views/cart/add_shipping.dart' as _i13;
+import 'package:limpia/ui/views/change_password/change_password_view.dart'
     as _i17;
-import 'package:afriprize/ui/views/dashboard/dashboard_view.dart' as _i6;
-import 'package:afriprize/ui/views/dashboard/raffle_detail.dart' as _i12;
-import 'package:afriprize/ui/views/delete_account/delete_account_view.dart'
+import 'package:limpia/ui/views/dashboard/dashboard_view.dart' as _i6;
+import 'package:limpia/ui/views/dashboard/raffle_detail.dart' as _i12;
+import 'package:limpia/ui/views/delete_account/delete_account_view.dart'
     as _i19;
-import 'package:afriprize/ui/views/draws/draws_view.dart' as _i7;
-import 'package:afriprize/ui/views/enter_email/enter_email_view.dart' as _i18;
-import 'package:afriprize/ui/views/home/home_view.dart' as _i2;
-import 'package:afriprize/ui/views/notification/notification_view.dart' as _i9;
-import 'package:afriprize/ui/views/onboarding/onboarding_view2.dart' as _i31;
-import 'package:afriprize/ui/views/otp/otp_view.dart' as _i16;
-import 'package:afriprize/ui/views/profile/profile_view.dart' as _i10;
-import 'package:afriprize/ui/views/profile/track.dart' as _i15;
-import 'package:afriprize/ui/views/profile/wallet.dart' as _i14;
-import 'package:afriprize/ui/views/startup/startup_view.dart' as _i3;
-import 'package:afriprize/ui/views/withdraw/withdraw_view.dart' as _i20;
+import 'package:limpia/ui/views/draws/draws_view.dart' as _i7;
+import 'package:limpia/ui/views/enter_email/enter_email_view.dart' as _i18;
+import 'package:limpia/ui/views/home/home_view.dart' as _i2;
+import 'package:limpia/ui/views/notification/notification_view.dart' as _i9;
+import 'package:limpia/ui/views/onboarding/onboarding_view2.dart' as _i31;
+import 'package:limpia/ui/views/otp/otp_view.dart' as _i16;
+import 'package:limpia/ui/views/profile/profile_view.dart' as _i10;
+import 'package:limpia/ui/views/profile/track.dart' as _i15;
+import 'package:limpia/ui/views/profile/wallet.dart' as _i14;
+import 'package:limpia/ui/views/startup/startup_view.dart' as _i3;
+import 'package:limpia/ui/views/withdraw/withdraw_view.dart' as _i20;
 import 'package:flutter/foundation.dart' as _i23;
 import 'package:flutter/material.dart' as _i21;
 import 'package:flutter/material.dart';

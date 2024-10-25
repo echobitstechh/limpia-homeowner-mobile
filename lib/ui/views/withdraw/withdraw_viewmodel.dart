@@ -1,8 +1,8 @@
-import 'package:afriprize/app/app.locator.dart';
-import 'package:afriprize/app/app.logger.dart';
-import 'package:afriprize/core/data/models/bank.dart';
-import 'package:afriprize/core/data/repositories/repository.dart';
-import 'package:afriprize/core/network/api_response.dart';
+import 'package:limpia/app/app.locator.dart';
+import 'package:limpia/app/app.logger.dart';
+import 'package:limpia/core/data/models/bank.dart';
+import 'package:limpia/core/data/repositories/repository.dart';
+import 'package:limpia/core/network/api_response.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';

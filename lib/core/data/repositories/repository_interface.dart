@@ -1,4 +1,4 @@
-import 'package:afriprize/core/network/api_response.dart';
+import 'package:limpia/core/network/api_response.dart';
 
 abstract class IRepository {
   Future<ApiResponse> login(Map<String, dynamic> req);
