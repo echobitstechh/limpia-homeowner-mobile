@@ -1,5 +1,5 @@
-import 'package:afriprize/core/data/models/product.dart';
-import 'package:afriprize/core/data/models/profile.dart';
+import 'package:limpia/core/data/models/product.dart';
+import 'package:limpia/core/data/models/profile.dart';
 
 import 'order_item.dart';
 

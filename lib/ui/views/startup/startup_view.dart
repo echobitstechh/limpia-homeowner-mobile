@@ -1,6 +1,5 @@
-
-import 'package:afriprize/ui/common/app_colors.dart';
-import 'package:afriprize/ui/components/background.dart';
+import 'package:limpia/ui/common/app_colors.dart';
+import 'package:limpia/ui/components/background.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -27,8 +26,31 @@ class StartupView extends StackedView<StartupViewModel> {
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(50.0),
-          child: SvgPicture.asset(
-            "assets/images/logo_new.svg",
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    "assets/images/limpiar_purple.png",
+                    color: kcWhiteColor,
+                  ),
+                  SvgPicture.asset(
+                    "assets/images/Limpiador.svg",
+                    color: kcWhiteColor,
+                  ),
+                ],
+              ),
+              Text(
+                "Cleaning Opportunities, simplified",
+                style: TextStyle(
+                    color: kcWhiteColor,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
+              ),
+            ],
           ),
         ),
       ),

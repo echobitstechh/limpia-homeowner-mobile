@@ -1,4 +1,4 @@
-name: afriprize
+name: limpia
 description: An app build with the stacked framework
 
 # The following line prevents the package from being accidentally published to
@@ -86,9 +86,13 @@ dependencies:
   google_fonts: ^6.2.1
   carousel_slider: ^5.0.0
   slide_countdown: ^1.1.0
-#  flutter_paystack: ^1.0.7
-  flutter_paystack:
-    path: lib/app/flutter_paystack
+  flutter_paystack: ^1.0.7
+  csc_picker: ^0.2.7
+  animated_segmented_tab_control: ^2.0.0
+
+
+#  flutter_paystack:
+#  path: lib/app/flutter_paystack
 
 
 

@@ -1,9 +1,9 @@
-import 'package:afriprize/app/app.locator.dart';
-import 'package:afriprize/app/app.logger.dart';
-import 'package:afriprize/core/network/interceptors.dart';
-import 'package:afriprize/core/utils/config.dart';
-import 'package:afriprize/core/utils/local_store_dir.dart';
-import 'package:afriprize/core/utils/local_stotage.dart';
+import 'package:limpia/app/app.locator.dart';
+import 'package:limpia/app/app.logger.dart';
+import 'package:limpia/core/network/interceptors.dart';
+import 'package:limpia/core/utils/config.dart';
+import 'package:limpia/core/utils/local_store_dir.dart';
+import 'package:limpia/core/utils/local_stotage.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 

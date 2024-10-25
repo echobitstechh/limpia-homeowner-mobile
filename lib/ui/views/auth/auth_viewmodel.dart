@@ -1,13 +1,13 @@
 import 'dart:convert';
 
-import 'package:afriprize/app/app.locator.dart';
-import 'package:afriprize/app/app.logger.dart';
-import 'package:afriprize/app/app.router.dart';
-import 'package:afriprize/core/data/repositories/repository.dart';
-import 'package:afriprize/core/network/api_response.dart';
-import 'package:afriprize/core/utils/local_store_dir.dart';
-import 'package:afriprize/core/utils/local_stotage.dart';
-import 'package:afriprize/state.dart';
+import 'package:limpia/app/app.locator.dart';
+import 'package:limpia/app/app.logger.dart';
+import 'package:limpia/app/app.router.dart';
+import 'package:limpia/core/data/repositories/repository.dart';
+import 'package:limpia/core/network/api_response.dart';
+import 'package:limpia/core/utils/local_store_dir.dart';
+import 'package:limpia/core/utils/local_stotage.dart';
+import 'package:limpia/state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/phone_number.dart';
@@ -34,6 +34,8 @@ class AuthViewModel extends BaseViewModel {
   final email = TextEditingController();
   final phone = TextEditingController();
   final genderController = TextEditingController();
+  final addressController = TextEditingController();
+  final serviceController = TextEditingController();
   String? selectedGender;
   late String phoneValue = "";
   late PhoneNumber phoneNumber;

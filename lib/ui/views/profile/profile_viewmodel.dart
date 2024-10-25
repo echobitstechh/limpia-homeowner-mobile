@@ -1,11 +1,11 @@
 import 'dart:io';
 
-import 'package:afriprize/app/app.locator.dart';
-import 'package:afriprize/app/app.logger.dart';
-import 'package:afriprize/core/data/models/profile.dart';
-import 'package:afriprize/core/data/repositories/repository.dart';
-import 'package:afriprize/core/network/api_response.dart';
-import 'package:afriprize/state.dart';
+import 'package:limpia/app/app.locator.dart';
+import 'package:limpia/app/app.logger.dart';
+import 'package:limpia/core/data/models/profile.dart';
+import 'package:limpia/core/data/repositories/repository.dart';
+import 'package:limpia/core/network/api_response.dart';
+import 'package:limpia/state.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_picker/image_picker.dart';

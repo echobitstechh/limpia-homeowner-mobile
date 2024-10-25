@@ -1,10 +1,10 @@
 import 'dart:convert';
 
-import 'package:afriprize/core/utils/local_store_dir.dart';
-import 'package:afriprize/core/utils/local_stotage.dart';
+import 'package:limpia/core/utils/local_store_dir.dart';
+import 'package:limpia/core/utils/local_stotage.dart';
 import 'package:stacked/stacked.dart';
-import 'package:afriprize/app/app.locator.dart';
-import 'package:afriprize/app/app.router.dart';
+import 'package:limpia/app/app.locator.dart';
+import 'package:limpia/app/app.router.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import '../../../core/data/models/profile.dart';
@@ -24,7 +24,8 @@ class StartupViewModel extends BaseViewModel {
 
     String? token = await locator<LocalStorage>().fetch(LocalStorageDir.authToken);
     String? user = await locator<LocalStorage>().fetch(LocalStorageDir.authUser);
-    bool? onboarded = await locator<LocalStorage>().fetch(LocalStorageDir.onboarded);
+    bool? onboarded = false;
+   // bool? onboarded = await locator<LocalStorage>().fetch(LocalStorageDir.onboarded);
     print('value of onboarded is: $onboarded');
     if (onboarded == null || onboarded == false) {
       _navigationService.replaceWithOnboardingView2();

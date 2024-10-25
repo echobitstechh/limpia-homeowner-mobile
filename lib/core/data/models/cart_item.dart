@@ -1,4 +1,4 @@
-import 'package:afriprize/core/data/models/product.dart';
+import 'package:limpia/core/data/models/product.dart';
 
 // class CartItem {
 //   Product? product;

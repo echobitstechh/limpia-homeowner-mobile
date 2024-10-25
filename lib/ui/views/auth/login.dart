@@ -1,10 +1,10 @@
-import 'package:afriprize/app/app.locator.dart';
-import 'package:afriprize/app/app.router.dart';
-import 'package:afriprize/ui/common/app_colors.dart';
-import 'package:afriprize/ui/common/ui_helpers.dart';
-import 'package:afriprize/ui/components/submit_button.dart';
-import 'package:afriprize/ui/components/text_field_widget.dart';
-import 'package:afriprize/ui/views/auth/auth_viewmodel.dart';
+import 'package:limpia/app/app.locator.dart';
+import 'package:limpia/app/app.router.dart';
+import 'package:limpia/ui/common/app_colors.dart';
+import 'package:limpia/ui/common/ui_helpers.dart';
+import 'package:limpia/ui/components/submit_button.dart';
+import 'package:limpia/ui/components/text_field_widget.dart';
+import 'package:limpia/ui/views/auth/auth_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -43,11 +43,10 @@ class _LoginState extends State<Login> {
           builder: (context, model, child) => ListView(
             children: [
               const Text(
-                "Login Account",
+                "Sign in",
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
-                  fontFamily: "Panchang"
                 ),
               ),
               verticalSpaceTiny,
@@ -68,7 +67,7 @@ class _LoginState extends State<Login> {
                   "Create Account",
                   style: TextStyle(
                     fontSize: 12,
-                    color: kcSecondaryColor,
+                    color: kcPrimaryColor,
                   ),
                 ),
               )
@@ -113,7 +112,7 @@ class _LoginState extends State<Login> {
                                 border: Border.all(
                                     color: model.remember
                                         ? Colors.transparent
-                                        : kcSecondaryColor)),
+                                        : kcPrimaryColor)),
                             child: model.remember
                                 ? const Center(
                               child: Icon(
@@ -141,7 +140,7 @@ class _LoginState extends State<Login> {
                       "Forgot password?",
                       style: TextStyle(
                         fontSize: 16,
-                        color: kcSecondaryColor,
+                        color: kcPrimaryColor,
                       ),
                     ),
                   )
@@ -155,7 +154,7 @@ class _LoginState extends State<Login> {
                 submit: () {
                   model.login();
                 },
-                color: kcSecondaryColor,
+                color: kcPrimaryColor,
               ),
               // verticalSpaceMedium,
               // Row(

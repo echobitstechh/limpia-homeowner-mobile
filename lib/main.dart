@@ -1,24 +1,24 @@
 
-import 'package:afriprize/core/utils/config.dart';
-import 'package:afriprize/core/utils/local_store_dir.dart';
-import 'package:afriprize/core/utils/local_stotage.dart';
-import 'package:afriprize/state.dart';
+import 'package:limpia/core/utils/config.dart';
+import 'package:limpia/core/utils/local_store_dir.dart';
+import 'package:limpia/core/utils/local_stotage.dart';
+import 'package:limpia/state.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:afriprize/app/app.bottomsheets.dart';
-import 'package:afriprize/app/app.dialogs.dart';
-import 'package:afriprize/app/app.locator.dart';
-import 'package:afriprize/app/app.router.dart';
-import 'package:afriprize/ui/common/app_colors.dart';
+import 'package:limpia/app/app.bottomsheets.dart';
+import 'package:limpia/app/app.dialogs.dart';
+import 'package:limpia/app/app.locator.dart';
+import 'package:limpia/app/app.router.dart';
+import 'package:limpia/ui/common/app_colors.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:update_available/update_available.dart';
 import 'package:workmanager/workmanager.dart';
-import 'app/flutter_paystack/lib/flutter_paystack.dart';
+//import 'app/flutter_paystack/lib/flutter_paystack.dart';
 import 'firebase_options.dart';
 import 'package:rxdart/rxdart.dart';
 
@@ -43,8 +43,8 @@ void main() async{
   setupDialogUi();
   setupBottomSheetUi();
   // Initialize Paystack with your public key
-  final  paystackPlugin = PaystackPlugin();
-  await paystackPlugin.initialize(publicKey: AppConfig.paystackApiKeyTest);
+  //final  paystackPlugin = PaystackPlugin();
+  //await paystackPlugin.initialize(publicKey: AppConfig.paystackApiKeyTest);
 
 
 
@@ -200,7 +200,7 @@ class _MyAppState extends State<MyApp> {
     return ValueListenableBuilder<AppUiModes>(
       valueListenable: uiMode,
       builder: (context, value, child) => MaterialApp(
-        title: 'Afriprize',
+        title: 'limpia',
         // theme: value == AppUiModes.dark ? darkTheme() : lightTheme(),
         theme: ThemeData.light(useMaterial3: true),
         darkTheme: ThemeData.dark(),

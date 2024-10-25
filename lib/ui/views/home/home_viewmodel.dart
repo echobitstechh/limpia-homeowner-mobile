@@ -1,17 +1,17 @@
 import 'dart:io';
 
-import 'package:afriprize/app/app.bottomsheets.dart';
-import 'package:afriprize/app/app.dialogs.dart';
-import 'package:afriprize/app/app.locator.dart';
-import 'package:afriprize/app/app.router.dart';
-import 'package:afriprize/core/utils/config.dart';
-import 'package:afriprize/ui/common/app_colors.dart';
-import 'package:afriprize/ui/common/app_strings.dart';
-import 'package:afriprize/ui/components/submit_button.dart';
-import 'package:afriprize/ui/views/cart/raffle_cart_view.dart';
-import 'package:afriprize/ui/views/dashboard/dashboard_view.dart';
-import 'package:afriprize/ui/views/notification/notification_view.dart';
-import 'package:afriprize/ui/views/profile/profile_view.dart';
+import 'package:limpia/app/app.bottomsheets.dart';
+import 'package:limpia/app/app.dialogs.dart';
+import 'package:limpia/app/app.locator.dart';
+import 'package:limpia/app/app.router.dart';
+import 'package:limpia/core/utils/config.dart';
+import 'package:limpia/ui/common/app_colors.dart';
+import 'package:limpia/ui/common/app_strings.dart';
+import 'package:limpia/ui/components/submit_button.dart';
+import 'package:limpia/ui/views/cart/raffle_cart_view.dart';
+import 'package:limpia/ui/views/dashboard/dashboard_view.dart';
+import 'package:limpia/ui/views/notification/notification_view.dart';
+import 'package:limpia/ui/views/profile/profile_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:stacked/stacked.dart';
@@ -101,39 +101,38 @@ class HomeViewModel extends BaseViewModel {
   }
 
   void changeSelected(int index, AppModules module) {
-    if (index != 0 && !userLoggedIn.value) {
-      showModalBottomSheet(
-          context: StackedService.navigatorKey!.currentState!.context,
-          shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(20), topLeft: Radius.circular(20))),
-          builder: (ctx) {
-            return Container(
-              padding: const EdgeInsets.all(30),
-              height: 200,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text("You need to login to continue"),
-                  verticalSpaceMedium,
-                  SubmitButton(
-                    isLoading: false,
-                    label: "Login",
-                    submit: () {
-                      locator<NavigationService>().replaceWithAuthView();
-                    },
-                    color: kcSecondaryColor,
-                  )
-                ],
-              ),
-            );
-          });
-      return;
-    }
+    // if (index != 0 && !userLoggedIn.value) {
+    //   showModalBottomSheet(
+    //       context: StackedService.navigatorKey!.currentState!.context,
+    //       shape: const RoundedRectangleBorder(
+    //           borderRadius: BorderRadius.only(
+    //               topRight: Radius.circular(20), topLeft: Radius.circular(20))),
+    //       builder: (ctx) {
+    //         return Container(
+    //           padding: const EdgeInsets.all(30),
+    //           height: 200,
+    //           child: Column(
+    //             mainAxisAlignment: MainAxisAlignment.center,
+    //             children: [
+    //               const Text("You need to login to continue"),
+    //               verticalSpaceMedium,
+    //               SubmitButton(
+    //                 isLoading: false,
+    //                 label: "Login",
+    //                 submit: () {
+    //                   locator<NavigationService>().replaceWithAuthView();
+    //                 },
+    //                 color: kcSecondaryColor,
+    //               )
+    //             ],
+    //           ),
+    //         );
+    //       });
+    //   return;
+    //}
 
       selectedRafflesTab = index;
-
-    notifyListeners();
+      notifyListeners();
   }
 
 

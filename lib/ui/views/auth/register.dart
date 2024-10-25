@@ -1,9 +1,10 @@
-import 'package:afriprize/core/data/models/country.dart';
-import 'package:afriprize/ui/common/app_colors.dart';
-import 'package:afriprize/ui/components/submit_button.dart';
-import 'package:afriprize/ui/components/text_field_widget.dart';
-import 'package:afriprize/ui/views/auth/auth_viewmodel.dart';
-import 'package:afriprize/utils/country_utils.dart';
+import 'package:limpia/core/data/models/country.dart';
+import 'package:limpia/ui/common/app_colors.dart';
+import 'package:limpia/ui/components/submit_button.dart';
+import 'package:limpia/ui/components/text_field_widget.dart';
+import 'package:limpia/ui/views/auth/auth_viewmodel.dart';
+import 'package:limpia/ui/views/auth/set_up.dart';
+import 'package:limpia/utils/country_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:stacked/stacked.dart';
@@ -33,7 +34,7 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   List<Country> countries = [];
-  final List<String> genderOptions = ['Male', 'Female'];
+  final List<String> genderOptions = ['Kaduna', 'Abuja'];
 
   bool? loadingCountries = false;
 
@@ -57,11 +58,10 @@ class _RegisterState extends State<Register> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
-                  "Create Account",
+                  "sign Up",
                   style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      fontFamily: "Panchang"
                   ),
                 ),
                 verticalSpaceTiny,
@@ -96,12 +96,12 @@ class _RegisterState extends State<Register> {
                         hint: "Firstname",
                         controller: model.firstname,
                         inputType: TextInputType.name,
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return 'required';
-                          }
-                          return null; // Return null to indicate no validation error
-                        },
+                        // validator: (value) {
+                        //   if (value.isEmpty) {
+                        //     return 'required';
+                        //   }
+                        //   return null; // Return null to indicate no validation error
+                        // },
                       ),
                     ),
                     const SizedBox(
@@ -111,12 +111,12 @@ class _RegisterState extends State<Register> {
                       child: TextFieldWidget(
                         hint: "Lastname",
                         controller: model.lastname,
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return 'required';
-                          }
-                          return null; // Return null to indicate no validation error
-                        },
+                        // validator: (value) {
+                        //   if (value.isEmpty) {
+                        //     return 'required';
+                        //   }
+                        //   return null; // Return null to indicate no validation error
+                        // },
                       ),
                     ),
                     verticalSpaceSmall,
@@ -135,15 +135,15 @@ class _RegisterState extends State<Register> {
                 TextFieldWidget(
                   hint: "Email Address",
                   controller: model.email,
-                  validator: (value) {
-                    if (value.isEmpty) {
-                      return 'required';
-                    }
-                    if (!RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$').hasMatch(value)) {
-                      return 'Invalid email address';
-                    }
-                    return null; // Return null to indicate no validation error
-                  },
+                  // validator: (value) {
+                  //   // if (value.isEmpty) {
+                  //   //   return 'required';
+                  //   // }
+                  //   if (!RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$').hasMatch(value)) {
+                  //     return 'Invalid email address';
+                  //   }
+                  //   return null; // Return null to indicate no validation error
+                  // },
                 ),
                 verticalSpaceSmall,
                 const Padding(
@@ -155,78 +155,88 @@ class _RegisterState extends State<Register> {
                       "A valid email is required for pin resetting and withdrawal requests"),
                 ),
                 verticalSpaceMedium,
-                IntlPhoneField(
-                  decoration: InputDecoration(
-                    labelText: 'Phone Number',
-                    labelStyle: const TextStyle(color: Colors.black,fontSize: 13),
-                    floatingLabelStyle: const TextStyle(color: Colors.black),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0), // Add border curve
-                      borderSide: const BorderSide(color: Color(0xFFCC9933)),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0), // Add border curve
-                      borderSide: const BorderSide(color: Color(0xFFCC9933)),
-                    ),
-                  ),
-                  validator: (value) {
-                    if (value!.completeNumber.isEmpty) {
-                      return 'required';
-                    }
-                    return null; // Return null to indicate no validation error
-                  },
-                  initialCountryCode: 'NG',
-                  countries: countries.isNotEmpty
-                      ? countries.map((country) => CountryPickerUtils.getCountryByIsoCode(country.code!)).toList()
-                      : [],
-                  controller: model.phone,
-                  onChanged: (phone) {
-                      model.phoneNumber = phone;
-                      try {
-                        // Attempt to find the country where the code matches phone.countryISOCode
-                        print('phone code is: ${phone.countryISOCode}');
-                        print('country code is: ${countries.first.code}');
-                        model.countryId = countries.firstWhere((country) => country.code == phone.countryISOCode).id2!;
-                      } catch (e) {
-                        // Handle the case where no matching country is found
-                        print('No matching country found for ISO code: ${phone.countryISOCode}');
-                        model.countryId = ''; // or handle appropriately
-                      }
-                      // model.countryId = countries.firstWhere((country) => country.code == phone.countryISOCode).id!;
-                  },
-                ),
-                //
-                verticalSpaceSmall,
-                // DropdownButtonFormField(
+                // IntlPhoneField(
                 //   decoration: InputDecoration(
-                //     labelText: 'Gender',
+                //     labelText: 'Phone Number',
                 //     labelStyle: const TextStyle(color: Colors.black,fontSize: 13),
                 //     floatingLabelStyle: const TextStyle(color: Colors.black),
                 //     border: OutlineInputBorder(
-                //       borderRadius: BorderRadius.circular(10.0),
+                //       borderRadius: BorderRadius.circular(10.0), // Add border curve
                 //       borderSide: const BorderSide(color: Color(0xFFCC9933)),
                 //     ),
                 //     focusedBorder: OutlineInputBorder(
-                //       borderRadius: BorderRadius.circular(10.0),
+                //       borderRadius: BorderRadius.circular(10.0), // Add border curve
                 //       borderSide: const BorderSide(color: Color(0xFFCC9933)),
                 //     ),
                 //   ),
-                //   value: model.selectedGender, // You should add selectedGender to your model
-                //   onSaved: (String? newValue) {
-                //     model.selectedGender = newValue!;
+                //   validator: (value) {
+                //     if (value!.completeNumber.isEmpty) {
+                //       return 'required';
+                //     }
+                //     return null; // Return null to indicate no validation error
                 //   },
-                //   onChanged: (String? newValue) {
-                //     model.selectedGender = newValue!;
+                //   initialCountryCode: 'NG',
+                //   countries: countries.isNotEmpty
+                //       ? countries.map((country) => CountryPickerUtils.getCountryByIsoCode(country.code!)).toList()
+                //       : [],
+                //   controller: model.phone,
+                //   onChanged: (phone) {
+                //       model.phoneNumber = phone;
+                //       try {
+                //         // Attempt to find the country where the code matches phone.countryISOCode
+                //         print('phone code is: ${phone.countryISOCode}');
+                //         print('country code is: ${countries.first.code}');
+                //         model.countryId = countries.firstWhere((country) => country.code == phone.countryISOCode).id2!;
+                //       } catch (e) {
+                //         // Handle the case where no matching country is found
+                //         print('No matching country found for ISO code: ${phone.countryISOCode}');
+                //         model.countryId = ''; // or handle appropriately
+                //       }
+                //       // model.countryId = countries.firstWhere((country) => country.code == phone.countryISOCode).id!;
                 //   },
-                //   items: genderOptions.map<DropdownMenuItem<String>>((String value) {
-                //     return DropdownMenuItem<String>(
-                //       value: value,
-                //       child: Text(value),
-                //     );
-                //   }).toList(),
-                //   validator: (value) => value == null ? 'Please select a gender' : null,
                 // ),
-                // verticalSpaceSmall,
+                //
+                TextFieldWidget(
+                  hint: "Address",
+                  controller: model.addressController,
+                  // validator: (value) {
+                  //   if (value.isEmpty) {
+                  //     return 'required';
+                  //   }
+                  //   return null; // Return null to indicate no validation error
+                  // },
+                ),
+                verticalSpaceMedium,
+                DropdownButtonFormField(
+                  decoration: InputDecoration(
+                    labelText: 'City',
+                    labelStyle: const TextStyle(color: Colors.black,fontSize: 13),
+                    floatingLabelStyle: const TextStyle(color: Colors.black),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      borderSide: const BorderSide(color: Color(0xFFCC9933)),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      borderSide: const BorderSide(color: Color(0xFFCC9933)),
+                    ),
+                  ),
+                  value: model.selectedGender, // You should add selectedGender to your model
+                  onSaved: (String? newValue) {
+                    model.selectedGender = newValue!;
+                  },
+                  onChanged: (String? newValue) {
+                    model.selectedGender = newValue!;
+                  },
+                  items: genderOptions.map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                  // validator: (value) => value == null ? 'Please select a city' : null,
+                ),
+                verticalSpaceSmall,
                 TextFieldWidget(
                   inputType: TextInputType.visiblePassword,
                   hint: "Password",
@@ -238,30 +248,31 @@ class _RegisterState extends State<Register> {
                     },
                     child:
                         Icon(model.obscure ? Icons.visibility_off : Icons.visibility),
-                  ),
-                  validator: (value) {
-                    if (value.isEmpty) {
-                      return 'Password is required';
-                    }
-                    if (value.length < 8) {
-                      return 'Password must be at least 8 characters long';
-                    }
-                    if (!RegExp(r'[A-Z]').hasMatch(value)) {
-                      return 'Password must contain at least one uppercase letter';
-                    }
-                    if (!RegExp(r'[a-z]').hasMatch(value)) {
-                      return 'Password must contain at least one lowercase letter';
-                    }
-                    if (!RegExp(r'[0-9]').hasMatch(value)) {
-                      return 'Password must contain at least one digit';
-                    }
-                    if (!RegExp(r'[!@#$%^&*]').hasMatch(value)) {
-                      return 'Password must contain at least one special character';
-                    }
-                    return null; // Return null to indicate no validation error
-                  },
+                  // ),
+                  // validator: (value) {
+                  //   if (value.isEmpty) {
+                  //     return 'Password is required';
+                  //   }
+                  //   if (value.length < 8) {
+                  //     return 'Password must be at least 8 characters long';
+                  //   }
+                  //   if (!RegExp(r'[A-Z]').hasMatch(value)) {
+                  //     return 'Password must contain at least one uppercase letter';
+                  //   }
+                  //   if (!RegExp(r'[a-z]').hasMatch(value)) {
+                  //     return 'Password must contain at least one lowercase letter';
+                  //   }
+                  //   if (!RegExp(r'[0-9]').hasMatch(value)) {
+                  //     return 'Password must contain at least one digit';
+                  //   }
+                  //   if (!RegExp(r'[!@#$%^&*]').hasMatch(value)) {
+                  //     return 'Password must contain at least one special character';
+                  //   }
+                  //   return null; // Return null to indicate no validation error
+                  // },
                 ),
-                verticalSpaceSmall,
+                ),
+                 verticalSpaceSmall,
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 8.0),
                   child: Text( style: TextStyle(
@@ -274,15 +285,15 @@ class _RegisterState extends State<Register> {
                   hint: "Confirm password",
                   controller: model.cPassword,
                   obscureText: model.obscure,
-                  validator: (value) {
-                    if (value.isEmpty) {
-                      return 'Password confirmation is required';
-                    }
-                    if (value != model.password.text) {
-                      return 'Passwords do not match';
-                    }
-                    return null; // Return null to indicate no validation error
-                  },
+                  // validator: (value) {
+                  //   if (value.isEmpty) {
+                  //     return 'Password confirmation is required';
+                  //   }
+                  //   if (value != model.password.text) {
+                  //     return 'Passwords do not match';
+                  //   }
+                  //   return null; // Return null to indicate no validation error
+                  // },
                   suffix: InkWell(
                     onTap: () {
                       model.toggleObscure();
@@ -292,73 +303,55 @@ class _RegisterState extends State<Register> {
                   ),
                 ),
                 verticalSpace(30),
-                // InkWell(
-                //   onTap: model.toggleTerms,
-                //   child: Row(
-                //     children: [
-                //       Container(
-                //           height: 20,
-                //           width: 20,
-                //           decoration: BoxDecoration(
-                //               color:
-                //                   model.terms ? kcSecondaryColor : Colors.transparent,
-                //               borderRadius: BorderRadius.circular(5),
-                //               border: Border.all(
-                //                   color: model.terms
-                //                       ? Colors.transparent
-                //                       : kcSecondaryColor)),
-                //           child: model.terms
-                //               ? const Center(
-                //                   child: Icon(
-                //                     Icons.check,
-                //                     color: kcWhiteColor,
-                //                     size: 14,
-                //                   ),
-                //                 )
-                //               : const SizedBox()),
-                //       horizontalSpaceSmall,
-                //       const Text(
-                //         "I ACCEPT TERMS & CONDITIONS",
-                //         style: TextStyle(
-                //             fontSize: 12, decoration: TextDecoration.underline),
-                //       )
-                //     ],
-                //   ),
-                // ),
-                // verticalSpaceSmall,
-                // InkWell(
-                //   onTap: () async {
-                //     final Uri toLaunch =
-                //     Uri(scheme: 'https', host: 'www.afriprize.com', path: '/legal/privacy-policy');
-                //
-                //     if (!await launchUrl(toLaunch, mode: LaunchMode.inAppBrowserView)) {
-                //       throw Exception('Could not launch www.afriprize.com/legal/privacy-policy');
-                //     }
-                //   },
-                //   child: const Row(
-                //     mainAxisAlignment: MainAxisAlignment.start,
-                //     children: [
-                //       Text(
-                //         "View our Privacy Policy",
-                //         style: TextStyle(
-                //           fontSize: 15,
-                //           decoration: TextDecoration.underline,
-                //           color: kcSecondaryColor, // Feel free to change the color
-                //         ),
-                //       ),
-                //     ],
-                //   ),
-                // ),
-                // verticalSpaceSmall,
-                const Text('Apple/Google is not a sponsor nor is involved in any way with our raffles/contest or sweepstakes.'),
+                InkWell(
+                  onTap: model.toggleTerms,
+                  child: Row(
+                    children: [
+                      Container(
+                          height: 20,
+                          width: 20,
+                          decoration: BoxDecoration(
+                              color:
+                                  model.terms ? kcSecondaryColor : Colors.transparent,
+                              borderRadius: BorderRadius.circular(5),
+                              border: Border.all(
+                                  color: model.terms
+                                      ? Colors.transparent
+                                      : kcSecondaryColor)),
+                          child: model.terms
+                              ? const Center(
+                                  child: Icon(
+                                    Icons.check,
+                                    color: kcWhiteColor,
+                                    size: 14,
+                                  ),
+                                )
+                              : const SizedBox()),
+                      horizontalSpaceSmall,
+                      const Text(
+                        "I ACCEPT TERMS & CONDITIONS",
+                        style: TextStyle(
+                            fontSize: 12, decoration: TextDecoration.underline),
+                      )
+                    ],
+                  ),
+                ),
                 verticalSpaceMedium,
                 SubmitButton(
                   isLoading: model.isBusy,
-                  label: "Create Account",
-                  submit: () {
-                    if (_formKey.currentState!.validate()) {
-                      model.register();
-                    }
+                  label: "Continue",
+                  submit: ()
+                   {
+                  //   if (_formKey.currentState!.validate()) {
+                  //     model.register();
+                  //   }
+
+                     Navigator.push(
+                       context,
+                       MaterialPageRoute(
+                           builder: (context) => const SetUp()),
+                     );
+
                   },
                   color: kcPrimaryColor,
                   boldText: true,

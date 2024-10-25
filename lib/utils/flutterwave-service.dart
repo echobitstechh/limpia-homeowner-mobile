@@ -1,6 +1,6 @@
 import 'dart:io';
-import 'package:afriprize/core/utils/config.dart';
-import 'package:afriprize/state.dart';
+import 'package:limpia/core/utils/config.dart';
+import 'package:limpia/state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterwave_standard/flutterwave.dart';
 

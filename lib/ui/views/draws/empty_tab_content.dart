@@ -1,4 +1,4 @@
-import 'package:afriprize/ui/common/ui_helpers.dart';
+import 'package:limpia/ui/common/ui_helpers.dart';
 import 'package:flutter/material.dart';
 
 class EmptyTabContent extends StatelessWidget {
