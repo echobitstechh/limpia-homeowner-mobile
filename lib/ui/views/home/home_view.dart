@@ -1,12 +1,12 @@
 import 'dart:ui';
 
-import 'package:limpia/app/app.router.dart';
-import 'package:limpia/state.dart';
+import 'package:afriprize/app/app.router.dart';
+import 'package:afriprize/state.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:stacked/stacked.dart';
-import 'package:limpia/ui/common/app_colors.dart';
+import 'package:afriprize/ui/common/app_colors.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import '../../../app/app.locator.dart';
@@ -173,7 +173,7 @@ class BottomNavBar extends StatelessWidget {
       valueListenable: currentModuleNotifier,
       builder: (context, currentModule, _) {
         Color iconColor = Colors.grey;
-        Color selectedColor = kcPrimaryColor;
+        Color selectedColor = kcSecondaryColor;
 
         List<BottomNavigationBarItem> items = (currentModule == AppModules.raffle)
             ? _rafflesItems(iconColor, selectedColor)
@@ -204,20 +204,20 @@ class BottomNavBar extends StatelessWidget {
   List<BottomNavigationBarItem> _rafflesItems(Color iconColor, Color selectedColor) {
     return [
       BottomNavigationBarItem(
-        icon: _navBarItemIcon('main.svg', 'main.svg', viewModel.selectedRafflesTab == 0, iconColor),
+        icon: _navBarItemIcon('home.svg', 'home_outline.svg', viewModel.selectedRafflesTab == 0, iconColor),
         label: "Home",
       ),
       BottomNavigationBarItem(
-        icon: _navBarItemIcon('search.svg', 'search.svg', viewModel.selectedRafflesTab == 1, iconColor),
-        label: "Book",
+        icon: _navBarItemIcon('ticket_star.svg', 'ticket_star_outline.svg', viewModel.selectedRafflesTab == 1, iconColor),
+        label: "Draws",
       ),
       BottomNavigationBarItem(
-        icon: _navBarItemIcon('message-square.svg', 'message-square.svg', viewModel.selectedRafflesTab == 2, iconColor),
-        label: "Massages",
+        icon: _navBarItemIcon('heart.svg', 'heart_outline.svg', viewModel.selectedRafflesTab == 2, iconColor),
+        label: "Donate",
       ),
       BottomNavigationBarItem(
-        icon: _navBarItemIcon('settings.svg', 'settings.svg', viewModel.selectedRafflesTab == 3, iconColor),
-        label: "Settings",
+        icon: _navBarItemIcon('menu.svg', 'menu_outline.svg', viewModel.selectedRafflesTab == 3, iconColor),
+        label: "Menu",
       ),
     ];
   }
@@ -225,7 +225,7 @@ class BottomNavBar extends StatelessWidget {
   List<BottomNavigationBarItem> _shopItems(Color iconColor, Color selectedColor) {
     return [
       BottomNavigationBarItem(
-        icon: _navBarItemIcon('main.svg', 'home_outline.svg', viewModel.selectedShopTab == 0, iconColor),
+        icon: _navBarItemIcon('home.svg', 'home_outline.svg', viewModel.selectedShopTab == 0, iconColor),
         label: "Home",
       ),
       BottomNavigationBarItem(
@@ -251,12 +251,12 @@ class BottomNavBar extends StatelessWidget {
       height: 30,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: isSelected ? kcPrimaryColor.withOpacity(0.2) : Colors.transparent,
+        color: isSelected ? kcSecondaryColor.withOpacity(0.2) : Colors.transparent,
       ),
       child: SvgPicture.asset(
         'assets/icons/${isSelected ? filledIcon : outlinedIcon}', // Use filledIcon when selected, outlinedIcon when unselected
         height: 16, // Icon size
-        color: isSelected ? kcPrimaryColor : iconColor,
+        color: isSelected ? kcSecondaryColor : iconColor,
       ),
     );
   }
