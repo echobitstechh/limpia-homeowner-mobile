@@ -1,17 +1,8 @@
-import 'package:flutter/widgets.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:limpia/ui/common/app_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:limpia/ui/common/ui_helpers.dart';
 import 'package:stacked_services/stacked_services.dart';
 import '../../../app/app.locator.dart';
 import '../../../app/app.router.dart';
-import '../../../core/utils/local_store_dir.dart';
-import '../../../core/utils/local_stotage.dart';
-import '../../components/empty_state.dart';
-import '../../components/submit_button.dart';
-import '../auth/auth_view.dart';
-import '../auth/auth_view.dart';
+import '../../common/app_colors.dart';
 
 class OnboardingView2 extends StatelessWidget {
   const OnboardingView2({Key? key}) : super(key: key);
@@ -20,36 +11,43 @@ class OnboardingView2 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: OnboardingPagePresenter(pages: [
-
         OnboardingPageModel(
-          title: 'Work On Your Schedule',
+          title: 'Find Trusted Cleaners, Anytime!',
           description:
-          'Find Cleaning Jobs, Manage Your Tasks, Get Paid Quickly. ',
-          imageUrl: 'second.json',
-          bgColor: kcWhiteColor,
+          'Easily book experienced cleaners for your home or property. Choose the service, set the schedule, and leave the rest to us!',
+          imageUrl: "assets/images/cleaner.png",
+          bgColor: kcPrimaryColor,
         ),
-
         OnboardingPageModel(
-          title: 'Make an Impact!',
+          title: 'Track Progress and Payments',
           description:
-          'Your points hold the power to create change! Team up with fellow adventurers to support noble causes.',
-          imageUrl: 'third.json',
-          bgColor: kcWhiteColor,
-        )
+          'View your upcoming appointments, track cleaner arrival, and handle payments securely—all in one app.',
+          imageUrl: 'assets/images/Object.png',
+          bgColor: kcPrimaryColor,
+        ),
+        OnboardingPageModel(
+          title: 'Custom Cleaning for Every Need',
+          description:
+          'Whether it’s a one-time deep clean or regular maintenance, we offer personalized services that fit your schedule and needs.',
+          imageUrl: 'assets/images/Object2.png',
+          bgColor: kcPrimaryColor,
+        ),
       ]),
     );
   }
 }
-final LocalStorage _localStorage = locator<LocalStorage>();
 
 class OnboardingPagePresenter extends StatefulWidget {
   final List<OnboardingPageModel> pages;
   final VoidCallback? onSkip;
   final VoidCallback? onFinish;
 
-  const OnboardingPagePresenter(
-      {Key? key, required this.pages, this.onSkip, this.onFinish})
-      : super(key: key);
+  const OnboardingPagePresenter({
+    Key? key,
+    required this.pages,
+    this.onSkip,
+    this.onFinish,
+  }) : super(key: key);
 
   @override
   State<OnboardingPagePresenter> createState() => _OnboardingPageState();
@@ -60,14 +58,7 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
   final PageController _pageController = PageController(initialPage: 0);
 
   @override
-  void initState() {
-    super.initState();
-    // locator<LocalStorage>().save(LocalStorageDir.onboarded, true);
-  }
-
-  @override
   void dispose() {
-    // Dispose of the video controller to release resources
     _pageController.dispose();
     super.dispose();
   }
@@ -75,158 +66,152 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: kcPrimaryColor,
+        actions: [
+          TextButton(
+            style: TextButton.styleFrom(
+              visualDensity: VisualDensity.comfortable,
+              foregroundColor: Colors.white,
+              textStyle: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            onPressed: () {
+              widget.onSkip?.call();
+              locator<NavigationService>().clearStackAndShow(Routes.homeView);
+            },
+            child: const Text(
+              "Skip",
+              style: TextStyle(color: kcBlackColor),
+            ),
+          ),
+        ],
+      ),
       body: AnimatedContainer(
         duration: const Duration(milliseconds: 250),
         color: widget.pages[_currentPage].bgColor,
-        child: Column(
-          children: [
-            // Stack with image inside Align
-            Stack(
-              children: [
-                Align(
-                  alignment: Alignment.topCenter,
-                  child: ClipPath(
-                    clipper: CurvedClipper(),
-                    child: Container(
-                      height: 500,
-                      color: kcPrimaryColor.withOpacity(0.6),
-                      child: Align(
-                        alignment: Alignment.bottomCenter, // Align image to bottom of the ClipPath
-                        child: Padding(
-                          padding: const EdgeInsets.only(bottom: 20.0), // Optional padding for spacing
-                          child: Image.asset(
-                            'assets/images/man.png',
-                            height: 350,
+        child: SafeArea(
+          child: Column(
+            children: [
+              Expanded(
+                child: PageView.builder(
+                  controller: _pageController,
+                  itemCount: widget.pages.length,
+                  onPageChanged: (idx) {
+                    setState(() {
+                      _currentPage = idx;
+                    });
+                  },
+                  itemBuilder: (context, idx) {
+                    final item = widget.pages[idx];
+                    return Column(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            children: [
+                              Container(
+                                height: 500,
+                                color: item.bgColor.withOpacity(0.6),
+                                child: Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(bottom: 20.0),
+                                    child: Image.asset(
+                                      item.imageUrl,
+                                      height: 300,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-
-
-            verticalSpaceMedium,
-
-            // Text content below the image
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(
-                widget.pages[_currentPage].title,
-                style: const TextStyle(
-                  fontSize: 28,
-                  color: kcBlackColor,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Text(
-                widget.pages[_currentPage].description,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                  color: kcDarkGreyColor,
-                ),
-              ),
-            ),
-            const Spacer(), // Spacer to push the content below
-
-            // Page indicator (counter)
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: widget.pages.map((item) {
-                int index = widget.pages.indexOf(item);
-                return AnimatedContainer(
-                  duration: const Duration(milliseconds: 250),
-                  width: _currentPage == index ? 30 : 8,
-                  height: 8,
-                  margin: const EdgeInsets.all(2.0),
-                  decoration: BoxDecoration(
-                    color: kcBlackColor,
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                );
-              }).toList(),
-            ),
-
-
-
-
-            // Bottom buttons
-      // Padding(
-      //   padding:
-      //   const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
-      //   child: Column(
-      //     children: [
-      //       TextButton(
-      //         style: TextButton.styleFrom(
-      //           visualDensity: VisualDensity.comfortable,
-      //           foregroundColor: Colors.white,
-      //           textStyle: const TextStyle(
-      //             fontSize: 16,
-      //             fontWeight: FontWeight.bold,
-      //           ),
-      //         ),
-      //         onPressed: () {
-      //           widget.onSkip?.call();
-      //           locator<NavigationService>().clearStackAndShow(Routes.authView);
-      //         },
-      //         child: const Text("Skip", style: TextStyle(color: kcBlackColor),),
-      //       ),]
-      //       ),
-      //       ),
-
-            // Bottom buttons
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
-              child: Column(
-                children: [
-                  SubmitButton(
-                    isLoading: false,
-                    boldText: true,
-                    label: "Sign Up",
-                    submit: ()async {
-                      await _localStorage.save(
-                          LocalStorageDir.onboarded, true);
-
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const AuthView()),
-                      );
-                      //AuthView();
-                    },
-                    color: kcPrimaryColor,
-                  ),
-                  TextButton(
-                    style: TextButton.styleFrom(
-                      visualDensity: VisualDensity.comfortable,
-                      foregroundColor: Colors.white,
-                      textStyle: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    onPressed: () {
-                      // Add logic for Sign In
-                    },
-                    child: Column(
-                      children: [
-                        Text(
-                          "Sign in",
-                          style: TextStyle(color: kcPrimaryColor, fontSize: 18),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+                          child: Text(
+                            item.title,
+                            style: const TextStyle(
+                              fontSize: 28,
+                              color: kcSecondaryColor,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                          child: Text(
+                            item.description,
+                            style: const TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
                         ),
                       ],
-                    ),
-                  ),
-                ],
+                    );
+                  },
+                ),
               ),
-            ),
-          ],
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: widget.pages.map((item) {
+                  int index = widget.pages.indexOf(item);
+                  return AnimatedContainer(
+                    duration: const Duration(milliseconds: 250),
+                    width: _currentPage == index ? 30 : 8,
+                    height: 8,
+                    margin: const EdgeInsets.all(2.0),
+                    decoration: BoxDecoration(
+                      color: kcBlackColor,
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  );
+                }).toList(),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TextButton(
+                      style: TextButton.styleFrom(
+                        visualDensity: VisualDensity.comfortable,
+                        foregroundColor: Colors.white,
+                        textStyle: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      onPressed: () {
+                        if (_currentPage == widget.pages.length - 1) {
+                          widget.onFinish?.call();
+                          locator<NavigationService>().clearStackAndShow(Routes.authView);
+                        } else {
+                          _pageController.animateToPage(
+                            _currentPage + 1,
+                            curve: Curves.easeInOutCubic,
+                            duration: const Duration(milliseconds: 250),
+                          );
+                        }
+                      },
+                      child: Row(
+                        children: [
+                          const SizedBox(width: 8),
+                          Icon(
+                            _currentPage == widget.pages.length - 1
+                                ? Icons.done
+                                : Icons.arrow_forward,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -248,40 +233,3 @@ class OnboardingPageModel {
     this.textColor = Colors.white,
   });
 }
-
-
-
-class CurvedClipper extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    final Path path = Path();
-    // Start from top-left corner
-    path.lineTo(0, size.height - 100);
-    // Create a quadratic bezier curve
-    path.quadraticBezierTo(
-      size.width / 2,
-      size.height,
-      size.width,
-      size.height - 100,
-    );
-    // Line to the top-right corner
-    path.lineTo(size.width, 0);
-    path.close();
-    return path;
-  }
-
-  @override
-  bool shouldReclip(CustomClipper<Path> oldClipper) {
-    return false;
-  }
-}
-
-
-
-
-
-
-
-
-
-
