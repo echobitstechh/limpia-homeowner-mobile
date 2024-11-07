@@ -110,37 +110,38 @@ class AuthViewModel extends BaseViewModel {
 
 
   void login() async {
+    locator<NavigationService>().clearStackAndShow(Routes.homeView);
     setBusy(true);
 
-    try {
-      ApiResponse res = await repo.login({
-        "email": email.text,
-        "password": password.text,
-        "account_type": "CUSTOMER"
-      });
-      if (res.statusCode == 201) {
-        print('login response: ${res.data["data"]}');
-        userLoggedIn.value = true;
-        profile.value =
-            Profile.fromJson(Map<String, dynamic>.from(res.data['data']["user"]));
-        locator<LocalStorage>().save(LocalStorageDir.authToken, res.data['data']["accessToken"]);
-        locator<LocalStorage>().save(LocalStorageDir.authRefreshToken, res.data['data']["refreshToken"]);
-        locator<LocalStorage>().save(LocalStorageDir.authUser, jsonEncode(res.data['data']["user"]));
-        locator<LocalStorage>().save(LocalStorageDir.remember, remember);
-
-
-        if (remember) {
-          locator<LocalStorage>().save(LocalStorageDir.lastEmail, email.text);
-        } else {
-          locator<LocalStorage>().delete(LocalStorageDir.lastEmail);
-        }
-        locator<NavigationService>().clearStackAndShow(Routes.homeView);
-      } else {
-        snackBar.showSnackbar(message: res.data["message"]);
-      }
-    } catch (e) {
-      log.i(e);
-    }
+    // try {
+    //   ApiResponse res = await repo.login({
+    //     "email": email.text,
+    //     "password": password.text,
+    //     "account_type": "CUSTOMER"
+    //   });
+    //   if (res.statusCode == 201) {
+    //     print('login response: ${res.data["data"]}');
+    //     userLoggedIn.value = true;
+    //     profile.value =
+    //         Profile.fromJson(Map<String, dynamic>.from(res.data['data']["user"]));
+    //     locator<LocalStorage>().save(LocalStorageDir.authToken, res.data['data']["accessToken"]);
+    //     locator<LocalStorage>().save(LocalStorageDir.authRefreshToken, res.data['data']["refreshToken"]);
+    //     locator<LocalStorage>().save(LocalStorageDir.authUser, jsonEncode(res.data['data']["user"]));
+    //     locator<LocalStorage>().save(LocalStorageDir.remember, remember);
+    //
+    //
+    //     if (remember) {
+    //       locator<LocalStorage>().save(LocalStorageDir.lastEmail, email.text);
+    //     } else {
+    //       locator<LocalStorage>().delete(LocalStorageDir.lastEmail);
+    //     }
+    //     locator<NavigationService>().clearStackAndShow(Routes.homeView);
+    //   } else {
+    //     snackBar.showSnackbar(message: res.data["message"]);
+    //   }
+    // } catch (e) {
+    //   log.i(e);
+    // }
 
     setBusy(false);
   }

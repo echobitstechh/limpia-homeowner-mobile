@@ -8,10 +8,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:stacked/stacked.dart';
 import 'package:limpia/ui/common/app_colors.dart';
 import 'package:stacked_services/stacked_services.dart';
-
 import '../../../app/app.locator.dart';
 import 'home_viewmodel.dart';
-import 'module_switch.dart';
 
 /// @author George David
 /// email: georgequin19@gmail.com
@@ -208,16 +206,16 @@ class BottomNavBar extends StatelessWidget {
         label: "Home",
       ),
       BottomNavigationBarItem(
-        icon: _navBarItemIcon('search.svg', 'search.svg', viewModel.selectedRafflesTab == 1, iconColor),
+        icon: _navBarItemIcon('book.svg', 'book.svg', viewModel.selectedRafflesTab == 1, iconColor),
         label: "Book",
       ),
+      // BottomNavigationBarItem(
+      //   icon: _navBarItemIcon('profile.svg', 'profile.svg', viewModel.selectedRafflesTab == 2, iconColor),
+      //   label: "Profile",
+      // ),
       BottomNavigationBarItem(
-        icon: _navBarItemIcon('message-square.svg', 'message-square.svg', viewModel.selectedRafflesTab == 2, iconColor),
-        label: "Massages",
-      ),
-      BottomNavigationBarItem(
-        icon: _navBarItemIcon('settings.svg', 'settings.svg', viewModel.selectedRafflesTab == 3, iconColor),
-        label: "Settings",
+        icon: _navBarItemIcon('profile.svg', 'profile.svg', viewModel.selectedRafflesTab == 3, iconColor),
+        label: "Profile",
       ),
     ];
   }
