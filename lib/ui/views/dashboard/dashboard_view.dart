@@ -1,9 +1,11 @@
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:limpia/ui/common/app_colors.dart';
 import 'package:limpia/ui/common/ui_helpers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import '../../../state.dart';
 import 'dashboard_viewmodel.dart';
 import 'package:animated_segmented_tab_control/animated_segmented_tab_control.dart';
 
@@ -13,7 +15,7 @@ class DashboardView extends StackedView<DashboardViewModel> {
   final List<Profile> profiles = [
     Profile(
       name: 'SQFT: 2500',
-      rating:'5 starts',
+      rating: '5 starts',
       description: 'Address: 8 Magodo, Califona USA',
       date: '22 Oct, 2024',
       price: '\$50',
@@ -21,15 +23,13 @@ class DashboardView extends StackedView<DashboardViewModel> {
     ),
     Profile(
       name: 'SQFT: 2500',
-      rating:'5 starts',
+      rating: '5 starts',
       description: 'Address: 8 Magodo, Califona USA',
       date: '20 Oct, 2024',
       price: '\$60',
       profileImage: 'assets/images/man.png',
     ),
   ];
-
-
 
   final List<String> names = [
     'Regular cleaning ',
@@ -41,10 +41,10 @@ class DashboardView extends StackedView<DashboardViewModel> {
 
   @override
   Widget builder(
-      BuildContext context,
-      DashboardViewModel viewModel,
-      Widget? child,
-      ) {
+    BuildContext context,
+    DashboardViewModel viewModel,
+    Widget? child,
+  ) {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -74,7 +74,7 @@ class DashboardView extends StackedView<DashboardViewModel> {
         actions: [
           Padding(
             padding:
-            const EdgeInsets.only(right: 16.0), // Adds padding to actions
+                const EdgeInsets.only(right: 16.0), // Adds padding to actions
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -120,7 +120,7 @@ class DashboardView extends StackedView<DashboardViewModel> {
                                   padding: const EdgeInsets.all(16.0),
                                   child: Column(
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Container(
                                         width: 150,
@@ -160,7 +160,7 @@ class DashboardView extends StackedView<DashboardViewModel> {
                                             ),
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
-                                              BorderRadius.circular(8.0),
+                                                  BorderRadius.circular(8.0),
                                             ),
                                           ),
                                           child: Text("Get Discount"),
@@ -221,10 +221,13 @@ class DashboardView extends StackedView<DashboardViewModel> {
                               viewModel.selectedIndex = index;
                             },
                             child: Container(
-                              padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 8.0, horizontal: 16.0),
                               margin: EdgeInsets.symmetric(horizontal: 4.0),
                               decoration: BoxDecoration(
-                                color: viewModel.selectedIndex == index ? Colors.white : kcPrimaryColor.withOpacity(0.7),
+                                color: viewModel.selectedIndex == index
+                                    ? Colors.white
+                                    : kcPrimaryColor.withOpacity(0.7),
                                 border: Border.all(color: Colors.grey),
                                 borderRadius: BorderRadius.circular(8.0),
                               ),
@@ -233,19 +236,23 @@ class DashboardView extends StackedView<DashboardViewModel> {
                                   // Circular image holder
                                   CircleAvatar(
                                     radius: 40, // Adjust size as needed
-                                    backgroundImage: AssetImage('assets/images/image.png'),
+                                    backgroundImage:
+                                        AssetImage('assets/images/image.png'),
                                   ),
-                                  SizedBox(height: 8.0), // Space between image and text
+                                  SizedBox(
+                                      height:
+                                          8.0), // Space between image and text
                                   Text(
                                     names[index],
                                     style: TextStyle(
-                                        color: viewModel.selectedIndex == index ? kcPrimaryColor : Colors.white, fontSize: 14
-                                    ),
+                                        color: viewModel.selectedIndex == index
+                                            ? kcPrimaryColor
+                                            : Colors.white,
+                                        fontSize: 14),
                                   ),
                                 ],
                               ),
                             ),
-
                           );
                         }),
                       ),
@@ -271,15 +278,10 @@ class DashboardView extends StackedView<DashboardViewModel> {
               ],
             ),
           ),
-          ListView.builder(
-            itemCount: profiles.length,
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) {
-              final profile = profiles[index];
-              return Card(
-                margin: EdgeInsets.symmetric(
-                    vertical: 10, horizontal: 16),
+          Column(
+            children: [
+              Card(
+                margin: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
                 elevation: 5,
                 color: Colors.white,
                 shape: RoundedRectangleBorder(
@@ -290,118 +292,249 @@ class DashboardView extends StackedView<DashboardViewModel> {
                   child: Column(
                     children: [
                       Row(
-                        crossAxisAlignment:
-                        CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           ClipRRect(
-                            borderRadius:
-                            BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(8),
                             child: Container(
                               width: 60,
                               height: 70,
                               decoration: BoxDecoration(
                                 border: Border.all(
-                                    color: Colors.grey.shade300,
-                                    width: 1),
-                                borderRadius:
-                                BorderRadius.circular(8),
-                                image: DecorationImage(
-                                  image: AssetImage(
-                                      profile.profileImage),
-                                  fit: BoxFit.cover,
-                                ),
+                                    color: Colors.grey.shade300, width: 1),
+                                borderRadius: BorderRadius.circular(8),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: Colors.black
-                                        .withOpacity(0.1),
+                                    color: Colors.black.withOpacity(0.1),
                                     spreadRadius: 1,
                                     blurRadius: 3,
                                     offset: Offset(0, 2),
                                   ),
                                 ],
                               ),
+                              child: Image.asset(
+                                  'assets/images/analysis.png'
+                              ),
                             ),
                           ),
                           SizedBox(width: 16),
                           Expanded(
                             child: Column(
-                              crossAxisAlignment:
-                              CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 12.0,
+                                      ),
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                          BorderRadius.circular(10.0),
+                                          color: Colors.yellow),
+                                      child: const Text(
+                                        "processing",
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            color: kcWhiteColor),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                                 Text(
-                                  profile.name,
+                                  "Pairing in progress",
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                SizedBox(height: 3),
+                                SizedBox(height: 2),
                                 Text(
-                                  profile.description,
+                                  "You'll be notified once complete",
                                   style: TextStyle(
-                                      fontSize: 12,
-                                      color: Colors.grey),
+                                      fontSize: 16, ),
                                 ),
                                 verticalSpaceTiny,
-                                Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.start,
-                                  crossAxisAlignment:
-                                  CrossAxisAlignment.start,
-                                  children: [
-                                    Expanded(
-                                      child: Container(
-                                        padding: const EdgeInsets
-                                            .symmetric(
-                                          horizontal: 12.0,
-                                        ),
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                            BorderRadius
-                                                .circular(
-                                                10.0),
-                                            color: Colors.green),
-                                        child: const Text(
-                                          "Accept:",
-                                          style: TextStyle(
-                                              fontSize: 16,
-                                              color:
-                                              kcWhiteColor),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
                               ],
                             ),
-                          ),
-                          Column(
-                            crossAxisAlignment:
-                            CrossAxisAlignment.end,
-                            children: [
-                              Text(
-                                profile.date,
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.grey),
-                              ),
-                              SizedBox(height: 4),
-                              Text(
-                                profile.price,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
                           ),
                         ],
                       ),
                     ],
                   ),
                 ),
-              );
-            },
+              ),
+              Card(
+                margin: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+                elevation: 5,
+                color: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: Container(
+                              width: 60,
+                              height: 70,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                    color: Colors.grey.shade300, width: 1),
+                                borderRadius: BorderRadius.circular(8),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.1),
+                                    spreadRadius: 1,
+                                    blurRadius: 3,
+                                    offset: Offset(0, 2),
+                                  ),
+                                ],
+                              ),
+                              child: Image.asset(
+                                  'assets/images/janitor.png'
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 16),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Text(
+                                      "Marvin Tracy",
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    horizontalSpaceLarge,
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment: CrossAxisAlignment.end,
+                                      children: [
+                                        Container(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 12.0,
+                                          ),
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                              BorderRadius.circular(10.0),
+                                              color: Colors.green),
+                                          child: const Text(
+                                            "Accepted",
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                color: kcWhiteColor),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                verticalSpaceSmall,
+                                Row(
+                                  children: [
+                                    Text(
+                                      "Rating:",
+                                      style: TextStyle(fontSize: 12, color: Colors.black),
+                                    ),
+                                    SizedBox(width: 4), // Add some space between text and stars
+                                    Row(
+                                      children: [
+                                        Icon(Icons.star, color: Colors.amber, size: 16),
+                                        Icon(Icons.star, color: Colors.amber, size: 16),
+                                        Icon(Icons.star, color: Colors.amber, size: 16),
+                                        Icon(Icons.star, color: Colors.amber, size: 16),
+                                        Icon(Icons.star_half, color: Colors.amber, size: 16),
+                                      ],
+                                    ),
+                                    SizedBox(width: 4), // Space between stars and the rating text
+                                    Text(
+                                      "(4.8/5)", // Display the rating value if needed
+                                      style: TextStyle(fontSize: 12, color: Colors.black),
+                                    ),
+                                  ],
+                                ),
+                                verticalSpaceSmall,
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        "Experience: 5 years in residential and commercial cleaning",
+                                        style: TextStyle(fontSize: 12, color: Colors.black),
+                                      ),
+                                    ),
+                                    Text(
+                                      "\$120",
+                                      style: TextStyle(fontSize: 12, color: Colors.purple),
+                                    ),
+                                  ],
+                                ),
+                                verticalSpaceSmall,
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.location_on, // Use a location icon
+                                      size: 16, // Adjust icon size as needed
+                                      color: Colors.blueGrey, // Set the icon color
+                                    ),
+                                    SizedBox(width: 4), // Add some spacing between the icon and the text
+                                    Expanded(
+                                      child: Text(
+                                        "Location: California",
+                                        style: TextStyle(fontSize: 12, color: Colors.blueGrey),
+                                      ),
+                                    ),
+                                    Row(
+                                      children: [
+                                        Icon(
+                                          Icons.location_on, // Choose an icon that represents tracking
+                                          size: 16, // Adjust icon size as needed
+                                          color: Colors.blue, // Set the icon color to match the text
+                                        ),
+                                        SizedBox(width: 4), // Add some spacing between the icon and the text
+                                        Text(
+                                          "Track cleaner",
+                                          style: TextStyle(fontSize: 12, color: Colors.blue),
+                                        ),
+                                      ],
+                                    )
+
+                                  ],
+                                ),
+                                verticalSpaceSmall,
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      "Expected Time: Feb 27, 10:00AM",
+                                      style: TextStyle(fontSize: 16, color: Colors.blueGrey),
+                                    ),
+                                  ],
+                                ),
+
+
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -423,8 +556,6 @@ class DashboardView extends StackedView<DashboardViewModel> {
   DashboardViewModel viewModelBuilder(BuildContext context) =>
       DashboardViewModel();
 }
-
-
 
 class Profile {
   final String name;

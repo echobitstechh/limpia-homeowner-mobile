@@ -214,7 +214,7 @@ class BottomNavBar extends StatelessWidget {
       //   label: "Profile",
       // ),
       BottomNavigationBarItem(
-        icon: _navBarItemIcon('profile.svg', 'profile.svg', viewModel.selectedRafflesTab == 3, iconColor),
+        icon: _navBarItemIcon('profile.svg', 'profile.svg', viewModel.selectedRafflesTab == 2, iconColor),
         label: "Profile",
       ),
     ];
