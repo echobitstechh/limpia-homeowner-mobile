@@ -31,7 +31,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  flutter_svg: any
+
   cupertino_icons: ^1.0.2
   casa_vertical_stepper: ^0.0.5
   dio: ^4.0.6
@@ -89,6 +89,7 @@ dependencies:
   flutter_paystack: ^1.0.7
   csc_picker: ^0.2.7
   animated_segmented_tab_control: ^2.0.0
+  flutter_svg: any
 
 
 #  flutter_paystack:
@@ -147,11 +148,11 @@ flutter:
     - family: Roboto
       fonts:
         - asset: assets/fonts/Roboto-Regular.ttf
-    - family: Poppins
-      fonts:
-        - asset: assets/fonts/Poppins-Regular.ttf
-        - asset: assets/fonts/Poppins-Bold.ttf
-          weight: 700
+#    - family: Poppins
+#      fonts:
+#        - asset: assets/fonts/Poppins-Regular.ttf
+#        - asset: assets/fonts/Poppins-Bold.ttf
+#          weight: 700
 
 
         #    - family: Satoshi  # Add this section for Satoshi

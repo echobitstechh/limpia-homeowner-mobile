@@ -144,8 +144,9 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
                           child: Text(
                             item.description,
                             style: const TextStyle(
-                              fontSize: 13,
+                              fontSize: 18,
                               fontWeight: FontWeight.w400,
+                              color: Colors.white
                             ),
                           ),
                         ),
