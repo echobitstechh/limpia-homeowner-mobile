@@ -6,6 +6,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import '../../../state.dart';
+import '../draws/booked_view.dart';
+import '../draws/draws_view.dart';
+import '../payment/payment_view.dart';
 import 'dashboard_viewmodel.dart';
 import 'package:animated_segmented_tab_control/animated_segmented_tab_control.dart';
 
@@ -253,11 +256,10 @@ class DashboardView extends StackedView<DashboardViewModel> {
 }
 
 void showCustomBottomSheet(BuildContext context) {
-  int selectedRooms = 0; // Default selected room number
-  int selectedBathrooms = 0; // Default selected bathroom number
+  int selectedRooms = 1; // Default selected room number
+  double selectedBathrooms = 0; // Default selected bathroom count
   bool isIndividualCleaner = true;
-  bool isCleaningCrew = false;
-  int selectedCleaners = 0;
+  int selectedCleaners = 1;
 
   showModalBottomSheet(
     context: context,
@@ -273,117 +275,99 @@ void showCustomBottomSheet(BuildContext context) {
             child: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Text(
-                        "Tell Us about the home.",
+                  // Drag handle
+                  Center(
+                    child: Container(
+                      width: 50,
+                      height: 5,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[300],
+                        borderRadius: BorderRadius.circular(2.5),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 20),
+
+                  // Title
+                  Text(
+                    "Tell Us about the home.",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: kcPrimaryColor,
+                    ),
+                  ),
+                  SizedBox(height: 20),
+
+                  // Number of rooms
+                  Text(
+                    "Numbers of rooms*",
+                    style: TextStyle(fontSize: 16, color: Colors.grey[700]),
+                  ),
+                  SizedBox(height: 10),
+                  Row(
+                    children: List.generate(6, (index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                        child: ChoiceChip(
+                          label: Text("${index + 1}"),
+                          selected: selectedRooms == index + 1,
+                          onSelected: (selected) {
+                            setState(() {
+                              selectedRooms = index + 1;
+                            });
+                          },
+                          selectedColor: kcPrimaryColor,
+                          backgroundColor: Colors.grey[300],
+                          labelStyle: TextStyle(
+                            color: selectedRooms == index + 1
+                                ? Colors.white
+                                : Colors.black,
+                          ),
+                        ),
+                      );
+                    }),
+                  ),
+                  SizedBox(height: 20),
+
+                  // Number of bathrooms
+                  Text(
+                    "Numbers of bathrooms*",
+                    style: TextStyle(fontSize: 16, color: Colors.grey[700]),
+                  ),
+                  SizedBox(height: 10),
+                  Row(
+                    children: [
+                      Text(
+                        selectedBathrooms.toInt().toString(),
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                           color: kcPrimaryColor,
                         ),
                       ),
-                    ),
-                  ),
-                  SizedBox(height: 10),
-
-                  // Numbers of rooms options
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Text(
-                        "Number of rooms*",
-                        style: TextStyle(fontSize: 16, color: Colors.grey[700]),
+                      Expanded(
+                        child: Slider(
+                          value: selectedBathrooms,
+                          min: 0,
+                          max: 6,
+                          divisions: 6,
+                          activeColor: kcPrimaryColor,
+                          inactiveColor: Colors.grey[300],
+                          onChanged: (value) {
+                            setState(() {
+                              selectedBathrooms = value;
+                            });
+                          },
+                        ),
                       ),
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: List.generate(6, (index) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                          child: ChoiceChip(
-                            label: Text(
-                                "${index + 1}",
-                              style: TextStyle(color: kcWhiteColor),
-                            ),
-                            selected: selectedRooms == index + 1,
-                            onSelected: (selected) {
-                              setState(() {
-                                selectedRooms = index + 1;
-                              });
-                            },
-                            selectedColor: kcPrimaryColor,
-                            backgroundColor: Color(0xFFACA9DB),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18), // Rounded corners
-                            ),
-                            labelStyle: TextStyle(
-                              color: selectedRooms == index + 1
-                                  ? Colors.white
-                                  : Colors.black,
-                            ),
-                          ),
-                        );
-                      }),
-                    ),
-                  ),
-
-                  SizedBox(height: 20),
-
-                  // Numbers of bathrooms options
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Text(
-                        "Number of bathrooms*",
-                        style: TextStyle(fontSize: 16, color: Colors.grey[700]),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: List.generate(6, (index) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                          child: ChoiceChip(
-                            label: Text(
-                              "${index + 1}",
-                              style: TextStyle(color: kcWhiteColor),
-                            ),
-                            selected: selectedBathrooms == index + 1,
-                            onSelected: (selected) {
-                              setState(() {
-                                selectedBathrooms = index + 1;
-                              });
-                            },
-                            selectedColor: kcPrimaryColor,
-                            backgroundColor: Color(0xFFACA9DB),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8), // Rounded corners
-                            ),
-                            labelStyle: TextStyle(
-                              color: selectedRooms == index + 1
-                                  ? Colors.white
-                                  : Colors.black,
-                            ),
-                          ),
-                        );
-                      }),
-                    ),
+                    ],
                   ),
                   SizedBox(height: 20),
 
-                  // Cleaner selection options
+                  // Cleaner selection
                   Row(
                     children: [
                       Checkbox(
@@ -391,55 +375,46 @@ void showCustomBottomSheet(BuildContext context) {
                         onChanged: (value) {
                           setState(() {
                             isIndividualCleaner = value!;
-                            isCleaningCrew = !value;
                           });
                         },
+                        activeColor: kcPrimaryColor,
                       ),
                       Text(
                         "Individual cleaner",
-                        style: TextStyle(fontSize: 12, color: Colors.grey[700]),
+                        style: TextStyle(fontSize: 14, color: Colors.grey[700]),
                       ),
                       SizedBox(width: 20),
                       Checkbox(
-                        value: isCleaningCrew,
+                        value: !isIndividualCleaner,
                         onChanged: (value) {
                           setState(() {
-                            isCleaningCrew = value!;
-                            isIndividualCleaner = !value;
+                            isIndividualCleaner = !value!;
                           });
                         },
+                        activeColor: kcPrimaryColor,
                       ),
                       Text(
                         "Cleaning crew",
-                        style: TextStyle(fontSize: 12, color: Colors.grey[700]),
+                        style: TextStyle(fontSize: 14, color: Colors.grey[700]),
                       ),
                     ],
                   ),
                   SizedBox(height: 20),
 
-                  // Number of cleaners selection
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Text(
-                        "How many Numbers of Cleaners*",
-                        style: TextStyle(fontSize: 16, color: Colors.grey[700]),
-                      ),
-                    ),
+                  // Number of cleaners
+                  Text(
+                    "How many Numbers of Cleaners*",
+                    style: TextStyle(fontSize: 16, color: Colors.grey[700]),
                   ),
-                  SizedBox(height: 8),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
+                  SizedBox(height: 10),
+                  Center(
                     child: Row(
-                      children: List.generate(6, (index) {
+                      mainAxisSize: MainAxisSize.min,
+                      children: List.generate(3, (index) {
                         return Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 5.0),
                           child: ChoiceChip(
-                            label: Text(
-                              "${index + 1}",
-                              style: TextStyle(color: kcWhiteColor),
-                            ),
+                            label: Text("${index + 1}"),
                             selected: selectedCleaners == index + 1,
                             onSelected: (selected) {
                               setState(() {
@@ -447,12 +422,9 @@ void showCustomBottomSheet(BuildContext context) {
                               });
                             },
                             selectedColor: kcPrimaryColor,
-                            backgroundColor: Color(0xFFACA9DB),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8), // Rounded corners
-                            ),
+                            backgroundColor: Colors.grey[300],
                             labelStyle: TextStyle(
-                              color: selectedRooms == index + 1
+                              color: selectedCleaners == index + 1
                                   ? Colors.white
                                   : Colors.black,
                             ),
@@ -469,16 +441,17 @@ void showCustomBottomSheet(BuildContext context) {
                     child: ElevatedButton(
                       onPressed: () {
                         Navigator.pop(context);
-                        showBottomSheet(context);// Close the bottom sheet
+                        showBottomSheet(context);
                       },
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
+                        backgroundColor: kcWhiteColor,
                       ),
                       child: Text(
                         "Next",
-                        style: TextStyle(fontSize: 12, color: kcPrimaryColor),
+                        style: TextStyle(fontSize: 14, color: kcPrimaryColor),
                       ),
                     ),
                   ),
@@ -493,7 +466,6 @@ void showCustomBottomSheet(BuildContext context) {
 }
 
 void showBottomSheet(BuildContext context) {
-
   showModalBottomSheet(
     context: context,
     isScrollControlled: true,
@@ -509,9 +481,21 @@ void showBottomSheet(BuildContext context) {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  // Cleaning type selection
-                  Align(
-                    alignment: Alignment.center,
+                  // Drag handle
+                  Center(
+                    child: Container(
+                      width: 50,
+                      height: 5,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[300],
+                        borderRadius: BorderRadius.circular(2.5),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 10),
+
+                  // Centered title
+                  Center(
                     child: Text(
                       "What type of cleaning?",
                       style: TextStyle(
@@ -521,86 +505,41 @@ void showBottomSheet(BuildContext context) {
                       ),
                     ),
                   ),
-                  SvgPicture.asset('assets/images/cleaner.svg'),
+                  SizedBox(height: 10),
+
+                  // Cleaning SVG image
+                  SvgPicture.asset(
+                    'assets/images/clean.svg',
+                    height: 150, // Adjust height as needed
+                    fit: BoxFit.contain,
+                  ),
                   SizedBox(height: 20),
+
+                  // Cleaning types row
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                                color: Colors.grey// Adjust the radius as needed
-                            ),
-                            borderRadius: BorderRadius.circular(20),
-
-                          ),
-                          child: Column(
-                            children: [
-                              CircleAvatar(
-                                radius: 30, // Adjust size as needed
-                                backgroundColor: Colors.white,
-                                child: CircleAvatar(
-                                  radius: 30,
-                                  backgroundImage: AssetImage('assets/images/image.png'), // Replace with your image asset
-                                ),
-                              ),
-                              verticalSpaceMassive,
-                              Text('Standard Cleaner'),
-                            ],
-                          ),
+                        // Regular Cleaner
+                        buildCleaningTypeCard(
+                          'assets/images/image.png',
+                          'Regular Cleaner',
                         ),
-                        Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                                color: Colors.grey// Adjust the radius as needed
-                            ),
-                            borderRadius: BorderRadius.circular(20),
-
-                          ),
-                          child: Column(
-                            children: [
-                              CircleAvatar(
-                                radius: 30, // Adjust size as needed
-                                backgroundColor: Colors.white,
-                                child: CircleAvatar(
-                                  radius: 30,
-                                  backgroundImage: AssetImage('assets/images/image.png'), // Replace with your image asset
-                                ),
-                              ),
-                              verticalSpaceMassive,
-                              Text('Move-in-out Cleaner'),
-                            ],
-                          ),
+                        // Standard Cleaner
+                        buildCleaningTypeCard(
+                          'assets/images/image.png',
+                          'Standard Cleaning',
                         ),
-                        Container(
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: Colors.grey// Adjust the radius as needed
-                              ),
-                              borderRadius: BorderRadius.circular(20),
-
-                          ),
-                          child: Column(
-                            children: [
-                              CircleAvatar(
-                                radius: 30, // Adjust size as needed
-                                backgroundColor: Colors.white,
-                                child: CircleAvatar(
-                                  radius: 30,
-                                  backgroundImage: AssetImage('assets/images/image.png'), // Replace with your image asset
-                                ),
-                              ),
-                              verticalSpaceMassive,
-                              Text('Regular Cleaner'),
-                            ],
-                          ),
+                        // Deep Cleaner
+                        buildCleaningTypeCard(
+                          'assets/images/image.png',
+                          'Deep Cleaning',
                         ),
                       ],
                     ),
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: 30),
 
                   // Next button
                   Align(
@@ -608,16 +547,17 @@ void showBottomSheet(BuildContext context) {
                     child: ElevatedButton(
                       onPressed: () {
                         Navigator.pop(context);
-                        showBottomSheetDatePicker(context);// Close the bottom sheet
+                        showBottomSheetDatePicker(context); // Close the bottom sheet
                       },
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
+                        backgroundColor: kcWhiteColor, // Adjust to your primary color
                       ),
                       child: Text(
                         "Next",
-                        style: TextStyle(fontSize: 12, color: kcPrimaryColor),
+                        style: TextStyle(fontSize: 14, color: kcPrimaryColor),
                       ),
                     ),
                   ),
@@ -630,6 +570,37 @@ void showBottomSheet(BuildContext context) {
     },
   );
 }
+
+// Helper function for cleaning type cards
+Widget buildCleaningTypeCard(String imagePath, String title) {
+  return Container(
+    width: 100, // Adjust width for consistent sizing
+    padding: const EdgeInsets.all(8.0),
+    decoration: BoxDecoration(
+      border: Border.all(color: Colors.grey),
+      borderRadius: BorderRadius.circular(20),
+    ),
+    child: Column(
+      children: [
+        CircleAvatar(
+          radius: 30, // Adjust size as needed
+          backgroundColor: Colors.white,
+          child: Image.asset(
+            imagePath, // Replace with your image asset
+            fit: BoxFit.cover,
+          ),
+        ),
+        SizedBox(height: 10),
+        Text(
+          title,
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 14),
+        ),
+      ],
+    ),
+  );
+}
+
 
 void showBottomSheetDatePicker(BuildContext context) {
   showModalBottomSheet(
@@ -644,6 +615,16 @@ void showBottomSheetDatePicker(BuildContext context) {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            Center(
+              child: Container(
+                width: 50,
+                height: 5,
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(2.5),
+                ),
+              ),
+            ),
             Align(
               alignment: Alignment.center,
               child: Text(
@@ -690,7 +671,7 @@ void showBottomSheetCheck(BuildContext context) {
     ),
     builder: (BuildContext context) {
       return Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
         child: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -706,7 +687,7 @@ void showBottomSheetCheck(BuildContext context) {
                   ),
                 ),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: 16),
               Text(
                 'Check List Details',
                 style: TextStyle(
@@ -715,220 +696,21 @@ void showBottomSheetCheck(BuildContext context) {
                   color: Colors.black,
                 ),
               ),
-              SizedBox(height: 15),
-              // Your checklist items here...
-              Text(
-                'General Areas (Living Room, 3 Bedrooms)',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-          Column(
-            children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: CheckboxListTile(
-                      value: true,
-                      onChanged: (bool? value) {},
-                      title: Text('Dusting'),
-                      controlAffinity: ListTileControlAffinity.leading,
-                      contentPadding: EdgeInsets.symmetric(horizontal: 0),
-                    ),
-                  ),
-                  Expanded(
-                    child: CheckboxListTile(
-                      value: true,
-                      onChanged: (bool? value) {},
-                      title: Text('Vacuuming & Sweeping'),
-                      controlAffinity: ListTileControlAffinity.leading,
-                      contentPadding: EdgeInsets.symmetric(horizontal: 0),
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: CheckboxListTile(
-                      value: true,
-                      onChanged: (bool? value) {},
-                      title: Text('Mopping'),
-                      controlAffinity: ListTileControlAffinity.leading,
-                      contentPadding: EdgeInsets.symmetric(horizontal: 0),
-                    ),
-                  ),
-                  Expanded(
-                    child: CheckboxListTile(
-                      value: true,
-                      onChanged: (bool? value) {},
-                      title: Text('Doors & Handles'),
-                      controlAffinity: ListTileControlAffinity.leading,
-                      contentPadding: EdgeInsets.symmetric(horizontal: 0),
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: CheckboxListTile(
-                      value: true,
-                      onChanged: (bool? value) {},
-                      title: Text('Mirrors & Glass Surfaces'),
-                      controlAffinity: ListTileControlAffinity.leading,
-                      contentPadding: EdgeInsets.symmetric(horizontal: 0),
-                    ),
-                  ),
-                  Expanded(
-                    child: CheckboxListTile(
-                      value: true,
-                      onChanged: (bool? value) {},
-                      title: Text('Windows'),
-                      controlAffinity: ListTileControlAffinity.leading,
-                      contentPadding: EdgeInsets.symmetric(horizontal: 0),
-                    ),
-                  ),
-                ],
-              ),
-              Column(
-                children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'Kitchen',
-                      style: TextStyle(fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: CheckboxListTile(
-                          value: true,
-                          onChanged: (bool? value) {},
-                          title: Text('Counters & Surfaces'),
-                          controlAffinity: ListTileControlAffinity.leading,
-                          contentPadding: EdgeInsets.symmetric(horizontal: 0),
-                        ),
-                      ),
-                      Expanded(
-                        child: CheckboxListTile(
-                          value: true,
-                          onChanged: (bool? value) {},
-                          title: Text('Appliances'),
-                          controlAffinity: ListTileControlAffinity.leading,
-                          contentPadding: EdgeInsets.symmetric(horizontal: 0),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: CheckboxListTile(
-                          value: true,
-                          onChanged: (bool? value) {},
-                          title: Text('Cabinets & Drawers'),
-                          controlAffinity: ListTileControlAffinity.leading,
-                          contentPadding: EdgeInsets.symmetric(horizontal: 0),
-                        ),
-                      ),
-                      Expanded(
-                        child: CheckboxListTile(
-                          value: true,
-                          onChanged: (bool? value) {},
-                          title: Text('Flooring'),
-                          controlAffinity: ListTileControlAffinity.leading,
-                          contentPadding: EdgeInsets.symmetric(horizontal: 0),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              Column(
-                children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
-                      child: Text(
-                          'Bathrooms',
-                        style: TextStyle(fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                        ),
-                      ),
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: CheckboxListTile(
-                          value: true,
-                          onChanged: (bool? value) {},
-                          title: Text('Sink & Counter'),
-                          controlAffinity: ListTileControlAffinity.leading,
-                          contentPadding: EdgeInsets.symmetric(horizontal: 0),
-                        ),
-                      ),
-                      Expanded(
-                        child: CheckboxListTile(
-                          value: true,
-                          onChanged: (bool? value) {},
-                          title: Text('Toilet'),
-                          controlAffinity: ListTileControlAffinity.leading,
-                          contentPadding: EdgeInsets.symmetric(horizontal: 0),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: CheckboxListTile(
-                          value: true,
-                          onChanged: (bool? value) {},
-                          title: Text('Shower/bathtub'),
-                          controlAffinity: ListTileControlAffinity.leading,
-                          contentPadding: EdgeInsets.symmetric(horizontal: 0),
-                        ),
-                      ),
-                      Expanded(
-                        child: CheckboxListTile(
-                          value: true,
-                          onChanged: (bool? value) {},
-                          title: Text('Mirrors & Glass Surfaces'),
-                          controlAffinity: ListTileControlAffinity.leading,
-                          contentPadding: EdgeInsets.symmetric(horizontal: 0),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: CheckboxListTile(
-                          value: true,
-                          onChanged: (bool? value) {},
-                          title: Text('Cabinets & Drawers'),
-                          controlAffinity: ListTileControlAffinity.leading,
-                          contentPadding: EdgeInsets.symmetric(horizontal: 0),
-                        ),
-                      ),
-                      Expanded(
-                        child: CheckboxListTile(
-                          value: true,
-                          onChanged: (bool? value) {},
-                          title: Text('Flooring'),
-                          controlAffinity: ListTileControlAffinity.leading,
-                          contentPadding: EdgeInsets.symmetric(horizontal: 0),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ],
-          ),
-
-          SizedBox(height: 20),
+              SizedBox(height: 20),
+              _buildSectionTitle('General Areas (Living Room, 3 Bedrooms)'),
+              _buildChecklistRow(['Dusting', 'Vacuuming & Sweeping']),
+              _buildChecklistRow(['Mopping', 'Doors & Handles']),
+              _buildChecklistRow(['Mirrors & Glass Surfaces', 'Windows']),
+              SizedBox(height: 20),
+              _buildSectionTitle('Kitchen'),
+              _buildChecklistRow(['Counters & Surfaces', 'Appliances']),
+              _buildChecklistRow(['Cabinets & Drawers', 'Flooring']),
+              SizedBox(height: 20),
+              _buildSectionTitle('Bathrooms'),
+              _buildChecklistRow(['Sink & Counter', 'Toilet']),
+              _buildChecklistRow(['Shower/Bathtub', 'Mirrors & Glass Surfaces']),
+              _buildChecklistRow(['Cabinets & Drawers', 'Flooring']),
+              SizedBox(height: 30),
               // Add buttons at the bottom
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -939,13 +721,14 @@ void showBottomSheetCheck(BuildContext context) {
                       child: ElevatedButton(
                         onPressed: () {
                           Navigator.pop(context);
-                          showBottomSheetCost(context);// Close the bottom sheet
+                          showBottomSheetCost(context); // Close the bottom sheet
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: kcPrimaryColor, // Example color
+                          backgroundColor: kcPrimaryColor, // Replace with your primary color
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
+                          padding: EdgeInsets.symmetric(vertical: 14),
                         ),
                         child: Text(
                           "Proceed",
@@ -961,13 +744,16 @@ void showBottomSheetCheck(BuildContext context) {
                           Navigator.pop(context); // Close the bottom sheet
                         },
                         style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
+                            side: BorderSide(color: kcPrimaryColor), // Replace with your primary color
                           ),
+                          padding: EdgeInsets.symmetric(vertical: 14),
                         ),
                         child: Text(
                           "Edit Booking",
-                          style: TextStyle(fontSize: 16, color: kcPrimaryColor),
+                          style: TextStyle(fontSize: 16, color: kcPrimaryColor), // Replace with your primary color
                         ),
                       ),
                     ),
@@ -981,6 +767,36 @@ void showBottomSheetCheck(BuildContext context) {
     },
   );
 }
+
+// Helper method to build section titles
+Widget _buildSectionTitle(String title) {
+  return Text(
+    title,
+    style: TextStyle(
+      fontSize: 16,
+      fontWeight: FontWeight.bold,
+      color: Colors.black,
+    ),
+  );
+}
+
+// Helper method to build a row of checklist items
+Widget _buildChecklistRow(List<String> items) {
+  return Row(
+    children: items.map((item) {
+      return Expanded(
+        child: CheckboxListTile(
+          value: false,
+          onChanged: (bool? value) {},
+          title: Text(item, style: TextStyle(fontSize: 14)),
+          controlAffinity: ListTileControlAffinity.leading,
+          contentPadding: EdgeInsets.symmetric(horizontal: 0),
+        ),
+      );
+    }).toList(),
+  );
+}
+
 
 void showBottomSheetCost(BuildContext context) {
   showModalBottomSheet(
@@ -1141,19 +957,21 @@ void showBottomSheetCost(BuildContext context) {
                 alignment: Alignment.centerRight,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.pop(context);
-                    showBottomSheetSuccess(context);
-                    // Trigger the next bottom sheet or action
+                    Navigator.pop(context); // Close the current bottom sheet
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => PaymentView()), // Navigate to the BookedView screen
+                    );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.black,
+                    backgroundColor: kcWhiteColor,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
                   ),
                   child: Text(
                     "Next",
-                    style: TextStyle(fontSize: 16, color: Colors.white),
+                    style: TextStyle(fontSize: 16, color: kcPrimaryColor),
                   ),
                 ),
               ),
@@ -1301,3 +1119,4 @@ class Profile {
     required this.profileImage,
   });
 }
+
