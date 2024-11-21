@@ -16,21 +16,21 @@ class OnboardingView2 extends StatelessWidget {
           description:
           'Easily book experienced cleaners for your home or property. Choose the service, set the schedule, and leave the rest to us!',
           imageUrl: "assets/images/cleaner.png",
-          bgColor: kcPrimaryColor,
+          bgImage: "assets/images/backround.png",
         ),
         OnboardingPageModel(
           title: 'Track Progress and Payments',
           description:
           'View your upcoming appointments, track cleaner arrival, and handle payments securely—all in one app.',
           imageUrl: 'assets/images/Object.png',
-          bgColor: kcPrimaryColor,
+          bgImage: "assets/images/backround2.png",
         ),
         OnboardingPageModel(
           title: 'Custom Cleaning for Every Need',
           description:
           'Whether it’s a one-time deep clean or regular maintenance, we offer personalized services that fit your schedule and needs.',
           imageUrl: 'assets/images/Object2.png',
-          bgColor: kcPrimaryColor,
+          bgImage: "assets/images/backround3.png",
         ),
       ]),
     );
@@ -66,35 +66,63 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: kcPrimaryColor,
-        actions: [
-          TextButton(
-            style: TextButton.styleFrom(
-              visualDensity: VisualDensity.comfortable,
-              foregroundColor: Colors.white,
-              textStyle: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            onPressed: () {
-              widget.onSkip?.call();
-              locator<NavigationService>().clearStackAndShow(Routes.homeView);
-            },
-            child: const Text(
-              "Skip",
-              style: TextStyle(color: kcBlackColor),
-            ),
-          ),
-        ],
-      ),
+      // appBar: AppBar(
+      //   backgroundColor: kcPrimaryColor,
+      //   actions: [
+      //     TextButton(
+      //       style: TextButton.styleFrom(
+      //         visualDensity: VisualDensity.comfortable,
+      //         foregroundColor: Colors.white,
+      //         textStyle: const TextStyle(
+      //           fontSize: 16,
+      //           fontWeight: FontWeight.bold,
+      //         ),
+      //       ),
+      //       onPressed: () {
+      //         widget.onSkip?.call();
+      //         locator<NavigationService>().clearStackAndShow(Routes.homeView);
+      //       },
+      //       child: const Text(
+      //         "Skip",
+      //         style: TextStyle(color: kcBlackColor),
+      //       ),
+      //     ),
+      //   ],
+      // ),
       body: AnimatedContainer(
         duration: const Duration(milliseconds: 250),
-        color: widget.pages[_currentPage].bgColor,
-        child: SafeArea(
+        decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage(widget.pages[_currentPage].bgImage),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: SafeArea(
           child: Column(
             children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  TextButton(
+                    style: TextButton.styleFrom(
+                      visualDensity: VisualDensity.comfortable,
+                      foregroundColor: Colors.white,
+                      textStyle: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    onPressed: () {
+                      widget.onSkip?.call();
+                      locator<NavigationService>().clearStackAndShow(Routes.homeView);
+                    },
+                    child: const Text(
+                      "Skip",
+                      style: TextStyle(color: kcBlackColor),
+                    ),
+                  ),
+                ],
+              ),
               Expanded(
                 child: PageView.builder(
                   controller: _pageController,
@@ -113,7 +141,6 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
                             children: [
                               Container(
                                 height: 500,
-                                color: item.bgColor.withOpacity(0.6),
                                 child: Align(
                                   alignment: Alignment.bottomCenter,
                                   child: Padding(
@@ -133,8 +160,8 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
                           child: Text(
                             item.title,
                             style: const TextStyle(
-                              fontSize: 28,
-                              color: kcSecondaryColor,
+                              fontSize: 26,
+                              color: kcPrimaryColor,
                               fontWeight: FontWeight.w700,
                             ),
                           ),
@@ -146,7 +173,7 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
                             style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w400,
-                              color: Colors.white
+                              color: kcPrimaryColor
                             ),
                           ),
                         ),
@@ -179,7 +206,7 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
                     TextButton(
                       style: TextButton.styleFrom(
                         visualDensity: VisualDensity.comfortable,
-                        foregroundColor: Colors.white,
+                        foregroundColor: kcPrimaryColor,
                         textStyle: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -223,14 +250,14 @@ class OnboardingPageModel {
   final String title;
   final String description;
   final String imageUrl;
-  final Color bgColor;
+  final String bgImage;
   final Color textColor;
 
   OnboardingPageModel({
     required this.title,
     required this.description,
     required this.imageUrl,
-    this.bgColor = Colors.blue,
+    required this.bgImage,
     this.textColor = Colors.white,
   });
 }
