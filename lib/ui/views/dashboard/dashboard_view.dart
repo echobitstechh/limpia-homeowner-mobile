@@ -15,25 +15,6 @@ import 'package:animated_segmented_tab_control/animated_segmented_tab_control.da
 class DashboardView extends StackedView<DashboardViewModel> {
   DashboardView({Key? key}) : super(key: key);
 
-  final List<Profile> profiles = [
-    Profile(
-      name: 'SQFT: 2500',
-      rating: '5 starts',
-      description: 'Address: 8 Magodo, Califona USA',
-      date: '22 Oct, 2024',
-      price: '\$50',
-      profileImage: 'assets/images/man.png',
-    ),
-    Profile(
-      name: 'SQFT: 2500',
-      rating: '5 starts',
-      description: 'Address: 8 Magodo, Califona USA',
-      date: '20 Oct, 2024',
-      price: '\$60',
-      profileImage: 'assets/images/man.png',
-    ),
-  ];
-
   final List<String> names = [
     'Regular cleaning ',
     'Standard cleaning',
@@ -78,7 +59,7 @@ class DashboardView extends StackedView<DashboardViewModel> {
             padding: const EdgeInsets.only(right: 16.0),
             child: GestureDetector(
               onTap: () {
-                // Define action when icon is tapped
+                _showTopSheet(context);
               },
               child: Icon(
                 Icons.notifications_active_outlined,
@@ -114,7 +95,8 @@ class DashboardView extends StackedView<DashboardViewModel> {
                               Row(
                                 children: [
                                   Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       SizedBox(
                                         width: 150,
@@ -150,7 +132,8 @@ class DashboardView extends StackedView<DashboardViewModel> {
                                             fontSize: 16,
                                           ),
                                           shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(8.0),
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
                                           ),
                                         ),
                                         child: Text("Get Discount"),
@@ -181,7 +164,9 @@ class DashboardView extends StackedView<DashboardViewModel> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text('Categories', style: TextStyle(fontSize: 16)),
-                          Text('See all', style: TextStyle(fontSize: 14, color: kcPrimaryColor)),
+                          Text('See all',
+                              style: TextStyle(
+                                  fontSize: 14, color: kcPrimaryColor)),
                         ],
                       ),
                     ),
@@ -196,7 +181,8 @@ class DashboardView extends StackedView<DashboardViewModel> {
                                 showCustomBottomSheet(context);
                               },
                               child: Container(
-                                padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 8.0, horizontal: 16.0),
                                 margin: EdgeInsets.symmetric(horizontal: 4.0),
                                 decoration: BoxDecoration(
                                   color: viewModel.selectedIndex == index
@@ -209,15 +195,17 @@ class DashboardView extends StackedView<DashboardViewModel> {
                                   children: [
                                     CircleAvatar(
                                       radius: 40,
-                                      backgroundImage: AssetImage('assets/images/man.png'),
+                                      backgroundImage:
+                                          AssetImage('assets/images/man.png'),
                                     ),
                                     SizedBox(height: 8.0),
                                     Text(
                                       names[index],
                                       style: TextStyle(
-                                          color: viewModel.selectedIndex == index
-                                              ? kcPrimaryColor
-                                              : Colors.white,
+                                          color:
+                                              viewModel.selectedIndex == index
+                                                  ? kcPrimaryColor
+                                                  : Colors.white,
                                           fontSize: 14),
                                     ),
                                   ],
@@ -228,7 +216,23 @@ class DashboardView extends StackedView<DashboardViewModel> {
                         ),
                       ),
                     ),
-                    // Continue with rest of the widgets as required
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('Bookings', style: TextStyle(fontSize: 16)),
+                          GestureDetector(
+                            onTap: () {
+                              //showBtbSheet(context);
+                            },
+                            child: Text('Book Now',
+                                style: TextStyle(
+                                    fontSize: 14, color: kcPrimaryColor)),
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -236,6 +240,398 @@ class DashboardView extends StackedView<DashboardViewModel> {
           ),
         ],
       ),
+    );
+  }
+
+  void _showTopSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (BuildContext context) {
+        return Align(
+          alignment: Alignment.topCenter,
+          child: Container(
+            height: MediaQuery.of(context).size.height * 0.4,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.vertical(
+                bottom: Radius.circular(16),
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black12,
+                  blurRadius: 10,
+                  spreadRadius: 5,
+                ),
+              ],
+            ),
+            child: Column(
+              children: [
+                Padding(
+                  padding:
+                      const EdgeInsets.only(left: 18.0, right: 18, top: 18),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Text(
+                          'Notifications',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: Icon(Icons.close),
+                      ),
+                    ],
+                  ),
+                ),
+                Divider(),
+                Expanded(
+                  child: ListView(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8.0, horizontal: 16.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(12),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.2),
+                                blurRadius: 6,
+                                spreadRadius: 2,
+                                offset: Offset(0, 4), // Shadow position
+                              ),
+                            ],
+                          ),
+                          child: ListTile(
+                            leading: ClipOval(
+                              child: Container(
+                                color: Colors.grey[200],
+                                child: SvgPicture.asset(
+                                  'assets/images/calender.svg',
+                                  height: 20,
+                                  width: 20,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            title: Text(
+                              '🔔Cleaner Accepted',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            subtitle: Text('Today, 10:00 AM'),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8.0, horizontal: 16.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(12),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.2),
+                                blurRadius: 6,
+                                spreadRadius: 2,
+                                offset: Offset(0, 4), // Shadow position
+                              ),
+                            ],
+                          ),
+                          child: ListTile(
+                            leading: ClipOval(
+                              child: Container(
+                                color: Colors.grey[
+                                    200], // Background color for the circular shape
+                                child: SvgPicture.asset(
+                                  'assets/images/book.svg',
+                                  height: 20,
+                                  width: 20,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            title: Text(
+                              '🔔 Your cleaning service has been canceled',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            subtitle: Text('Tomorrow, 9:00 AM'),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8.0, horizontal: 16.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(12),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.2),
+                                blurRadius: 6,
+                                spreadRadius: 2,
+                                offset: Offset(0, 4), // Shadow position
+                              ),
+                            ],
+                          ),
+                          child: ListTile(
+                            leading: ClipOval(
+                              child: Container(
+                                color: Colors.grey[
+                                    200], // Background color for the circular shape
+                                child: SvgPicture.asset(
+                                  'assets/images/cancel.svg',
+                                  height: 20,
+                                  width: 20,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            title: Text(
+                              '🔔Cleaner Booked',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            subtitle: Text('Yesterday, 2:00 PM'),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void showBtbSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (BuildContext context) {
+        return Container(
+          height: MediaQuery.of(context).size.height *
+              0.6, // Adjust height to 40% of screen
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.vertical(
+              top: Radius.circular(16),
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black12,
+                blurRadius: 10,
+                spreadRadius: 5,
+              ),
+            ],
+          ),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 18.0, right: 18, top: 18),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Divider(),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text(
+                        'Booking Accepted',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: Icon(Icons.close),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+                child: Container(
+                  padding: EdgeInsets.all(16.0),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.2),
+                        blurRadius: 6,
+                        spreadRadius: 2,
+                        offset: Offset(0, 4),
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Service :',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 16),
+                          ),
+                          Text(
+                            'Basic Cleaning',
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Next cleaning:',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 16),
+                          ),
+                          Text(
+                            'Nov 24, 2024',
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Occurrence:',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 16),
+                          ),
+                          Text(
+                            'one time',
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Additional Info:',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 16),
+                          ),
+                          SizedBox(height: 5),
+                          GestureDetector(
+                            onTap: () {
+                              // Navigate to the BookedView page when the card is tapped
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const BookedView()),
+                              );
+                            },
+                            child: Text(
+                              'View cleaner',
+                              style: TextStyle(
+                                  fontSize: 14, color: kcPrimaryColor),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              // Button Row
+              Padding(
+                padding: const EdgeInsets.all(18.0),
+                child: Column(
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            // Add functionality for Re-notify
+                          },
+                          style: ElevatedButton.styleFrom(
+                            minimumSize: Size(
+                                double.infinity, 40), // Equal width and height
+                            side: BorderSide(
+                                color: Colors.grey), // Add border line
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            backgroundColor: Colors.white, // White background
+                            foregroundColor: Colors.black, // Black text color
+                          ),
+                          child: Text('Re-notify'),
+                        ),
+                        SizedBox(height: 10), // Space between buttons
+                        ElevatedButton(
+                          onPressed: () {
+                            // Add functionality for Cancel
+                          },
+                          style: ElevatedButton.styleFrom(
+                            minimumSize: Size(
+                                double.infinity, 40), // Equal width and height
+                            side: BorderSide(
+                                color: Colors.grey), // Add border line
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            backgroundColor: Colors.white, // White background
+                            foregroundColor: Colors.black, // Black text color
+                          ),
+                          child: Text('Cancel'),
+                        ),
+                        SizedBox(height: 10), // Space between buttons
+                        ElevatedButton(
+                          onPressed: () {
+                            // Add functionality for Reschedule
+                          },
+                          style: ElevatedButton.styleFrom(
+                            minimumSize: Size(
+                                double.infinity, 40), // Equal width and height
+                            side: BorderSide(
+                                color: Colors.grey), // Add border line
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            backgroundColor: Colors.white, // White background
+                            foregroundColor: Colors.black, // Black text color
+                          ),
+                          child: Text('Reschedule'),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        );
+      },
     );
   }
 
@@ -363,7 +759,89 @@ void showCustomBottomSheet(BuildContext context) {
                           },
                         ),
                       ),
-                    ],
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: List.generate(6, (index) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                          child: ChoiceChip(
+                            label: Text(
+                              "${index + 1}",
+                              style: TextStyle(color: kcWhiteColor),
+                            ),
+                            selected: selectedRooms == index + 1,
+                            onSelected: (selected) {
+                              setState(() {
+                                selectedRooms = index + 1;
+                              });
+                            },
+                            selectedColor: kcPrimaryColor,
+                            backgroundColor: Color(0xFFACA9DB),
+                            shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.circular(18), // Rounded corners
+                            ),
+                            labelStyle: TextStyle(
+                              color: selectedRooms == index + 1
+                                  ? Colors.white
+                                  : Colors.black,
+                            ),
+                          ),
+                        );
+                      }),
+                    ),
+                  ),
+
+                  SizedBox(height: 20),
+
+                  // Numbers of bathrooms options
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Text(
+                        "Number of bathrooms*",
+                        style: TextStyle(fontSize: 16, color: Colors.grey[700]),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: List.generate(6, (index) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                          child: ChoiceChip(
+                            label: Text(
+                              "${index + 1}",
+                              style: TextStyle(color: kcWhiteColor),
+                            ),
+                            selected: selectedBathrooms == index + 1,
+                            onSelected: (selected) {
+                              setState(() {
+                                selectedBathrooms = index + 1;
+                              });
+                            },
+                            selectedColor: kcPrimaryColor,
+                            backgroundColor: Color(0xFFACA9DB),
+                            shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.circular(8), // Rounded corners
+                            ),
+                            labelStyle: TextStyle(
+                              color: selectedRooms == index + 1
+                                  ? Colors.white
+                                  : Colors.black,
+                            ),
+                          ),
+                        );
+                      }),
+                    ),
                   ),
                   SizedBox(height: 20),
 
@@ -422,7 +900,11 @@ void showCustomBottomSheet(BuildContext context) {
                               });
                             },
                             selectedColor: kcPrimaryColor,
-                            backgroundColor: Colors.grey[300],
+                            backgroundColor: Color(0xFFACA9DB),
+                            shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.circular(8), // Rounded corners
+                            ),
                             labelStyle: TextStyle(
                               color: selectedCleaners == index + 1
                                   ? Colors.white
@@ -638,7 +1120,7 @@ void showBottomSheetDatePicker(BuildContext context) {
               child: ElevatedButton(
                 onPressed: () {
                   Navigator.pop(context);
-                  showBottomSheetCheck(context);// Close this bottom sheet
+                  showBottomSheetCheck(context); // Close this bottom sheet
                 },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
@@ -841,7 +1323,8 @@ void showBottomSheetCost(BuildContext context) {
                   children: [
                     Text(
                       'Service',
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                     SizedBox(height: 4),
                     Text(
@@ -851,7 +1334,8 @@ void showBottomSheetCost(BuildContext context) {
                     SizedBox(height: 10),
                     Text(
                       'Next Cleaning:',
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                     SizedBox(height: 4),
                     Text(
@@ -861,7 +1345,8 @@ void showBottomSheetCost(BuildContext context) {
                     SizedBox(height: 10),
                     Text(
                       'Occurrence',
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                     SizedBox(height: 4),
                     Text(
@@ -978,9 +1463,6 @@ void showBottomSheetCost(BuildContext context) {
     },
   );
 }
-
-
-
 
 class Profile {
   final String name;

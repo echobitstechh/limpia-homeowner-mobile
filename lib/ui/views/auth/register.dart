@@ -44,9 +44,11 @@ class _RegisterState extends State<Register> {
   Widget build(BuildContext context) {
     return ViewModelBuilder<AuthViewModel>.reactive(
       viewModelBuilder: () => AuthViewModel(),
-      builder: (context, model, child) => loadingCountries == true
-          ? const CircularProgressIndicator()
-          : Form(
+      builder: (context, model, child) =>
+      // loadingCountries == true
+      //     ? const CircularProgressIndicator()
+      //     :
+      Form(
               key: _formKey,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               child: Column(
@@ -76,7 +78,7 @@ class _RegisterState extends State<Register> {
                         "login Account",
                         style: TextStyle(
                           fontSize: 12,
-                          color: kcSecondaryColor,
+                          color: kcPrimaryColor,
                         ),
                       ),
                     )
@@ -311,13 +313,13 @@ class _RegisterState extends State<Register> {
                             width: 20,
                             decoration: BoxDecoration(
                                 color: model.terms
-                                    ? kcSecondaryColor
+                                    ? kcPrimaryColor
                                     : Colors.transparent,
                                 borderRadius: BorderRadius.circular(5),
                                 border: Border.all(
                                     color: model.terms
                                         ? Colors.transparent
-                                        : kcSecondaryColor)),
+                                        : kcPrimaryColor)),
                             child: model.terms
                                 ? const Center(
                                     child: Icon(

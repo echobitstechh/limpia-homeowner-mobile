@@ -16,21 +16,21 @@ class OnboardingView2 extends StatelessWidget {
           description:
           'Easily book experienced cleaners for your home or property. Choose the service, set the schedule, and leave the rest to us!',
           imageUrl: "assets/images/cleaner.png",
-          bgImage: "assets/images/backround.png",
+          bgImage: "assets/images/backround.png", textColor: kcWhiteColor,
         ),
         OnboardingPageModel(
           title: 'Track Progress and Payments',
           description:
           'View your upcoming appointments, track cleaner arrival, and handle payments securely—all in one app.',
           imageUrl: 'assets/images/Object.png',
-          bgImage: "assets/images/backround2.png",
+          bgImage: "assets/images/backround2.png", textColor: kcWhiteColor,
         ),
         OnboardingPageModel(
           title: 'Custom Cleaning for Every Need',
           description:
           'Whether it’s a one-time deep clean or regular maintenance, we offer personalized services that fit your schedule and needs.',
           imageUrl: 'assets/images/Object2.png',
-          bgImage: "assets/images/backround3.png",
+          bgImage: "assets/images/backround3.png", textColor: kcPrimaryColor,
         ),
       ]),
     );
@@ -95,7 +95,8 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
         image: DecorationImage(
           image: AssetImage(widget.pages[_currentPage].bgImage),
           fit: BoxFit.cover,
-        ),
+
+        )
       ),
       child: SafeArea(
           child: Column(
@@ -159,23 +160,27 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
                           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
                           child: Text(
                             item.title,
-                            style: const TextStyle(
+                            style:  TextStyle(
                               fontSize: 26,
-                              color: kcPrimaryColor,
                               fontWeight: FontWeight.w700,
+                              color: item.textColor, // Set text color dynamically
+
                             ),
                           ),
+
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
                           child: Text(
                             item.description,
-                            style: const TextStyle(
+                            style:  TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w400,
-                              color: kcPrimaryColor
+                              color: item.textColor, // Set text color dynamically
+
                             ),
                           ),
+
                         ),
                       ],
                     );
@@ -253,11 +258,12 @@ class OnboardingPageModel {
   final String bgImage;
   final Color textColor;
 
+
   OnboardingPageModel({
     required this.title,
     required this.description,
     required this.imageUrl,
     required this.bgImage,
-    this.textColor = Colors.white,
+    required this.textColor,
   });
 }
