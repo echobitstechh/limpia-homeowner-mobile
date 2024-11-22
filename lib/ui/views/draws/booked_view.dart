@@ -5,6 +5,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:limpia/ui/common/app_colors.dart';
 import 'package:limpia/ui/common/ui_helpers.dart';
 
+import 'call.dart';
+import 'chatDetails.dart';
+
 class BookedView extends StatelessWidget {
   const BookedView({Key? key}) : super(key: key);
 
@@ -25,21 +28,25 @@ class BookedView extends StatelessWidget {
               children: [
                 // Profile picture with "Booked" label
                 Stack(
-                  clipBehavior: Clip.none, // This ensures the Positioned widget isn't clipped
+                  clipBehavior: Clip
+                      .none, // This ensures the Positioned widget isn't clipped
                   children: [
                     CircleAvatar(
                       radius: 70, // Adjust size as needed
                       backgroundColor: Colors.white,
                       child: CircleAvatar(
                         radius: 68, // Slightly smaller to add a border effect
-                        backgroundImage: AssetImage('assets/images/profile_picture.png'),
+                        backgroundImage:
+                            AssetImage('assets/images/profile_picture.png'),
                       ),
                     ),
                     Positioned(
-                      top: 70,  // Adjust to position the overlay relative to the profile picture
+                      top:
+                          70, // Adjust to position the overlay relative to the profile picture
                       right: -30,
                       child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8, vertical: 4),
                         decoration: BoxDecoration(
                           color: Colors.green,
                           borderRadius: BorderRadius.circular(12),
@@ -56,7 +63,6 @@ class BookedView extends StatelessWidget {
                   ],
                 ),
 
-
                 // Profile details
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -71,26 +77,51 @@ class BookedView extends StatelessWidget {
                     const SizedBox(height: 8),
                     Row(
                       children: [
-                        Container(
-                          padding: const EdgeInsets.all(8.0), // Adjust padding as needed
-                          decoration: BoxDecoration(
-                              color: kcVeryLightGrey, // You can set a background color for the rounded container
-                            borderRadius: BorderRadius.circular(12.0), // Adjust the radius as needed
+                        InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ChatDetailPage(
+                                        driverName: 'amrah',
+                                        driverId: '234',
+                                        rideId: 'fgh',
+                                      )),
+                            );
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.all(8.0),
+                            decoration: BoxDecoration(
+                              color: kcVeryLightGrey,
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
+                            child:
+                                const Icon(Icons.chat, color: kcPrimaryColor),
                           ),
-                          child: const Icon(Icons.chat, color: kcPrimaryColor),
                         ),
                         const SizedBox(width: 16),
                         Container(
-                          padding: const EdgeInsets.all(8.0), // Adjust padding as needed
+                          padding: const EdgeInsets.all(
+                              8.0), // Adjust padding as needed
                           decoration: BoxDecoration(
-                            color: kcVeryLightGrey, // You can set a background color for the rounded container
-                            borderRadius: BorderRadius.circular(12.0), // Adjust the radius as needed
+                            color:
+                                kcVeryLightGrey, // You can set a background color for the rounded container
+                            borderRadius: BorderRadius.circular(
+                                12.0), // Adjust the radius as needed
                           ),
-                          child: const Icon(Icons.phone, color: kcPrimaryColor),
+                          child: InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => CallScreen(),
+                                    ));
+                              },
+                              child: const Icon(Icons.phone,
+                                  color: kcPrimaryColor)),
                         ),
                       ],
                     ),
-
                     const SizedBox(height: 8),
                     Row(
                       children: [
@@ -105,7 +136,8 @@ class BookedView extends StatelessWidget {
                             Icon(Icons.star, color: Colors.amber, size: 16),
                             Icon(Icons.star, color: Colors.amber, size: 16),
                             Icon(Icons.star, color: Colors.amber, size: 16),
-                            Icon(Icons.star_half, color: Colors.amber, size: 16),
+                            Icon(Icons.star_half,
+                                color: Colors.amber, size: 16),
                           ],
                         ),
                         SizedBox(width: 4),

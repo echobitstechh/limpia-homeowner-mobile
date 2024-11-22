@@ -50,25 +50,16 @@ class _AuthViewState extends State<AuthView> with TickerProviderStateMixin {
               centerTitle: true,
               background: Align(
                 alignment: Alignment.bottomCenter,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 60.0), // Adjust the padding to move the image down
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        "assets/images/limpiar_purple.png",
-                        height: 60, // Adjust the height to make the image smaller
-                        fit: BoxFit.fitHeight,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Image.asset(
+                        "assets/images/groupwash.png",
+                        height: 300,
+                        fit: BoxFit.fill,
                       ),
-                      SvgPicture.asset(
-                        "assets/images/Limpiador.svg",
-                        height: 40, // Adjust the height to make the image smaller
-                        fit: BoxFit.fitHeight,
-                        color: kcPrimaryColor,
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),
