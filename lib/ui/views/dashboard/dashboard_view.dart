@@ -669,46 +669,109 @@ void showCustomBottomSheet(BuildContext context) {
           return Padding(
             padding: const EdgeInsets.all(16.0),
             child: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Drag handle
-                  Center(
-                    child: Container(
-                      width: 50,
-                      height: 5,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[300],
-                        borderRadius: BorderRadius.circular(2.5),
+                child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Drag handle
+                      Center(
+                        child: Container(
+                          width: 50,
+                          height: 5,
+                          decoration: BoxDecoration(
+                            color: Colors.grey[300],
+                            borderRadius: BorderRadius.circular(2.5),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                  SizedBox(height: 20),
+                      SizedBox(height: 20),
 
-                  // Title
-                  Text(
-                    "Tell Us about the home.",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: kcPrimaryColor,
-                    ),
-                  ),
-                  SizedBox(height: 20),
+                      // Title
+                      Text(
+                        "Tell Us about the home.",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: kcPrimaryColor,
+                        ),
+                      ),
+                      SizedBox(height: 20),
 
-                  // Number of rooms
-                  Text(
-                    "Numbers of rooms*",
-                    style: TextStyle(fontSize: 16, color: Colors.grey[700]),
-                  ),
-                  SizedBox(height: 10),
-                  Row(
+                      // Number of rooms
+                      Text(
+                        "Numbers of rooms*",
+                        style: TextStyle(fontSize: 16, color: Colors.grey[700]),
+                      ),
+                      SizedBox(height: 10),
+                      Row(
+                        children: List.generate(6, (index) {
+                          return Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 5.0),
+                            child: ChoiceChip(
+                              label: Text("${index + 1}"),
+                              selected: selectedRooms == index + 1,
+                              onSelected: (selected) {
+                                setState(() {
+                                  selectedRooms = index + 1;
+                                });
+                              },
+                              selectedColor: kcPrimaryColor,
+                              backgroundColor: Colors.grey[300],
+                              labelStyle: TextStyle(
+                                color: selectedRooms == index + 1
+                                    ? Colors.white
+                                    : Colors.black,
+                              ),
+                            ),
+                          );
+                        }),
+                      ),
+                      SizedBox(height: 20),
+
+                      // Number of bathrooms
+                      Text(
+                        "Numbers of bathrooms*",
+                        style: TextStyle(fontSize: 16, color: Colors.grey[700]),
+                      ),
+                      SizedBox(height: 10),
+                      Row(children: [
+                        Text(
+                          selectedBathrooms.toInt().toString(),
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: kcPrimaryColor,
+                          ),
+                        ),
+                        Expanded(
+                          child: Slider(
+                            value: selectedBathrooms,
+                            min: 0,
+                            max: 6,
+                            divisions: 6,
+                            activeColor: kcPrimaryColor,
+                            inactiveColor: Colors.grey[300],
+                            onChanged: (value) {
+                              setState(() {
+                                selectedBathrooms = value;
+                              });
+                            },
+                          ),
+                        ),
+                      ]),
+                SizedBox(height: 8),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
                     children: List.generate(6, (index) {
                       return Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 5.0),
                         child: ChoiceChip(
-                          label: Text("${index + 1}"),
+                          label: Text(
+                            "${index + 1}",
+                            style: TextStyle(color: kcWhiteColor),
+                          ),
                           selected: selectedRooms == index + 1,
                           onSelected: (selected) {
                             setState(() {
@@ -716,7 +779,11 @@ void showCustomBottomSheet(BuildContext context) {
                             });
                           },
                           selectedColor: kcPrimaryColor,
-                          backgroundColor: Colors.grey[300],
+                          backgroundColor: Color(0xFFACA9DB),
+                          shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.circular(18), // Rounded corners
+                          ),
                           labelStyle: TextStyle(
                             color: selectedRooms == index + 1
                                 ? Colors.white
@@ -726,220 +793,151 @@ void showCustomBottomSheet(BuildContext context) {
                       );
                     }),
                   ),
-                  SizedBox(height: 20),
+                ),
+                SizedBox(height: 20),
 
-                  // Number of bathrooms
-                  Text(
-                    "Numbers of bathrooms*",
-                    style: TextStyle(fontSize: 16, color: Colors.grey[700]),
+                // Numbers of bathrooms options
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Text(
+                      "Number of bathrooms*",
+                      style: TextStyle(fontSize: 16, color: Colors.grey[700]),
+                    ),
                   ),
-                  SizedBox(height: 10),
-                  Row(
-                    children: [
-                      Text(
-                        selectedBathrooms.toInt().toString(),
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: kcPrimaryColor,
-                        ),
-                      ),
-                      Expanded(
-                        child: Slider(
-                          value: selectedBathrooms,
-                          min: 0,
-                          max: 6,
-                          divisions: 6,
-                          activeColor: kcPrimaryColor,
-                          inactiveColor: Colors.grey[300],
-                          onChanged: (value) {
+                ),
+                SizedBox(height: 8),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: List.generate(6, (index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                        child: ChoiceChip(
+                          label: Text(
+                            "${index + 1}",
+                            style: TextStyle(color: kcWhiteColor),
+                          ),
+                          selected: selectedBathrooms == index + 1,
+                          onSelected: (selected) {
                             setState(() {
-                              selectedBathrooms = value;
+                              selectedBathrooms = index + 1;
                             });
                           },
+                          selectedColor: kcPrimaryColor,
+                          backgroundColor: Color(0xFFACA9DB),
+                          shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.circular(8), // Rounded corners
+                          ),
+                          labelStyle: TextStyle(
+                            color: selectedRooms == index + 1
+                                ? Colors.white
+                                : Colors.black,
+                          ),
                         ),
-                      ),
-                    ),
+                      );
+                    }),
                   ),
-                  SizedBox(height: 8),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: List.generate(6, (index) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                          child: ChoiceChip(
-                            label: Text(
-                              "${index + 1}",
-                              style: TextStyle(color: kcWhiteColor),
-                            ),
-                            selected: selectedRooms == index + 1,
-                            onSelected: (selected) {
-                              setState(() {
-                                selectedRooms = index + 1;
-                              });
-                            },
-                            selectedColor: kcPrimaryColor,
-                            backgroundColor: Color(0xFFACA9DB),
-                            shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.circular(18), // Rounded corners
-                            ),
-                            labelStyle: TextStyle(
-                              color: selectedRooms == index + 1
-                                  ? Colors.white
-                                  : Colors.black,
-                            ),
-                          ),
-                        );
-                      }),
-                    ),
-                  ),
+                ),
+                SizedBox(height: 20),
 
-                  SizedBox(height: 20),
-
-                  // Numbers of bathrooms options
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Text(
-                        "Number of bathrooms*",
-                        style: TextStyle(fontSize: 16, color: Colors.grey[700]),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: List.generate(6, (index) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                          child: ChoiceChip(
-                            label: Text(
-                              "${index + 1}",
-                              style: TextStyle(color: kcWhiteColor),
-                            ),
-                            selected: selectedBathrooms == index + 1,
-                            onSelected: (selected) {
-                              setState(() {
-                                selectedBathrooms = index + 1;
-                              });
-                            },
-                            selectedColor: kcPrimaryColor,
-                            backgroundColor: Color(0xFFACA9DB),
-                            shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.circular(8), // Rounded corners
-                            ),
-                            labelStyle: TextStyle(
-                              color: selectedRooms == index + 1
-                                  ? Colors.white
-                                  : Colors.black,
-                            ),
-                          ),
-                        );
-                      }),
-                    ),
-                  ),
-                  SizedBox(height: 20),
-
-                  // Cleaner selection
-                  Row(
-                    children: [
-                      Checkbox(
-                        value: isIndividualCleaner,
-                        onChanged: (value) {
-                          setState(() {
-                            isIndividualCleaner = value!;
-                          });
-                        },
-                        activeColor: kcPrimaryColor,
-                      ),
-                      Text(
-                        "Individual cleaner",
-                        style: TextStyle(fontSize: 14, color: Colors.grey[700]),
-                      ),
-                      SizedBox(width: 20),
-                      Checkbox(
-                        value: !isIndividualCleaner,
-                        onChanged: (value) {
-                          setState(() {
-                            isIndividualCleaner = !value!;
-                          });
-                        },
-                        activeColor: kcPrimaryColor,
-                      ),
-                      Text(
-                        "Cleaning crew",
-                        style: TextStyle(fontSize: 14, color: Colors.grey[700]),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 20),
-
-                  // Number of cleaners
-                  Text(
-                    "How many Numbers of Cleaners*",
-                    style: TextStyle(fontSize: 16, color: Colors.grey[700]),
-                  ),
-                  SizedBox(height: 10),
-                  Center(
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: List.generate(3, (index) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                          child: ChoiceChip(
-                            label: Text("${index + 1}"),
-                            selected: selectedCleaners == index + 1,
-                            onSelected: (selected) {
-                              setState(() {
-                                selectedCleaners = index + 1;
-                              });
-                            },
-                            selectedColor: kcPrimaryColor,
-                            backgroundColor: Color(0xFFACA9DB),
-                            shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.circular(8), // Rounded corners
-                            ),
-                            labelStyle: TextStyle(
-                              color: selectedCleaners == index + 1
-                                  ? Colors.white
-                                  : Colors.black,
-                            ),
-                          ),
-                        );
-                      }),
-                    ),
-                  ),
-                  SizedBox(height: 20),
-
-                  // Next button
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                        showBottomSheet(context);
+                // Cleaner selection
+                Row(
+                  children: [
+                    Checkbox(
+                      value: isIndividualCleaner,
+                      onChanged: (value) {
+                        setState(() {
+                          isIndividualCleaner = value!;
+                        });
                       },
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
+                      activeColor: kcPrimaryColor,
+                    ),
+                    Text(
+                      "Individual cleaner",
+                      style: TextStyle(fontSize: 14, color: Colors.grey[700]),
+                    ),
+                    SizedBox(width: 20),
+                    Checkbox(
+                      value: !isIndividualCleaner,
+                      onChanged: (value) {
+                        setState(() {
+                          isIndividualCleaner = !value!;
+                        });
+                      },
+                      activeColor: kcPrimaryColor,
+                    ),
+                    Text(
+                      "Cleaning crew",
+                      style: TextStyle(fontSize: 14, color: Colors.grey[700]),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 20),
+
+                // Number of cleaners
+                Text(
+                  "How many Numbers of Cleaners*",
+                  style: TextStyle(fontSize: 16, color: Colors.grey[700]),
+                ),
+                SizedBox(height: 10),
+                Center(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: List.generate(3, (index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                        child: ChoiceChip(
+                          label: Text("${index + 1}"),
+                          selected: selectedCleaners == index + 1,
+                          onSelected: (selected) {
+                            setState(() {
+                              selectedCleaners = index + 1;
+                            });
+                          },
+                          selectedColor: kcPrimaryColor,
+                          backgroundColor: Color(0xFFACA9DB),
+                          shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.circular(8), // Rounded corners
+                          ),
+                          labelStyle: TextStyle(
+                            color: selectedCleaners == index + 1
+                                ? Colors.white
+                                : Colors.black,
+                          ),
                         ),
-                        backgroundColor: kcWhiteColor,
+                      );
+                    }),
+                  ),
+                ),
+                SizedBox(height: 20),
+
+                // Next button
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      showBottomSheet(context);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
                       ),
-                      child: Text(
-                        "Next",
-                        style: TextStyle(fontSize: 14, color: kcPrimaryColor),
-                      ),
+                      backgroundColor: kcWhiteColor,
+                    ),
+                    child: Text(
+                      "Next",
+                      style: TextStyle(fontSize: 14, color: kcPrimaryColor),
                     ),
                   ),
-                ],
-              ),
-            ),
+                )
+          ]
+          ),
+          ),
           );
         },
       );
@@ -1025,13 +1023,15 @@ void showBottomSheet(BuildContext context) {
                     child: ElevatedButton(
                       onPressed: () {
                         Navigator.pop(context);
-                        showBottomSheetDatePicker(context); // Close the bottom sheet
+                        showBottomSheetDatePicker(
+                            context); // Close the bottom sheet
                       },
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        backgroundColor: kcWhiteColor, // Adjust to your primary color
+                        backgroundColor:
+                            kcWhiteColor, // Adjust to your primary color
                       ),
                       child: Text(
                         "Next",
@@ -1078,7 +1078,6 @@ Widget buildCleaningTypeCard(String imagePath, String title) {
     ),
   );
 }
-
 
 void showBottomSheetDatePicker(BuildContext context) {
   showModalBottomSheet(
@@ -1186,7 +1185,8 @@ void showBottomSheetCheck(BuildContext context) {
               SizedBox(height: 20),
               _buildSectionTitle('Bathrooms'),
               _buildChecklistRow(['Sink & Counter', 'Toilet']),
-              _buildChecklistRow(['Shower/Bathtub', 'Mirrors & Glass Surfaces']),
+              _buildChecklistRow(
+                  ['Shower/Bathtub', 'Mirrors & Glass Surfaces']),
               _buildChecklistRow(['Cabinets & Drawers', 'Flooring']),
               SizedBox(height: 30),
               // Add buttons at the bottom
@@ -1199,10 +1199,12 @@ void showBottomSheetCheck(BuildContext context) {
                       child: ElevatedButton(
                         onPressed: () {
                           Navigator.pop(context);
-                          showBottomSheetCost(context); // Close the bottom sheet
+                          showBottomSheetCost(
+                              context); // Close the bottom sheet
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: kcPrimaryColor, // Replace with your primary color
+                          backgroundColor:
+                              kcPrimaryColor, // Replace with your primary color
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
@@ -1225,13 +1227,18 @@ void showBottomSheetCheck(BuildContext context) {
                           backgroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
-                            side: BorderSide(color: kcPrimaryColor), // Replace with your primary color
+                            side: BorderSide(
+                                color:
+                                    kcPrimaryColor), // Replace with your primary color
                           ),
                           padding: EdgeInsets.symmetric(vertical: 14),
                         ),
                         child: Text(
                           "Edit Booking",
-                          style: TextStyle(fontSize: 16, color: kcPrimaryColor), // Replace with your primary color
+                          style: TextStyle(
+                              fontSize: 16,
+                              color:
+                                  kcPrimaryColor), // Replace with your primary color
                         ),
                       ),
                     ),
@@ -1274,7 +1281,6 @@ Widget _buildChecklistRow(List<String> items) {
     }).toList(),
   );
 }
-
 
 void showBottomSheetCost(BuildContext context) {
   showModalBottomSheet(
@@ -1441,7 +1447,9 @@ void showBottomSheetCost(BuildContext context) {
                     Navigator.pop(context); // Close the current bottom sheet
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => PaymentView()), // Navigate to the BookedView screen
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              PaymentView()), // Navigate to the BookedView screen
                     );
                   },
                   style: ElevatedButton.styleFrom(
@@ -1481,4 +1489,3 @@ class Profile {
     required this.profileImage,
   });
 }
-
