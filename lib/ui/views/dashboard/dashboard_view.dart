@@ -508,11 +508,7 @@ void showBottomSheet(BuildContext context) {
                   SizedBox(height: 10),
 
                   // Cleaning SVG image
-                  SvgPicture.asset(
-                    'assets/images/clean.svg',
-                    height: 150, // Adjust height as needed
-                    fit: BoxFit.contain,
-                  ),
+                  Image.asset('assets/images/image 93.png'),
                   SizedBox(height: 20),
 
                   // Cleaning types row
@@ -983,122 +979,6 @@ void showBottomSheetCost(BuildContext context) {
   );
 }
 
-void showBottomSheetSuccess(BuildContext context) {
-  showModalBottomSheet(
-    context: context,
-    isScrollControlled: true,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-    ),
-    builder: (BuildContext context) {
-      return Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              // Top drag handle
-              Center(
-                child: Container(
-                  width: 50,
-                  height: 5,
-                  decoration: BoxDecoration(
-                    color: Colors.grey[300],
-                    borderRadius: BorderRadius.circular(2.5),
-                  ),
-                ),
-              ),
-              SizedBox(height: 20),
-
-              // Success Image from assets
-              Container(
-                width: 120,
-                height: 120,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.grey[100],
-                ),
-                child: Center(
-                  child: Image.asset(
-                    'assets/images/success.png', // Path to your image
-                    width: 80,
-                    height: 80,
-                  ),
-                ),
-              ),
-              SizedBox(height: 20),
-
-              // Booking Completed Text
-              Text(
-                'Booking Completed',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 8),
-
-              // Subtitle Text
-              Text(
-                'Your booking for service has been successfully booked',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.grey[700],
-                ),
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(height: 30),
-
-              // View Booking Services Button
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    // Handle View Booking Services action here
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: kcPrimaryColor, // Button color
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  child: Text(
-                    "View Booking Services",
-                    style: TextStyle(fontSize: 16, color: Colors.white),
-                  ),
-                ),
-              ),
-              SizedBox(height: 10), // Space between buttons
-
-              // Track Booking Button
-              SizedBox(
-                width: double.infinity,
-                child: OutlinedButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    // Handle Track Booking action here
-                  },
-                  style: OutlinedButton.styleFrom(
-                    side: BorderSide(color: kcPrimaryColor), // Border color
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  child: Text(
-                    "Track Booking",
-                    style: TextStyle(fontSize: 16, color: kcPrimaryColor),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
-    },
-  );
-}
 
 
 
