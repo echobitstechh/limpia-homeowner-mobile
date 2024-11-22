@@ -508,11 +508,7 @@ void showBottomSheet(BuildContext context) {
                   SizedBox(height: 10),
 
                   // Cleaning SVG image
-                  SvgPicture.asset(
-                    'assets/images/clean.svg',
-                    height: 150, // Adjust height as needed
-                    fit: BoxFit.contain,
-                  ),
+                  Image.asset('assets/images/image 93.png'),
                   SizedBox(height: 20),
 
                   // Cleaning types row
