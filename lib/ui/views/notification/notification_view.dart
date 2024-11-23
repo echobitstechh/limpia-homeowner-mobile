@@ -14,168 +14,299 @@ class NotificationView extends StackedView<NotificationViewModel> {
       Widget? child,
       ) {
     return Scaffold(
-      body: Stack(
-        clipBehavior: Clip.none,
-        children: [
-          // Background image for the entire body with reduced opacity
-          Center(
-            child: Opacity(
-              opacity: 0.8, // Control the transparency of the background image
-              child: SizedBox(
-                height: 400, // Set your desired height
-                width: 400,  // Set your desired width
-                child: Image.asset(
-                  'assets/images/limpiar_bg.png', // Replace with your image asset
-                  fit: BoxFit.contain,
-                ),
-              ),
+      appBar: AppBar(
+        leading: Icon(
+          Icons.notifications_outlined,
+          size: 30,
+          color: kcPrimaryColor,
+        ),
+        title: const Text(
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: kcPrimaryColor,
+              fontSize: 24,
+              decorationColor: kcPrimaryColor,
             ),
-          ),
+            "Notification"
+        ),
 
-
-          // AppBar section
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            child: PreferredSize(
-              preferredSize: Size.fromHeight(200.0),
-              child: ClipRRect(
-                borderRadius: BorderRadius.vertical(
-                  bottom: Radius.circular(30.0), // Adjust this value for the rounded edge
-                ),
-                child: Stack(
-                  alignment: Alignment.center, // Center all children within the Stack
+      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16.0),
+        child: Column(
+          children: [
+            Card(
+              margin: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+              elevation: 5,
+              color: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
                   children: [
-                    // Background color container
-                    Container(
-                      color: kcPrimaryColor, // Adjust this color as needed
-                      height: 200.0,
-                    ),
-                    // Faint background image in the AppBar
-                    Align(
-                      alignment: Alignment.centerRight, // Align the image to the right
-                      child: Opacity(
-                        opacity: 0.8, // Control opacity here
-                        child: Image.asset(
-                          'assets/images/bg_logo.png', // Replace with your image path
-                          height: 200, // Set your desired height
-                          width: 300,  // Set your desired width
-                          fit: BoxFit.contain,
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: Container(
+                              width: 60,
+                              height: 70,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                    color: Colors.grey.shade300, width: 1),
+                                borderRadius: BorderRadius.circular(8),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.1),
+                                    spreadRadius: 1,
+                                    blurRadius: 3,
+                                    offset: Offset(0, 2),
+                                  ),
+                                ],
+                              ),
+                              child:
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(30.0),
+                                child: Container(
+                                  color: Colors.lightBlueAccent,
+                                  child: Image.asset(
+                                      fit: BoxFit.cover,
+                                      width: 100,
+                                      height: 100,
+                                      'assets/images/Frame16.png'
+                                  ),
+                                ),
+                              )
+                          ),
                         ),
-                      ),
-                    ),
-
-                    Image.asset(
-                      'assets/images/limpia.png',
-                      width: 220, // Adjust size as needed
-                      height: 80,
+                        SizedBox(width: 16),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(height: 2),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Column(
+                                    children: [
+                                      Text(
+                                        '🔔Cleaner Accepted',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20, ),
+                                      ),
+                                      Text(
+                                        'Track Cleaner',
+                                        style: TextStyle(
+                                          color: kcPrimaryColor,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20, ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
               ),
             ),
-          ),
-
-          // Profile picture overlapping AppBar and body
-          Positioned(
-            top: 150, // Adjust to position it halfway out of the AppBar
-            left: 0,
-            right: 0,
-            child: Center(
-              child: CircleAvatar(
-                radius: 70, // Adjust size as needed
-                backgroundColor: Colors.white,
-                child: CircleAvatar(
-                  radius: 70,
-                  backgroundImage: AssetImage('assets/images/profile_picture.png'), // Replace with your image asset
+            Card(
+              margin: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+              elevation: 5,
+              color: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: Container(
+                              width: 60,
+                              height: 70,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                    color: Colors.grey.shade300, width: 1),
+                                borderRadius: BorderRadius.circular(8),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.1),
+                                    spreadRadius: 1,
+                                    blurRadius: 3,
+                                    offset: Offset(0, 2),
+                                  ),
+                                ],
+                              ),
+                              child:
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(30.0),
+                                child: Container(
+                                  color: Colors.lightBlueAccent,
+                                  child: Image.asset(
+                                      fit: BoxFit.cover,
+                                      width: 100,
+                                      height: 100,
+                                      'assets/images/Frame15.png'
+                                  ),
+                                ),
+                              )
+                          ),
+                        ),
+                        SizedBox(width: 16),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(height: 2),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Column(
+                                    children: [
+                                      Text(
+                                        '🔔Your cleaning service has\n been canceled',
+                                        style: TextStyle(
+                                          color: Colors.red,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18, ),
+                                      ),
+                                      Text(
+                                        'The cleaner has canceled your booking...',
+                                        style: TextStyle(
+                                          fontSize: 14, ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
             ),
-          ),
+            Card(
+              margin: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+              elevation: 5,
+              color: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: Container(
+                              width: 60,
+                              height: 70,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                    color: Colors.grey.shade300, width: 1),
+                                borderRadius: BorderRadius.circular(8),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.1),
+                                    spreadRadius: 1,
+                                    blurRadius: 3,
+                                    offset: Offset(0, 2),
+                                  ),
+                                ],
+                              ),
+                              child:
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(30.0),
+                                child: Container(
+                                  color: Colors.lightBlueAccent,
+                                  child: Image.asset(
+                                      fit: BoxFit.cover,
+                                      width: 100,
+                                      height: 100,
+                                      'assets/images/Frame13.png'
+                                  ),
+                                ),
+                              )
+                          ),
+                        ),
+                        SizedBox(width: 16),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(height: 2),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Column(
+                                    children: [
+                                      Text(
+                                        '🔔Cleaner Booked',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18, ),
+                                      ),
+                                      Text(
+                                        'Schedule appointment this week',
+                                        style: TextStyle(
+                                          color: kcPrimaryColor,
+                                          fontSize: 14, ),
+                                      ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            '12:30.00',
+                                            style: TextStyle(
+                                              color: Colors.green,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 18, ),
+                                          ),
+                                          horizontalSpaceLarge,
+                                          Text(
+                                            'Feb 7,2024',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: kcPrimaryColor,
+                                              fontSize: 14, ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
 
-          // Body content, offset down to accommodate profile picture
-          Positioned.fill(
-            top: 300, // Adjust to start below the profile picture
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: Colors.grey.shade300),
-                    ),
-                    child: ListTile(
-                      leading: Icon(Icons.person_4_outlined,
-                        size: 30,
-                      ),
-                      iconColor: kcPrimaryColor,
-                      title: Text(
-                        'Profile',
-                        style: TextStyle(
-                          color: kcPrimaryColor,
-                          fontFamily: 'Poppins',
-                          fontSize: 25,
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
-                      )
-
+                      ],
                     ),
-                  ),
+                  ],
                 ),
-                verticalSpaceSmall,
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: Colors.grey.shade300),
-                    ),
-                    child: ListTile(
-                      leading: Icon(Icons.account_balance_wallet,
-                      size: 30,
-                      ),
-                      iconColor: kcPrimaryColor,
-                      title: Text(
-                        'Subscription',
-                        style: TextStyle(color: kcPrimaryColor,
-                          fontFamily: 'Poppins',
-                          fontSize: 25,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                verticalSpaceSmall,
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: Colors.grey.shade300),
-                    ),
-                    child: ListTile(
-                      leading: Icon(Icons.settings,
-                      size: 30,
-                      ),
-                      iconColor: kcPrimaryColor,
-                      title: Text(
-                        'Settings',
-                        style: TextStyle(color: kcPrimaryColor,
-                          fontFamily: 'Poppins',
-                          fontSize: 25,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
