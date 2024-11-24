@@ -238,226 +238,6 @@ class DashboardView extends StackedView<DashboardViewModel> {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              children: [
-                // First Card: Pairing in Progress
-                Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  elevation: 3,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Row(
-                      children: [
-                        Image.asset(
-                          'assets/images/analysis.png', // Ensure path is correct
-                          height: 60,
-                          width: 60,
-                          errorBuilder: (context, error, stackTrace) => Icon(
-                            Icons.image_not_supported,
-                            size: 60,
-                            color: Colors.grey,
-                          ),
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Pairing in progress...',
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              const SizedBox(height: 8),
-                              Text(
-                                "You'll be notified once complete",
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.grey[600] ?? Colors.grey, // Fallback color
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Colors.orange[300] ?? Colors.orange, // Fallback color
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 4,
-                            horizontal: 8,
-                          ),
-                          child: const Text(
-                            'Processing',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 20),
-                // Second Card: Cleaner Details
-                Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  elevation: 3,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            CircleAvatar(
-                              radius: 30,
-                              backgroundImage: AssetImage(
-                                'assets/images/janitor.png', // Ensure path is correct
-                              ),
-                              onBackgroundImageError: (error, stackTrace) => Icon(
-                                Icons.person,
-                                size: 30,
-                                color: Colors.grey,
-                              ),
-                            ),
-                            const SizedBox(width: 12),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Marvin Tracy',
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 4),
-                                  Row(
-                                    children: [
-                                      const Text(
-                                        'Rating: ',
-                                        style: TextStyle(fontSize: 14),
-                                      ),
-                                      const Icon(Icons.star, color: Colors.yellow, size: 16),
-                                      const Icon(Icons.star, color: Colors.yellow, size: 16),
-                                      const Icon(Icons.star, color: Colors.yellow, size: 16),
-                                      const Icon(Icons.star, color: Colors.yellow, size: 16),
-                                      const Icon(Icons.star_half, color: Colors.yellow, size: 16),
-                                      const Text(
-                                        ' (4.8/5)',
-                                        style: TextStyle(fontSize: 14),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Colors.green[300] ?? Colors.green, // Fallback color
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 4,
-                                horizontal: 8,
-                              ),
-                              child: const Text(
-                                'Accepted',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 16),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text(
-                              'Experience: 5 years in residential and commercial \ncleaning',
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: Colors.black,
-                              ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text(
-                                  '\$120',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    color: kcPrimaryColor,
-                                  ),
-                                ),
-
-                              ],
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 8),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
-                            Row(
-                              children: [
-                                Icon(Icons.location_on, color: Colors.grey, size: 16),
-                                SizedBox(width: 4),
-                                Text(
-                                  'Location: California',
-                                  style: TextStyle(fontSize: 14, color: Colors.grey),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Icon(Icons.location_on, color: Colors.lightBlueAccent, size: 16),
-                                Text(
-                                  'Location: California',
-                                  style: TextStyle(fontSize: 14, color: Colors.lightBlueAccent),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 8),
-
-                        const SizedBox(height: 8),
-                        Align(
-                          alignment: Alignment.centerRight,
-                          child: const Text(
-                            'Expected Time: Feb 27, 10:00AM',
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.grey,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          )
-
         ],
       ),
     );
@@ -948,40 +728,191 @@ void showCustomBottomSheet(BuildContext context) {
                   ),
                   SizedBox(height: 20),
 
-                  // Number of bathrooms
-                  Text(
-                    "Numbers of bathrooms*",
-                    style: TextStyle(fontSize: 16, color: Colors.grey[700]),
-                  ),
-                  SizedBox(height: 10),
-                  Row(
-                    children: [
+                      // Number of bathrooms
                       Text(
-                        selectedBathrooms.toInt().toString(),
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: kcPrimaryColor,
-                        ),
+                        "Numbers of bathrooms*",
+                        style: TextStyle(fontSize: 16, color: Colors.grey[700]),
                       ),
-                      Expanded(
-                        child: Slider(
-                          value: selectedBathrooms,
-                          min: 0,
-                          max: 6,
-                          divisions: 6,
-                          activeColor: kcPrimaryColor,
-                          inactiveColor: Colors.grey[300],
-                          onChanged: (value) {
+                      SizedBox(height: 10),
+                      Row(children: [
+                        Text(
+                          selectedBathrooms.toInt().toString(),
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: kcPrimaryColor,
+                          ),
+                        ),
+                        Expanded(
+                          child: Slider(
+                            value: selectedBathrooms,
+                            min: 0,
+                            max: 6,
+                            divisions: 6,
+                            activeColor: kcPrimaryColor,
+                            inactiveColor: Colors.grey[300],
+                            onChanged: (value) {
+                              setState(() {
+                                selectedBathrooms = value;
+                              });
+                            },
+                          ),
+                        ),
+                      ]),
+                SizedBox(height: 8),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: List.generate(6, (index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                        child: ChoiceChip(
+                          label: Text(
+                            "${index + 1}",
+                            style: TextStyle(color: kcWhiteColor),
+                          ),
+                          selected: selectedRooms == index + 1,
+                          onSelected: (selected) {
                             setState(() {
-                              selectedBathrooms = value;
+                              selectedRooms = index + 1;
                             });
                           },
+                          selectedColor: kcPrimaryColor,
+                          backgroundColor: Color(0xFFACA9DB),
+                          shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.circular(18), // Rounded corners
+                          ),
+                          labelStyle: TextStyle(
+                            color: selectedRooms == index + 1
+                                ? Colors.white
+                                : Colors.black,
+                          ),
                         ),
-                      ),
-                    ],
+                      );
+                    }),
                   ),
-                  SizedBox(height: 20),
+                ),
+                SizedBox(height: 20),
+
+                // Numbers of bathrooms options
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Text(
+                      "Number of bathrooms*",
+                      style: TextStyle(fontSize: 16, color: Colors.grey[700]),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 8),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: List.generate(6, (index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                        child: ChoiceChip(
+                          label: Text(
+                            "${index + 1}",
+                            style: TextStyle(color: kcWhiteColor),
+                          ),
+                          selected: selectedBathrooms == index + 1,
+                          onSelected: (selected) {
+                            setState(() {
+                              selectedBathrooms = index + 1;
+                            });
+                          },
+                          selectedColor: kcPrimaryColor,
+                          backgroundColor: Color(0xFFACA9DB),
+                          shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.circular(8), // Rounded corners
+                          ),
+                          labelStyle: TextStyle(
+                            color: selectedRooms == index + 1
+                                ? Colors.white
+                                : Colors.black,
+                          ),
+                        ),
+                      );
+                    }),
+                  ),
+                ),
+                SizedBox(height: 20),
+
+                // Cleaner selection
+                Row(
+                  children: [
+                    Checkbox(
+                      value: isIndividualCleaner,
+                      onChanged: (value) {
+                        setState(() {
+                          isIndividualCleaner = value!;
+                        });
+                      },
+                      activeColor: kcPrimaryColor,
+                    ),
+                    Text(
+                      "Individual cleaner",
+                      style: TextStyle(fontSize: 14, color: Colors.grey[700]),
+                    ),
+                    SizedBox(width: 20),
+                    Checkbox(
+                      value: !isIndividualCleaner,
+                      onChanged: (value) {
+                        setState(() {
+                          isIndividualCleaner = !value!;
+                        });
+                      },
+                      activeColor: kcPrimaryColor,
+                    ),
+                    Text(
+                      "Cleaning crew",
+                      style: TextStyle(fontSize: 14, color: Colors.grey[700]),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 20),
+
+                // Number of cleaners
+                Text(
+                  "How many Numbers of Cleaners*",
+                  style: TextStyle(fontSize: 16, color: Colors.grey[700]),
+                ),
+                SizedBox(height: 10),
+                Center(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: List.generate(3, (index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                        child: ChoiceChip(
+                          label: Text("${index + 1}"),
+                          selected: selectedCleaners == index + 1,
+                          onSelected: (selected) {
+                            setState(() {
+                              selectedCleaners = index + 1;
+                            });
+                          },
+                          selectedColor: kcPrimaryColor,
+                          backgroundColor: Color(0xFFACA9DB),
+                          shape: RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.circular(8), // Rounded corners
+                          ),
+                          labelStyle: TextStyle(
+                            color: selectedCleaners == index + 1
+                                ? Colors.white
+                                : Colors.black,
+                          ),
+                        ),
+                      );
+                    }),
+                  ),
+                ),
+                SizedBox(height: 20),
 
                   // Next button
                   Align(
@@ -1210,7 +1141,7 @@ void showBottomSheetCheck(BuildContext context) {
   showModalBottomSheet(
     context: context,
     isScrollControlled: true,
-    shape: const RoundedRectangleBorder(
+    shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
     ),
     builder: (BuildContext context) {
@@ -1674,33 +1605,35 @@ void showBottomSheetCheck(BuildContext context) {
   );
 }
 
+// Helper method to build section titles
 Widget _buildSectionTitle(String title) {
   return Text(
     title,
-    style: const TextStyle(
-      fontSize: 18,
+    style: TextStyle(
+      fontSize: 16,
       fontWeight: FontWeight.bold,
       color: Colors.black,
     ),
   );
 }
 
+// Helper method to build a row of checklist items
 Widget _buildChecklistRow(List<String> items) {
   return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: items
-        .map((item) => Expanded(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Text(
-          item,
-          style: const TextStyle(fontSize: 16),
+    children: items.map((item) {
+      return Expanded(
+        child: CheckboxListTile(
+          value: false,
+          onChanged: (bool? value) {},
+          title: Text(item, style: TextStyle(fontSize: 14)),
+          controlAffinity: ListTileControlAffinity.leading,
+          contentPadding: EdgeInsets.symmetric(horizontal: 0),
         ),
-      ),
-    ))
-        .toList(),
+      );
+    }).toList(),
   );
 }
+
 
 void showBottomSheetCost(BuildContext context) {
   showModalBottomSheet(
@@ -1907,3 +1840,4 @@ class Profile {
     required this.profileImage,
   });
 }
+
