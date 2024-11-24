@@ -102,111 +102,202 @@ void showBottomSheetSuccess(BuildContext context) {
       borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
     ),
     builder: (BuildContext context) {
-      return Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-             // Top drag handle
-              Center(
-                child: Container(
-                  width: 50,
-                  height: 5,
-                  decoration: BoxDecoration(
-                    color: Colors.grey[300],
-                    borderRadius: BorderRadius.circular(2.5),
-                  ),
-                ),
-              ),
-              SizedBox(height: 20),
+      return FractionallySizedBox(
+        heightFactor: 1.0, // Makes the modal occupy the full height
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  // Top drag handle
+                  // Center(
+                  //   child: Container(
+                  //     width: 50,
+                  //     height: 5,
+                  //     decoration: BoxDecoration(
+                  //       color: Colors.grey[300],
+                  //       borderRadius: BorderRadius.circular(2.5),
+                  //     ),
+                  //   ),
+                  // ),
+                  SizedBox(height: 20),
 
-              // Success Image from assets
-              // Container(
-              //   width: 120,
-              //   height: 120,
-              //   decoration: BoxDecoration(
-              //     shape: BoxShape.circle,
-              //     color: Colors.grey[100],
-              //   ),
-              //   child: Center(
-              //     child: Image.asset(
-              //       'assets/images/success.png', // Path to your image
-              //       width: 80,
-              //       height: 80,
-              //     ),
-              //   ),
-              // ),
-              // SizedBox(height: 20),
+                  // Success Image from assets
+                  // Uncomment and use your asset image here
+                  // Container(
+                  //   width: 120,
+                  //   height: 120,
+                  //   decoration: BoxDecoration(
+                  //     shape: BoxShape.circle,
+                  //     color: Colors.grey[100],
+                  //   ),
+                  //   child: Center(
+                  //     child: Image.asset(
+                  //       'assets/images/success.png', // Path to your image
+                  //       width: 80,
+                  //       height: 80,
+                  //     ),
+                  //   ),
+                  // ),
+                  // SizedBox(height: 20),
 
-              // Booking Completed Text
-              Text(
-                'Pairing in Progress',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 8),
-
-              // Subtitle Text
-              Text(
-                "We've received your request. You will be notified once your booking is completed",
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.grey[700],
-                ),
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(height: 30),
-
-              // View Booking Services Button
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    // Handle View Booking Services action here
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: kcPrimaryColor, // Button color
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+                  // Booking Completed Text
+                  Text(
+                    'Pairing in Progress',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                  child: Text(
-                    "Modify booking",
-                    style: TextStyle(fontSize: 16, color: Colors.white),
-                  ),
-                ),
-              ),
-              SizedBox(height: 10), // Space between buttons
+                  SizedBox(height: 8),
 
-              // Track Booking Button
-              SizedBox(
-                width: double.infinity,
-                child: OutlinedButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    // Handle Track Booking action here
-                  },
-                  style: OutlinedButton.styleFrom(
-                    side: BorderSide(color: kcPrimaryColor), // Border color
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+                  // Subtitle Text
+                  Text(
+                    "We've received your request. You will be notified once your booking is completed",
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey[700],
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 80),
+
+                  // View Booking Services Button
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                        showBottomSheet(context);
+                        // Handle View Booking Services action here
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: kcPrimaryColor, // Button color
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                      child: Text(
+                        "Modify booking",
+                        style: TextStyle(fontSize: 16, color: Colors.white),
+                      ),
                     ),
                   ),
-                  child: Text(
-                    "Cancel booking",
-                    style: TextStyle(fontSize: 16, color: kcPrimaryColor),
+                  SizedBox(height: 10), // Space between buttons
+
+                  // Track Booking Button
+                  SizedBox(
+                    width: double.infinity,
+                    child: OutlinedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                        // Handle Track Booking action here
+                      },
+                      style: OutlinedButton.styleFrom(
+                        side: BorderSide(color: kcPrimaryColor), // Border color
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                      child: Text(
+                        "Cancel booking",
+                        style: TextStyle(fontSize: 16, color: kcPrimaryColor),
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       );
     },
   );
 }
+void showBottomSheet(BuildContext context) {
+  showModalBottomSheet(
+    context: context,
+    isScrollControlled: true,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+    ),
+    builder: (BuildContext context) {
+      return FractionallySizedBox(
+        heightFactor: 1.0,
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(height: 20),
+                  Text(
+                    'Cancel',
+                    style: TextStyle(
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    "Are you sure you want to cancel \nyour booking?",
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey[700],
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 80),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: kcPrimaryColor,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                      child: Text(
+                        "Yes",
+                        style: TextStyle(fontSize: 16, color: Colors.white),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  SizedBox(
+                    width: double.infinity,
+                    child: OutlinedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      style: OutlinedButton.styleFrom(
+                        side: BorderSide(color: kcPrimaryColor),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                      child: Text(
+                        "No",
+                        style: TextStyle(fontSize: 16, color: kcPrimaryColor),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+    },
+  );
+}
+
+

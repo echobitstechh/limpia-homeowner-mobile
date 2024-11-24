@@ -191,7 +191,7 @@ class BookedView extends StatelessWidget {
                 buildDetailTile('\$50 per hour', 'Price', Icons.money),
               ],
             ),
-            verticalSpaceMassive,
+            verticalSpaceLarge,
             Column(
               children: [
                 buildButton('Renotify', kcPrimaryColor),
