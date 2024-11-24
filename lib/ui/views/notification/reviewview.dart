@@ -1,8 +1,10 @@
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:limpia/ui/common/ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import '../../../state.dart';
 import '../../common/app_colors.dart';
+import '../../components/submit_button.dart';
 import 'notification_viewmodel.dart';
 
 class Reviewview extends StackedView<NotificationViewModel> {
@@ -104,7 +106,7 @@ class Reviewview extends StackedView<NotificationViewModel> {
                   children: [
                     ElevatedButton(
                         onPressed: () {
-
+                          _showCustomBottomSheet(context);
                         },
                         style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
@@ -140,7 +142,7 @@ class Reviewview extends StackedView<NotificationViewModel> {
                                 fontSize: 24,
                                 color: kcPrimaryColor
                             ),
-                            'Yes')
+                            'No')
                     ),
                   ],
                 ),
@@ -151,7 +153,213 @@ class Reviewview extends StackedView<NotificationViewModel> {
       ),
     );
   }
+  void _showCustomBottomSheet(BuildContext context) {
+    int selectedRooms = 1; // Default selected room number
+    double selectedBathrooms = 0; // Default selected bathroom count
+    bool isIndividualCleaner = true;
+    int selectedCleaners = 1;
 
+    showModalBottomSheet(
+      backgroundColor: Colors.grey,
+      context: context,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            return Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: SingleChildScrollView(
+                child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Center(
+                        child: Container(
+                          width: 50,
+                          height: 5,
+                          decoration: BoxDecoration(
+                            color: Colors.grey[300],
+                            borderRadius: BorderRadius.circular(2.5),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 16.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                                style: TextStyle(
+                                  fontSize: 24,
+                                ),
+                                'Rate Mavin Tracy'
+                            ),
+                            Center(
+                              child: RatingBarIndicator(
+                                rating:
+                                5, // Replace with dynamic rating
+                                itemBuilder: (context, index) =>
+                                    Icon(
+                                      Icons.star,
+                                      color: Colors.white,
+                                    ),
+                                itemCount: 5,
+                                itemSize: 70.0,
+                              ),
+                            ),
+                            Text(
+                                style: TextStyle(
+                                  fontSize: 24,
+                                ),
+                                'What did you like?'
+                            ),
+                            Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    ElevatedButton(
+                                        onPressed: () {
+
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(10)
+                                          ),
+                                          backgroundColor: Colors.white,
+                                          minimumSize: Size(80, 50),
+                                          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                                        ),
+                                        child: Text(
+                                            style: TextStyle(
+                                                fontSize: 11,
+                                                color: Colors.black
+                                            ),
+                                            'Punctuality')
+                                    ),
+                                    ElevatedButton(
+                                        onPressed: () {
+
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(10)
+                                          ),
+                                          backgroundColor: Colors.white,
+                                          minimumSize: Size(80, 50),
+                                          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                                        ),
+                                        child: Text(
+                                            style: TextStyle(
+                                                fontSize: 11,
+                                                color: Colors.black
+                                            ),
+                                            'Thoroughness')
+                                    ),
+                                    ElevatedButton(
+                                        onPressed: () {
+
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(10)
+                                          ),
+                                          backgroundColor: Colors.white,
+                                          minimumSize: Size(80, 50),
+                                          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                                        ),
+                                        child: Text(
+                                            style: TextStyle(
+                                                fontSize: 11,
+                                                color: Colors.black
+                                            ),
+                                            'Professionalism')
+                                    ),
+                                  ],
+                                ),
+                                verticalSpaceSmall,
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    ElevatedButton(
+                                        onPressed: () {
+
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(10)
+                                          ),
+                                          backgroundColor: Colors.white,
+                                          minimumSize: Size(80, 50),
+                                          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                                        ),
+                                        child: Text(
+                                            style: TextStyle(
+                                                fontSize: 11,
+                                                color: Colors.black
+                                            ),
+                                            'Communication')
+                                    ),
+                                    horizontalSpaceMedium,
+                                    ElevatedButton(
+                                        onPressed: () {
+
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(10)
+                                          ),
+                                          backgroundColor: Colors.white,
+                                          minimumSize: Size(80, 50),
+                                          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                                        ),
+                                        child: Text(
+                                            style: TextStyle(
+                                                fontSize: 11,
+                                                color: Colors.black
+                                            ),
+                                            'Efficiency')
+                                    ),
+                                  ],
+                                ),
+                                verticalSpaceMedium,
+                                TextField(
+                                  style: TextStyle(
+                                    color: Colors.white
+                                  ),
+                                  decoration: InputDecoration(
+                                    labelText: 'Comments',
+                                    border: OutlineInputBorder(),
+                                  ),
+                                  maxLines: 4,
+                                ),
+                                // SubmitButton(
+                                //   isLoading: model.isBusy,
+                                //   boldText: true,
+                                //   label: "Continue",
+                                //   submit: () {
+                                //   },
+                                //   color: Colors.black,
+                                // ),
+                              ],
+                            )
+                          ],
+                        ),
+                      )
+                    ]
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
   @override
   NotificationViewModel viewModelBuilder(
     BuildContext context,
