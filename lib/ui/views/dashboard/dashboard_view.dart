@@ -8,6 +8,7 @@ import 'package:stacked/stacked.dart';
 import '../../../state.dart';
 import '../draws/booked_view.dart';
 import '../draws/draws_view.dart';
+import '../notification/reviewview.dart';
 import '../payment/payment_view.dart';
 import 'dashboard_viewmodel.dart';
 import 'package:animated_segmented_tab_control/animated_segmented_tab_control.dart';
@@ -609,7 +610,7 @@ class DashboardView extends StackedView<DashboardViewModel> {
                             leading: ClipOval(
                               child: Container(
                                 color: Colors.grey[
-                                    200], // Background color for the circular shape
+                                200], // Background color for the circular shape
                                 child: SvgPicture.asset(
                                   'assets/images/cancel.svg',
                                   height: 20,
@@ -623,6 +624,99 @@ class DashboardView extends StackedView<DashboardViewModel> {
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                             subtitle: Text('Yesterday, 2:00 PM'),
+                          ),
+                        ),
+                      ),
+                      Card(
+                        margin: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+                        elevation: 5,
+                        color: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            children: [
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(8),
+                                    child: Container(
+                                        width: 60,
+                                        height: 70,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: Colors.grey.shade300, width: 1),
+                                          borderRadius: BorderRadius.circular(8),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.black.withOpacity(0.1),
+                                              spreadRadius: 1,
+                                              blurRadius: 3,
+                                              offset: Offset(0, 2),
+                                            ),
+                                          ],
+                                        ),
+                                        child:
+                                        ClipRRect(
+                                          borderRadius: BorderRadius.circular(30.0),
+                                          child: Container(
+                                            color: Colors.lightBlueAccent,
+                                            child: Image.asset(
+                                                fit: BoxFit.cover,
+                                                width: 100,
+                                                height: 100,
+                                                'assets/images/Frame14.png'
+                                            ),
+                                          ),
+                                        )
+                                    ),
+                                  ),
+                                  SizedBox(width: 16),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(height: 2),
+                                        Row(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Column(
+                                              children: [
+                                                Text(
+                                                  '🔔 Tracy Mavin marked your work\n as completed.',
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 18, ),
+                                                ),
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    Navigator.of(context)
+                                                        .push(MaterialPageRoute(builder: (c) {
+                                                      return  Reviewview();
+                                                    }));
+
+                                                  },
+                                                  child: Text(
+                                                    'Review Tracy’s work',
+                                                    style: TextStyle(
+                                                      fontWeight: FontWeight.bold,
+                                                      color: kcPrimaryColor,
+                                                      fontSize: 14, ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
                         ),
                       ),
