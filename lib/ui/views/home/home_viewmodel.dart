@@ -40,8 +40,8 @@ class HomeViewModel extends BaseViewModel {
      DashboardView(),
      const DrawsView(),
     const CartView(),
+    const ProfileView(),
     const NotificationView(),
-    const ProfileView()
   ];
 
   int selectedRafflesTab = 0;
@@ -60,16 +60,16 @@ class HomeViewModel extends BaseViewModel {
   List<Widget> rafflesPages = [
     DashboardView(),
      const DrawsView(),
+    const ProfileView(),
     const NotificationView(),
-    const ProfileView()
   ];
 
   // Pages for the Shop dashboard
   List<Widget> shopPages = [
     // ShopDashboardView(),
      const DrawsView(),
+    const ProfileView(),
     const NotificationView(),
-    const ProfileView()
   ];
 
   HomeViewModel() {
