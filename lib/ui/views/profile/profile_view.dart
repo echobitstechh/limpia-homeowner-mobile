@@ -9,6 +9,7 @@ import 'package:limpia/ui/components/profile_picture.dart';
 import 'package:limpia/ui/views/profile/order_list.dart';
 import 'package:limpia/ui/views/profile/profile_details.dart';
 import 'package:limpia/ui/views/profile/refferal.dart';
+import 'package:limpia/ui/views/profile/settings_view.dart';
 import 'package:limpia/ui/views/profile/support.dart';
 import 'package:limpia/ui/views/profile/ticket_list.dart';
 import 'package:flutter/cupertino.dart';
@@ -251,6 +252,21 @@ class ProfileView extends StatelessWidget {
                               width: 24,
                             ),
                             title: const Text("Support"),
+                          ),
+                          ListTile(
+                            onTap: () {
+                              Navigator.of(context)
+                                  .push(MaterialPageRoute(builder: (c) {
+                                return Settings();
+                              }));
+                            },
+                            leading: SvgPicture.asset(
+                              'assets/images/phone-outgoing.svg', // Replace with your SVG file path
+                              color: kcSecondaryColor,        // Set the color for the icon
+                              height: 24,
+                              width: 24,
+                            ),
+                            title: const Text("Settings"),
                           ),
                           ListTile(
                             onTap: () {
