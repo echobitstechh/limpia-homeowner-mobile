@@ -5,9 +5,14 @@ import 'package:limpia/ui/common/ui_helpers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
+import 'package:top_bottom_sheet_flutter/top_bottom_sheet_flutter.dart';
+import '../../../app/app.locator.dart';
+import '../../../app/app.router.dart';
 import '../../../state.dart';
 import '../draws/booked_view.dart';
 import '../draws/draws_view.dart';
+import '../notification/notification_view.dart';
 import '../notification/reviewview.dart';
 import '../payment/payment_view.dart';
 import 'dashboard_viewmodel.dart';
@@ -60,7 +65,9 @@ class DashboardView extends StackedView<DashboardViewModel> {
             padding: const EdgeInsets.only(right: 16.0),
             child: GestureDetector(
               onTap: () {
-                _showTopSheet(context);
+                //_showTopSheet(context);
+                _showNotificationSheet(context, viewModel);
+
               },
               child: Icon(
                 Icons.notifications_active_outlined,
@@ -389,13 +396,19 @@ class DashboardView extends StackedView<DashboardViewModel> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text(
-                              'Experience: 5 years in residential and commercial \ncleaning',
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: Colors.black,
+                            const SizedBox(
+                              width: 300, // Adjust the width to control line-breaking
+                              child: Text(
+                                'Experience: 5 years in residential and commercial cleaning',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.black,
+                                ),
+                                maxLines: 2, // Ensure the text does not exceed two lines
+                                overflow: TextOverflow.ellipsis, // Add ellipsis if the text is too long
                               ),
                             ),
+
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -463,273 +476,273 @@ class DashboardView extends StackedView<DashboardViewModel> {
     );
   }
 
-  void _showTopSheet(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (BuildContext context) {
-        return Align(
-          alignment: Alignment.topCenter,
-          child: Container(
-            height: MediaQuery.of(context).size.height * 0.4,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.vertical(
-                bottom: Radius.circular(16),
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black12,
-                  blurRadius: 10,
-                  spreadRadius: 5,
-                ),
-              ],
+
+  void _showNotificationSheet(BuildContext context, DashboardViewModel viewModel) {
+    TopModalSheet.show(
+        context: context,
+        isShowCloseButton: true,
+        closeButtonRadius: 20.0,
+        closeButtonBackgroundColor: kcPrimaryColor,
+      child: Container(
+        height: MediaQuery.of(context).size.height * 0.4,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(16),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 10,
+              spreadRadius: 5,
             ),
-            child: Column(
-              children: [
-                Padding(
-                  padding:
-                      const EdgeInsets.only(left: 18.0, right: 18, top: 18),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Text(
-                          'Notifications',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+          ],
+        ),
+        child: Column(
+          children: [
+            Padding(
+              padding:
+              const EdgeInsets.only(left: 18.0, right: 18, top: 18),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Text(
+                      'Notifications',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
                       ),
-                      IconButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        icon: Icon(Icons.close),
-                      ),
-                    ],
+                    ),
                   ),
-                ),
-                Divider(),
-                Expanded(
-                  child: ListView(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 8.0, horizontal: 16.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(12),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.2),
-                                blurRadius: 6,
-                                spreadRadius: 2,
-                                offset: Offset(0, 4), // Shadow position
-                              ),
-                            ],
-                          ),
-                          child: ListTile(
-                            leading: ClipOval(
-                              child: Container(
-                                color: Colors.grey[200],
-                                child: SvgPicture.asset(
-                                  'assets/images/calender.svg',
-                                  height: 20,
-                                  width: 20,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            title: Text(
-                              '🔔Cleaner Accepted',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            subtitle: Text('Today, 10:00 AM'),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 8.0, horizontal: 16.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(12),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.2),
-                                blurRadius: 6,
-                                spreadRadius: 2,
-                                offset: Offset(0, 4), // Shadow position
-                              ),
-                            ],
-                          ),
-                          child: ListTile(
-                            leading: ClipOval(
-                              child: Container(
-                                color: Colors.grey[
-                                    200], // Background color for the circular shape
-                                child: SvgPicture.asset(
-                                  'assets/images/book.svg',
-                                  height: 20,
-                                  width: 20,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            title: Text(
-                              '🔔 Your cleaning service has been canceled',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            subtitle: Text('Tomorrow, 9:00 AM'),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 8.0, horizontal: 16.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(12),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.2),
-                                blurRadius: 6,
-                                spreadRadius: 2,
-                                offset: Offset(0, 4), // Shadow position
-                              ),
-                            ],
-                          ),
-                          child: ListTile(
-                            leading: ClipOval(
-                              child: Container(
-                                color: Colors.grey[
-                                200], // Background color for the circular shape
-                                child: SvgPicture.asset(
-                                  'assets/images/cancel.svg',
-                                  height: 20,
-                                  width: 20,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            title: Text(
-                              '🔔Cleaner Booked',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            subtitle: Text('Yesterday, 2:00 PM'),
-                          ),
-                        ),
-                      ),
-                      Card(
-                        margin: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-                        elevation: 5,
+                ],
+              ),
+            ),
+            Divider(),
+            Expanded(
+              child: ListView(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 8.0, horizontal: 16.0),
+                    child: Container(
+                      decoration: BoxDecoration(
                         color: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
+                        borderRadius: BorderRadius.circular(12),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.2),
+                            blurRadius: 6,
+                            spreadRadius: 2,
+                            offset: Offset(0, 4), // Shadow position
+                          ),
+                        ],
+                      ),
+                      child: InkWell(
+                        onTap: (){
+                            Navigator.of(context)
+                                .push(MaterialPageRoute(builder: (c) {
+                              return  NotificationView();
+                            }));
+                        },
+                        child: ListTile(
+                          leading: ClipOval(
+                            child: Container(
+                              color: Colors.grey[200],
+                              child: SvgPicture.asset(
+                                'assets/images/tick.svg',
+                                height: 20,
+                                width: 20,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          title: Text(
+                            '🔔Cleaner Accepted',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          subtitle: Text('Today, 10:00 AM'),
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Column(
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 8.0, horizontal: 16.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(12),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.2),
+                            blurRadius: 6,
+                            spreadRadius: 2,
+                            offset: Offset(0, 4), // Shadow position
+                          ),
+                        ],
+                      ),
+                      child: ListTile(
+                        leading: ClipOval(
+                          child: Container(
+                            color: Colors.grey[
+                            200], // Background color for the circular shape
+                            child: SvgPicture.asset(
+                              'assets/images/book.svg',
+                              height: 20,
+                              width: 20,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        title: Text(
+                          '🔔 Your cleaning service has been canceled',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        subtitle: Text('Tomorrow, 9:00 AM'),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 8.0, horizontal: 16.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(12),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.2),
+                            blurRadius: 6,
+                            spreadRadius: 2,
+                            offset: Offset(0, 4), // Shadow position
+                          ),
+                        ],
+                      ),
+                      child: ListTile(
+                        leading: ClipOval(
+                          child: Container(
+                            color: Colors.grey[
+                            200], // Background color for the circular shape
+                            child: SvgPicture.asset(
+                              'assets/images/cancel.svg',
+                              height: 20,
+                              width: 20,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        title: Text(
+                          '🔔Cleaner Booked',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        subtitle: Text('Yesterday, 2:00 PM'),
+                      ),
+                    ),
+                  ),
+                  Card(
+                    margin: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+                    elevation: 5,
+                    color: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(8),
-                                    child: Container(
-                                        width: 60,
-                                        height: 70,
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                              color: Colors.grey.shade300, width: 1),
-                                          borderRadius: BorderRadius.circular(8),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: Colors.black.withOpacity(0.1),
-                                              spreadRadius: 1,
-                                              blurRadius: 3,
-                                              offset: Offset(0, 2),
-                                            ),
-                                          ],
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: Container(
+                                    width: 60,
+                                    height: 70,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: Colors.grey.shade300, width: 1),
+                                      borderRadius: BorderRadius.circular(8),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.1),
+                                          spreadRadius: 1,
+                                          blurRadius: 3,
+                                          offset: Offset(0, 2),
                                         ),
-                                        child:
-                                        ClipRRect(
-                                          borderRadius: BorderRadius.circular(30.0),
-                                          child: Container(
-                                            color: Colors.lightBlueAccent,
-                                            child: Image.asset(
-                                                fit: BoxFit.cover,
-                                                width: 100,
-                                                height: 100,
-                                                'assets/images/Frame14.png'
-                                            ),
-                                          ),
-                                        )
+                                      ],
                                     ),
-                                  ),
-                                  SizedBox(width: 16),
-                                  Expanded(
-                                    child: Column(
+                                    child:
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(30.0),
+                                      child: Container(
+                                        color: Colors.lightBlueAccent,
+                                        child: Image.asset(
+                                            fit: BoxFit.cover,
+                                            width: 100,
+                                            height: 100,
+                                            'assets/images/Frame14.png'
+                                        ),
+                                      ),
+                                    )
+                                ),
+                              ),
+                              SizedBox(width: 16),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(height: 2),
+                                    Row(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        SizedBox(height: 2),
-                                        Row(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                        Column(
                                           children: [
-                                            Column(
-                                              children: [
-                                                Text(
-                                                  '🔔 Tracy Mavin marked your work\n as completed.',
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 18, ),
-                                                ),
-                                                GestureDetector(
-                                                  onTap: () {
-                                                    Navigator.of(context)
-                                                        .push(MaterialPageRoute(builder: (c) {
-                                                      return  Reviewview();
-                                                    }));
+                                            Text(
+                                              '🔔 Tracy Mavin marked your work\n as completed.',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 18, ),
+                                            ),
+                                            GestureDetector(
+                                              onTap: () {
+                                                Navigator.of(context)
+                                                    .push(MaterialPageRoute(builder: (c) {
+                                                  return  Reviewview();
+                                                }));
 
-                                                  },
-                                                  child: Text(
-                                                    'Review Tracy’s work',
-                                                    style: TextStyle(
-                                                      fontWeight: FontWeight.bold,
-                                                      color: kcPrimaryColor,
-                                                      fontSize: 14, ),
-                                                  ),
-                                                ),
-                                              ],
+                                              },
+                                              child: Text(
+                                                'Review Tracy’s work',
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: kcPrimaryColor,
+                                                  fontSize: 14, ),
+                                              ),
                                             ),
                                           ],
                                         ),
                                       ],
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ],
                           ),
-                        ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        );
-      },
+          ],
+        ),
+      ),
     );
   }
+
 
   void showBtbSheet(BuildContext context) {
     showModalBottomSheet(
