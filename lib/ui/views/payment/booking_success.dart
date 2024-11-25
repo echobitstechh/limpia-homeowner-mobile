@@ -13,6 +13,7 @@ class BookingSuccessView extends StatelessWidget {
         backgroundColor: kcWhiteColor, // Replace with `kcPrimaryColor`
         elevation: 0,
         leading: null,
+        automaticallyImplyLeading: false,
         centerTitle: true,
       ),
 
@@ -253,42 +254,50 @@ void showBottomSheet(BuildContext context) {
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 80),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: kcPrimaryColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ElevatedButton(
+                          onPressed: () {
+                            // _showCustomBottomSheet(context);
+                          },
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10)
+                            ),
+                            backgroundColor: kcPrimaryColor,
+                            minimumSize: Size(120, 50),
+                            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                          ),
+                          child: Text(
+                              style: TextStyle(
+                                  fontSize: 24,
+                                  color: Colors.white
+                              ),
+                              'Yes')
                       ),
-                      child: Text(
-                        "Yes",
-                        style: TextStyle(fontSize: 16, color: Colors.white),
+                      horizontalSpaceMedium,
+                      ElevatedButton(
+                          onPressed: () {
+
+                          },
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                                side: BorderSide(color: kcPrimaryColor),
+                                borderRadius: BorderRadius.circular(10)
+                            ),
+                            backgroundColor: Colors.white,
+                            minimumSize: Size(120, 50),
+                            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                          ),
+                          child: Text(
+                              style: TextStyle(
+                                  fontSize: 24,
+                                  color: kcPrimaryColor
+                              ),
+                              'No')
                       ),
-                    ),
-                  ),
-                  SizedBox(height: 10),
-                  SizedBox(
-                    width: double.infinity,
-                    child: OutlinedButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      style: OutlinedButton.styleFrom(
-                        side: BorderSide(color: kcPrimaryColor),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ),
-                      child: Text(
-                        "No",
-                        style: TextStyle(fontSize: 16, color: kcPrimaryColor),
-                      ),
-                    ),
+                    ],
                   ),
                 ],
               ),

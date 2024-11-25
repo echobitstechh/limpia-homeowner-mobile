@@ -15,7 +15,7 @@ class PaymentView extends StatelessWidget {
         backgroundColor: kcPrimaryColor, // Replace with `kcPrimaryColor`
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
+          icon: const Icon(Icons.arrow_back_ios, color: Colors.grey,),
           onPressed: () {
             Navigator.pop(context); // Back navigation
           },
@@ -27,7 +27,7 @@ class PaymentView extends StatelessWidget {
         centerTitle: true,
         actions: [
           IconButton(
-            icon: const Icon(Icons.add),
+            icon: const Icon(Icons.add, color: Colors.grey,),
             onPressed: () {
               // Handle add action
             },
