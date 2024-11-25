@@ -23,6 +23,13 @@ class NotificationDetails extends StackedView<NotificationViewModel> {
       'price': 150,
       'date': 'October 15 friday 9:00am',
     },
+    {
+      'name': 'Marvin Tracy',
+      'description': 'Service: Basic cleaning.',
+      'rating': 4.0,
+      'price': 150,
+      'date': 'October 15 friday 9:00am',
+    },
   ];
 
   @override
@@ -245,8 +252,10 @@ class NotificationDetails extends StackedView<NotificationViewModel> {
 
   Widget buildButton(String label, Color color) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(10.0),
       child: Container(
+        width: 350,
+        height: 40,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10),
@@ -259,12 +268,15 @@ class NotificationDetails extends StackedView<NotificationViewModel> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(
-                  label,
-                  style: TextStyle(
-                    color: color,
-                    fontFamily: 'Poppins',
-                    fontSize: 16,
+                Padding(
+                  padding: const EdgeInsets.only(bottom:16.0),
+                  child: Text(
+                    label,
+                    style: TextStyle(
+                      color: color,
+                      fontFamily: 'Poppins',
+                      fontSize: 16,
+                    ),
                   ),
                 ),
               ],
