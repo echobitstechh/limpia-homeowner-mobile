@@ -17,7 +17,7 @@ class FlutterwavePaymentService {
     final Customer customer = Customer(
       name: '${profile.value.firstname} ${profile.value.lastname}' ?? "Afriprize NG",
       phoneNumber: profile.value.phone ?? "07045007400",
-      email: profile.value.email ?? 'dev@afriprize.com',
+      email: profile.value.email ?? 'dev@echobitstech.com',
     );
 
     final Flutterwave flutterwave = Flutterwave(
@@ -26,7 +26,7 @@ class FlutterwavePaymentService {
       currency: "NGN",
       amount: amount,
       txRef: reference!,
-      redirectUrl: "https://www.afriprize.com",
+      redirectUrl: "https://www.echobitstech.com",
       customer: customer,
       paymentOptions: "card, ussd, payattitude, barter",
       customization: Customization(title: "Afriprize Test Payment"),

@@ -28,7 +28,7 @@ library;
 const String defaultApplePay = '''{
   "provider": "apple_pay",
   "data": {
-    "merchantIdentifier": "merchant.afriprize.com.mobile",
+    "merchantIdentifier": "merchant.echobitstech.com.mobile",
     "displayName": "Afriprize",
     "merchantCapabilities": ["3DS", "debit", "credit"],
     "supportedNetworks": ["amex", "visa", "discover", "masterCard"],

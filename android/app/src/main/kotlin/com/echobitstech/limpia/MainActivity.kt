@@ -1,4 +1,4 @@
-package com.afriprize.afriprize
+package com.echobitstech.limpia
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -284,7 +284,7 @@ class StackedRouter extends _i1.RouterBase {
     },
     _i9.NotificationView: (data) {
       return _i21.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i9.NotificationView(),
+        builder: (context) =>  _i9.NotificationView(),
         settings: data,
       );
     },

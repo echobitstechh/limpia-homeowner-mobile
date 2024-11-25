@@ -18,6 +18,8 @@ import '../payment/payment_view.dart';
 import 'dashboard_viewmodel.dart';
 import 'package:animated_segmented_tab_control/animated_segmented_tab_control.dart';
 
+import 'notification_details.dart';
+
 class DashboardView extends StackedView<DashboardViewModel> {
   DashboardView({Key? key}) : super(key: key);
 
@@ -543,7 +545,7 @@ class DashboardView extends StackedView<DashboardViewModel> {
                         onTap: (){
                             Navigator.of(context)
                                 .push(MaterialPageRoute(builder: (c) {
-                              return  NotificationView();
+                              return  NotificationDetails();
                             }));
                         },
                         child: ListTile(

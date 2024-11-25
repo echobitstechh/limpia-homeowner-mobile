@@ -1,9 +1,9 @@
-// import 'package:afriprize/app/app.locator.dart';
-// import 'package:afriprize/core/data/models/order_item.dart';
-// import 'package:afriprize/core/data/repositories/repository.dart';
-// import 'package:afriprize/ui/common/ui_helpers.dart';
-// import 'package:afriprize/ui/components/submit_button.dart';
-// import 'package:afriprize/ui/components/text_field_widget.dart';
+// import 'package:echobitstech/app/app.locator.dart';
+// import 'package:echobitstech/core/data/models/order_item.dart';
+// import 'package:echobitstech/core/data/repositories/repository.dart';
+// import 'package:echobitstech/ui/common/ui_helpers.dart';
+// import 'package:echobitstech/ui/components/submit_button.dart';
+// import 'package:echobitstech/ui/components/text_field_widget.dart';
 // import 'package:awesome_rating/awesome_rating.dart';
 // import 'package:casa_vertical_stepper/casa_vertical_stepper.dart';
 // import 'package:flutter/material.dart';

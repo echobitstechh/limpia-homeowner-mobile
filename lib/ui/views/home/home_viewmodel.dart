@@ -40,7 +40,7 @@ class HomeViewModel extends BaseViewModel {
      DashboardView(),
      const DrawsView(),
     const CartView(),
-    const NotificationView(),
+     NotificationView(),
     const ProfileView()
   ];
 
@@ -60,7 +60,7 @@ class HomeViewModel extends BaseViewModel {
   List<Widget> rafflesPages = [
     DashboardView(),
      const DrawsView(),
-    const NotificationView(),
+     NotificationView(),
     const ProfileView()
   ];
 
@@ -68,7 +68,7 @@ class HomeViewModel extends BaseViewModel {
   List<Widget> shopPages = [
     // ShopDashboardView(),
      const DrawsView(),
-    const NotificationView(),
+     NotificationView(),
     const ProfileView()
   ];
 

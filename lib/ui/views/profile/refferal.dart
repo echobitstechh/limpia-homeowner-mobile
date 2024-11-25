@@ -192,7 +192,7 @@ class _ReferralState extends State<Referral> {
     final String shareText =
         "Sharing is caring, but winning is better! Use my code $referralCode"
         " when you sign up for AfriPrize and get a head start on winning!"
-        " #AfriPrize #FriendsWhoRaffleTogether. https://staging.afriprize.com";
+        " #AfriPrize #FriendsWhoRaffleTogether. https://staging.echobitstech.com";
 
 
     Share.share(shareText, subject: 'AfriPrize: where losing is (almost) impossible!');
