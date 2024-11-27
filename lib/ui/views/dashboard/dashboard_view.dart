@@ -17,8 +17,8 @@ import '../notification/reviewview.dart';
 import '../payment/payment_view.dart';
 import 'dashboard_viewmodel.dart';
 import 'package:animated_segmented_tab_control/animated_segmented_tab_control.dart';
-
 import 'notification_details.dart';
+import 'package:board_datetime_picker/board_datetime_picker.dart';
 
 class DashboardView extends StackedView<DashboardViewModel> {
   DashboardView({Key? key}) : super(key: key);
@@ -226,26 +226,27 @@ class DashboardView extends StackedView<DashboardViewModel> {
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text('Bookings', style: TextStyle(fontSize: 16)),
-                          GestureDetector(
-                            onTap: () {
-                              //showBtbSheet(context);
-                            },
-                            child: Text('Book Now',
-                                style: TextStyle(
-                                    fontSize: 14, color: kcPrimaryColor)),
-                          ),
-                        ],
-                      ),
-                    ),
+
                   ],
                 ),
               ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Bookings', style: TextStyle(fontSize: 16)),
+                GestureDetector(
+                  onTap: () {
+                    //showBtbSheet(context);
+                  },
+                  child: Text('Book Now',
+                      style: TextStyle(
+                          fontSize: 14, color: kcPrimaryColor)),
+                ),
+              ],
             ),
           ),
           Padding(
@@ -1257,38 +1258,34 @@ Widget buildCleaningTypeCard(String imagePath, String title) {
 void showBottomSheetDatePicker(BuildContext context) {
   showModalBottomSheet(
     context: context,
-    isScrollControlled: true,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-    ),
     builder: (BuildContext context) {
-      return Padding(
-        padding: const EdgeInsets.all(16.0),
+      return Container(
+        padding: EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+        ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Center(
-              child: Container(
-                width: 50,
-                height: 5,
-                decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                  borderRadius: BorderRadius.circular(2.5),
-                ),
-              ),
+            Text(
+              'Select Date and Time',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            Align(
-              alignment: Alignment.center,
-              child: Text(
-                'Date picker',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
-              ),
+            SizedBox(height: 16),
+            BoardDateTimeInputField(
+              initialDate: DateTime.now(),
+              onChanged: (DateTime selectedDateTime) {
+                // Handle selected date and time here
+                print('Selected DateTime: $selectedDateTime');
+              },
+              pickerType:  DateTimePickerType.datetime,
+              options: const BoardDateTimeOptions(
+                languages: BoardPickerLanguages.en(),
+      ),
             ),
-            SizedBox(height: 20),
+
+            SizedBox(height: 16),
             Align(
               alignment: Alignment.centerRight,
               child: ElevatedButton(
@@ -1313,6 +1310,7 @@ void showBottomSheetDatePicker(BuildContext context) {
     },
   );
 }
+
 
 void showBottomSheetCheck(BuildContext context) {
   showModalBottomSheet(

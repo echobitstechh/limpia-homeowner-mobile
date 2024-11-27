@@ -7,11 +7,17 @@ import 'package:limpia/ui/views/auth/set_up.dart';
 import 'package:limpia/utils/country_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:location/location.dart' as locationLib;
 import 'package:stacked/stacked.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../../../app/app.locator.dart';
+import '../../../core/data/models/place_prediction.dart';
+import '../../../core/service/location_service.dart';
+import '../../../core/utils/maps_util.dart';
 import '../../../utils/country_picker_utils.dart';
 import '../../common/ui_helpers.dart';
 import '../home/home_view.dart';
+import 'auth_view.dart';
 
 /// @author George David
 /// email: georgequin19@gmail.com
@@ -20,8 +26,12 @@ import '../home/home_view.dart';
 
 class Register extends StatefulWidget {
   // final TabController controller;
+  final bool isLogin;
   final Function(bool) updateIsLogin;
-  const Register({Key? key, required this.updateIsLogin}) : super(key: key);
+  const Register({Key? key, required this.updateIsLogin, required this.isLogin}) : super(key: key);
+
+
+
 
   @override
   State<Register> createState() => _RegisterState();
@@ -30,15 +40,46 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   List<Country> countries = [];
-  final List<String> genderOptions = ['Kaduna', 'Abuja'];
-
+  // final List<String> genderOptions = ['Kaduna', 'Abuja'];
   bool? loadingCountries = false;
+
+  final PageController _pageController = PageController();
+  int _currentPage = 0;
+  final locationLib.Location location = locationLib.Location();
+  final LocationService _locationService = locator<LocationService>();
+  locationLib.LocationData? _locationData;
+  List<PlacePrediction>? _autocompleteResults = [];
+  PlacePrediction? _selectedAddress;
+
 
   @override
   void initState() {
-    loadCountries();
+    //loadCountries();
+    getService();
+
     super.initState();
   }
+  Future<void> getService() async {
+    _locationData = await _locationService.getCurrentLocation();
+    if (_locationData != null) {
+      setState(() {
+        // _setInitialUserMarker();
+        // _animateToUserLocation();
+      });
+      // _fetchCountryCode(_locationData!.latitude!, _locationData!.longitude!);
+      var address = await MapsUtils().getAddressFromLatLng(
+          _locationData!.latitude!, _locationData!.longitude!);
+      var autocompleteresult =
+      await MapsUtils().placeAutoComplete(address, _locationData);
+      var countryName = await MapsUtils().getCountryFromLatLng(
+          _locationData!.latitude!, _locationData!.longitude!);
+      setState(() {
+        _autocompleteResults = autocompleteresult;
+        // _countryName = countryName;
+      });
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -88,15 +129,15 @@ class _RegisterState extends State<Register> {
                     children: [
                       Expanded(
                         child: TextFieldWidget(
-                          hint: "Firstname",
+                          hint: "Name",
                           controller: model.firstname,
                           inputType: TextInputType.name,
-                          // validator: (value) {
-                          //   if (value.isEmpty) {
-                          //     return 'required';
-                          //   }
-                          //   return null; // Return null to indicate no validation error
-                          // },
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return 'required';
+                            }
+                            return null; // Return null to indicate no validation error
+                          },
                         ),
                       ),
                       const SizedBox(
@@ -106,50 +147,41 @@ class _RegisterState extends State<Register> {
                         child: TextFieldWidget(
                           hint: "Lastname",
                           controller: model.lastname,
-                          // validator: (value) {
-                          //   if (value.isEmpty) {
-                          //     return 'required';
-                          //   }
-                          //   return null; // Return null to indicate no validation error
-                          // },
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return 'required';
+                            }
+                            return null; // Return null to indicate no validation error
+                          },
                         ),
                       ),
                       verticalSpaceSmall,
                     ],
                   ),
-                  verticalSpaceSmall,
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Text(
-                        style: TextStyle(
-                          fontSize: 11,
-                        ),
-                        "Matching names with bank details to process a successful withdrawal."),
-                  ),
+                  // verticalSpaceSmall,
+                  // const Padding(
+                  //   padding: EdgeInsets.symmetric(horizontal: 8.0),
+                  //   child: Text(
+                  //       style: TextStyle(
+                  //         fontSize: 11,
+                  //       ),
+                  //       "Matching names with bank details to process a successful withdrawal."),
+                  // ),
                   verticalSpaceMedium,
                   TextFieldWidget(
                     hint: "Email Address",
                     controller: model.email,
-                    // validator: (value) {
-                    //   // if (value.isEmpty) {
-                    //   //   return 'required';
-                    //   // }
-                    //   if (!RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$').hasMatch(value)) {
-                    //     return 'Invalid email address';
-                    //   }
-                    //   return null; // Return null to indicate no validation error
-                    // },
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'required';
+                      }
+                      if (!RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$').hasMatch(value)) {
+                        return 'Invalid email address';
+                      }
+                      return null; // Return null to indicate no validation error
+                    },
                   ),
-                  verticalSpaceSmall,
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Text(
-                        style: TextStyle(
-                          fontSize: 11,
-                        ),
-                        "A valid email is required for pin resetting and withdrawal requests"),
-                  ),
-                  verticalSpaceMedium,
+
                   // IntlPhoneField(
                   //   decoration: InputDecoration(
                   //     labelText: 'Phone Number',
@@ -191,50 +223,7 @@ class _RegisterState extends State<Register> {
                   //   },
                   // ),
                   //
-                  TextFieldWidget(
-                    hint: "Address",
-                    controller: model.addressController,
-                    // validator: (value) {
-                    //   if (value.isEmpty) {
-                    //     return 'required';
-                    //   }
-                    //   return null; // Return null to indicate no validation error
-                    // },
-                  ),
                   verticalSpaceMedium,
-                  DropdownButtonFormField(
-                    decoration: InputDecoration(
-                      labelText: 'City',
-                      labelStyle:
-                          const TextStyle(color: Colors.black, fontSize: 13),
-                      floatingLabelStyle: const TextStyle(color: Colors.black),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        borderSide: const BorderSide(color: Color(0xFFCC9933)),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        borderSide: const BorderSide(color: Color(0xFFCC9933)),
-                      ),
-                    ),
-                    value: model
-                        .selectedGender, // You should add selectedGender to your model
-                    onSaved: (String? newValue) {
-                      model.selectedGender = newValue!;
-                    },
-                    onChanged: (String? newValue) {
-                      model.selectedGender = newValue!;
-                    },
-                    items: genderOptions
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                    // validator: (value) => value == null ? 'Please select a city' : null,
-                  ),
-                  verticalSpaceSmall,
                   TextFieldWidget(
                     inputType: TextInputType.visiblePassword,
                     hint: "Password",
@@ -247,62 +236,96 @@ class _RegisterState extends State<Register> {
                       child: Icon(model.obscure
                           ? Icons.visibility_off
                           : Icons.visibility),
-                      // ),
-                      // validator: (value) {
-                      //   if (value.isEmpty) {
-                      //     return 'Password is required';
-                      //   }
-                      //   if (value.length < 8) {
-                      //     return 'Password must be at least 8 characters long';
-                      //   }
-                      //   if (!RegExp(r'[A-Z]').hasMatch(value)) {
-                      //     return 'Password must contain at least one uppercase letter';
-                      //   }
-                      //   if (!RegExp(r'[a-z]').hasMatch(value)) {
-                      //     return 'Password must contain at least one lowercase letter';
-                      //   }
-                      //   if (!RegExp(r'[0-9]').hasMatch(value)) {
-                      //     return 'Password must contain at least one digit';
-                      //   }
-                      //   if (!RegExp(r'[!@#$%^&*]').hasMatch(value)) {
-                      //     return 'Password must contain at least one special character';
-                      //   }
-                      //   return null; // Return null to indicate no validation error
-                      // },
+                      ),
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Password is required';
+                        }
+                        if (value.length < 8) {
+                          return 'Password must be at least 8 characters long';
+                        }
+                        if (!RegExp(r'[A-Z]').hasMatch(value)) {
+                          return 'Password must contain at least one uppercase letter';
+                        }
+                        if (!RegExp(r'[a-z]').hasMatch(value)) {
+                          return 'Password must contain at least one lowercase letter';
+                        }
+                        if (!RegExp(r'[0-9]').hasMatch(value)) {
+                          return 'Password must contain at least one digit';
+                        }
+                        if (!RegExp(r'[!@#$%^&*]').hasMatch(value)) {
+                          return 'Password must contain at least one special character';
+                        }
+                        return null; // Return null to indicate no validation error
+                      },
                     ),
-                  ),
-                  verticalSpaceSmall,
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Text(
-                        style: TextStyle(
-                          fontSize: 11,
-                        ),
-                        "Must be at least 8 characters with a combination of letters and numbers"),
-                  ),
                   verticalSpaceMedium,
                   TextFieldWidget(
                     hint: "Confirm password",
                     controller: model.cPassword,
                     obscureText: model.obscure,
-                    // validator: (value) {
-                    //   if (value.isEmpty) {
-                    //     return 'Password confirmation is required';
-                    //   }
-                    //   if (value != model.password.text) {
-                    //     return 'Passwords do not match';
-                    //   }
-                    //   return null; // Return null to indicate no validation error
-                    // },
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Password confirmation is required';
+                      }
+                      if (value != model.password.text) {
+                        return 'Passwords do not match';
+                      }
+                      return null; // Return null to indicate no validation error
+                    },
                     suffix: InkWell(
                       onTap: () {
                         model.toggleObscure();
                       },
-                      child: Icon(model.obscure
-                          ? Icons.visibility_off
-                          : Icons.visibility),
+                      child:
+                      Icon(model.obscure ? Icons.visibility_off : Icons.visibility),
                     ),
                   ),
+                  verticalSpaceMedium,
+
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      buildSearchField("Enter Address", model.addressController, false,
+                          false, _selectedAddress),
+                      (_autocompleteResults == null || _autocompleteResults!.isEmpty)
+                          ? SizedBox()
+                          : buildAutocompleteResults(false, model.addressController, model),
+                    ],
+                  ),
+                  // verticalSpaceMedium,
+                  // DropdownButtonFormField(
+                  //   decoration: InputDecoration(
+                  //     labelText: 'City',
+                  //     labelStyle:
+                  //     const TextStyle(color: Colors.black, fontSize: 13),
+                  //     floatingLabelStyle: const TextStyle(color: Colors.black),
+                  //     border: OutlineInputBorder(
+                  //       borderRadius: BorderRadius.circular(10.0),
+                  //       borderSide: const BorderSide(color: Color(0xFFCC9933)),
+                  //     ),
+                  //     focusedBorder: OutlineInputBorder(
+                  //       borderRadius: BorderRadius.circular(10.0),
+                  //       borderSide: const BorderSide(color: Color(0xFFCC9933)),
+                  //     ),
+                  //   ),
+                  //   value: model
+                  //       .selectedGender, // You should add selectedGender to your model
+                  //   onSaved: (String? newValue) {
+                  //     model.selectedGender = newValue!;
+                  //   },
+                  //   onChanged: (String? newValue) {
+                  //     model.selectedGender = newValue!;
+                  //   },
+                  //   items: genderOptions
+                  //       .map<DropdownMenuItem<String>>((String value) {
+                  //     return DropdownMenuItem<String>(
+                  //       value: value,
+                  //       child: Text(value),
+                  //     );
+                  //   }).toList(),
+                  //   // validator: (value) => value == null ? 'Please select a city' : null,
+                  // ),
                   verticalSpace(30),
                   InkWell(
                     onTap: model.toggleTerms,
@@ -331,7 +354,7 @@ class _RegisterState extends State<Register> {
                                 : const SizedBox()),
                         horizontalSpaceSmall,
                         const Text(
-                          "I ACCEPT TERMS & CONDITIONS",
+                          "Agree with terms and condition",
                           style: TextStyle(
                               fontSize: 12,
                               decoration: TextDecoration.underline),
@@ -343,17 +366,27 @@ class _RegisterState extends State<Register> {
                   SubmitButton(
                     isLoading: model.isBusy,
                     label: "Continue",
-                    submit: () {
-                      //   if (_formKey.currentState!.validate()) {
-                      //     model.register();
-                      //   }
-
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const HomeView()),
-                      );
+                    submit: () async {
+                      RegistrationResult registrationResult = await model.register();
+                      if (registrationResult == RegistrationResult.success) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const AuthView(isLogin: true)),
+                        );
+                      }
                     },
+                    // submit: () {
+                    //     if (_formKey.currentState!.validate()) {
+                    //       model.register();
+                    //     }
+                    //
+                    //   // Navigator.push(
+                    //   //   context,
+                    //   //   MaterialPageRoute(
+                    //   //       builder: (context) => const HomeView()),
+                    //   // );
+                    // },
                     color: kcPrimaryColor,
                     boldText: true,
                   ),
@@ -367,6 +400,77 @@ class _RegisterState extends State<Register> {
                 ],
               ),
             ),
+    );
+  }
+
+
+  Widget buildSearchField(String hintText, TextEditingController controller,
+      bool showCurrentLocationIcon, bool disable, PlacePrediction? place) {
+    return TextField(
+      controller: controller,
+      enabled: !disable,
+      onChanged: (value) async {
+        print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> calling click on search');
+        var autocompleteResults =
+        await MapsUtils().placeAutoComplete(value, _locationData);
+        print(
+            '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>. auto complete is: $autocompleteResults');
+        setState(() {
+          _autocompleteResults = autocompleteResults;
+        });
+      },
+      readOnly: false,
+      decoration: InputDecoration(
+        hintText: hintText,
+        prefixIcon: const Icon(Icons.location_city_outlined),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide.none,
+        ),
+        filled: true,
+        fillColor: Colors.grey[200],
+      ),
+    );
+  }
+  Widget buildAutocompleteResults(bool isFullScreen, TextEditingController controller, AuthViewModel model) {
+    return SingleChildScrollView(
+      child: ListView.builder(
+        shrinkWrap: true,
+        itemCount: _autocompleteResults?.length,
+        itemBuilder: (context, index) {
+          final prediction = _autocompleteResults?[index];
+          return ListTile(
+            leading: const Icon(Icons.location_on),
+            title: Text(prediction?.mainText ?? ''),
+            subtitle: Text(prediction?.secondaryText ?? ''),
+            onTap: () async {
+              final updatedPrediction =
+              await MapsUtils().getPlaceDetails(prediction!);
+              if (updatedPrediction != null) {
+                final secondaryTextParts = updatedPrediction.secondaryText.split(',');
+
+
+                if (secondaryTextParts.isNotEmpty) {
+                  model.cityValue = secondaryTextParts.first.trim();
+                  model.countryValue = secondaryTextParts.last.trim();
+                  model.addressValue = updatedPrediction.mainText;
+                }
+
+                setState(() {
+                  _selectedAddress = updatedPrediction;
+                  print("selected address main is: ${_selectedAddress?.mainText}");
+                  print("selected address secondary is: ${_selectedAddress?.secondaryText}");
+                  print("selected address description is: ${_selectedAddress?.description}");
+                  controller.text = updatedPrediction.description;
+                  _autocompleteResults = [];
+                  FocusScope.of(context).unfocus();
+                });
+              }
+            },
+          );
+        },
+      ),
+
     );
   }
 

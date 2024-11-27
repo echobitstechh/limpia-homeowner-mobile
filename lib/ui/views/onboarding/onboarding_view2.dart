@@ -16,21 +16,21 @@ class OnboardingView2 extends StatelessWidget {
           description:
           'Easily book experienced cleaners for your home or property. Choose the service, set the schedule, and leave the rest to us!',
           imageUrl: "assets/images/cleaner.png",
-          bgImage: "assets/images/backround.png", textColor: kcWhiteColor,
+          bgImage: "assets/images/backround.png", textColor: kcWhiteColor, bgColor: kcPrimaryColor,
         ),
         OnboardingPageModel(
           title: 'Track Progress and Payments',
           description:
           'View your upcoming appointments, track cleaner arrival, and handle payments securely—all in one app.',
           imageUrl: 'assets/images/Object.png',
-          bgImage: "assets/images/backround2.png", textColor: kcWhiteColor,
+          bgImage: "assets/images/backround2.png", textColor: kcWhiteColor, bgColor: Colors.blue,
         ),
         OnboardingPageModel(
           title: 'Custom Cleaning for Every Need',
           description:
           'Whether it’s a one-time deep clean or regular maintenance, we offer personalized services that fit your schedule and needs.',
           imageUrl: 'assets/images/Object2.png',
-          bgImage: "assets/images/backround3.png", textColor: kcPrimaryColor,
+          bgImage: "assets/images/backround3.png", textColor: kcPrimaryColor, bgColor: kcWhiteColor,
         ),
       ]),
     );
@@ -231,11 +231,14 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
                       },
                       child: Row(
                         children: [
-                          const SizedBox(width: 8),
+                         SizedBox(width: 8),
                           Icon(
                             _currentPage == widget.pages.length - 1
                                 ? Icons.done
                                 : Icons.arrow_forward,
+                            color: kcBlackColor, // Ensure the icon color is visible
+
+
                           ),
                         ],
                       ),
@@ -257,6 +260,7 @@ class OnboardingPageModel {
   final String imageUrl;
   final String bgImage;
   final Color textColor;
+  final Color bgColor;
 
 
   OnboardingPageModel({
@@ -265,5 +269,6 @@ class OnboardingPageModel {
     required this.imageUrl,
     required this.bgImage,
     required this.textColor,
+    required this.bgColor,
   });
 }

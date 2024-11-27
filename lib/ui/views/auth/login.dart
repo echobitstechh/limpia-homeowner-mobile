@@ -1,3 +1,4 @@
+import 'package:flutter_svg/svg.dart';
 import 'package:limpia/app/app.locator.dart';
 import 'package:limpia/app/app.router.dart';
 import 'package:limpia/ui/common/app_colors.dart';
@@ -156,6 +157,53 @@ class _LoginState extends State<Login> {
                 },
                 color: kcPrimaryColor,
               ),
+              verticalSpaceMedium,
+              Row(
+                children: [
+                  Expanded(
+                    child: Divider(thickness: 1),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Text('or'),
+                  ),
+                  Expanded(
+                    child: Divider(thickness: 1),
+                  ),
+                ],
+              ),
+              SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  IconButton(
+                    icon: SvgPicture.asset(
+                      'assets/icons/x.svg',
+                      height: 30,  // Adjust the height as needed
+                      width: 30,   // Adjust the width as needed
+                    ),
+                    onPressed: () {},
+                  ),
+                  IconButton(
+                    icon: SvgPicture.asset(
+                      'assets/icons/fb.svg',
+                      height: 30,  // Adjust the height as needed
+                      width: 30,   // Adjust the width as needed
+                    ),
+                    onPressed: () {},
+                  ),
+                  IconButton(
+                    icon: SvgPicture.asset(
+                      'assets/icons/ggl.svg',
+                      height: 30,  // Adjust the height as needed
+                      width: 30,   // Adjust the width as needed
+                    ),
+                    onPressed: () {},
+                  ),
+                ],
+              ),
+
+
               // verticalSpaceMedium,
               // Row(
               //   mainAxisAlignment: MainAxisAlignment.center,

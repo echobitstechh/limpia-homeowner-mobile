@@ -90,6 +90,17 @@ dependencies:
   csc_picker: ^0.2.7
   animated_segmented_tab_control: ^2.0.0
   flutter_svg: ^2.0.7
+  board_datetime_picker: ^2.1.6
+  google_maps_flutter: ^2.6.1
+  google_maps_webservice: ^0.0.19
+  location: ^5.0.0
+
+
+
+
+
+
+
 
 
 #  flutter_paystack:
