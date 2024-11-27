@@ -46,6 +46,15 @@ class AuthViewModel extends BaseViewModel {
   bool terms = false;
   bool remember = false;
 
+  bool? loadingCountries = false;
+  String? countryValue;
+  String? addressValue;
+  String? cityValue;
+
+
+
+
+
   init() async {
 
     bool rem = await locator<LocalStorage>().fetch(LocalStorageDir.remember);
@@ -110,38 +119,34 @@ class AuthViewModel extends BaseViewModel {
 
 
   void login() async {
-    locator<NavigationService>().clearStackAndShow(Routes.homeView);
     setBusy(true);
 
-    // try {
-    //   ApiResponse res = await repo.login({
-    //     "email": email.text,
-    //     "password": password.text,
-    //     "account_type": "CUSTOMER"
-    //   });
-    //   if (res.statusCode == 201) {
-    //     print('login response: ${res.data["data"]}');
-    //     userLoggedIn.value = true;
-    //     profile.value =
-    //         Profile.fromJson(Map<String, dynamic>.from(res.data['data']["user"]));
-    //     locator<LocalStorage>().save(LocalStorageDir.authToken, res.data['data']["accessToken"]);
-    //     locator<LocalStorage>().save(LocalStorageDir.authRefreshToken, res.data['data']["refreshToken"]);
-    //     locator<LocalStorage>().save(LocalStorageDir.authUser, jsonEncode(res.data['data']["user"]));
-    //     locator<LocalStorage>().save(LocalStorageDir.remember, remember);
-    //
-    //
-    //     if (remember) {
-    //       locator<LocalStorage>().save(LocalStorageDir.lastEmail, email.text);
-    //     } else {
-    //       locator<LocalStorage>().delete(LocalStorageDir.lastEmail);
-    //     }
-    //     locator<NavigationService>().clearStackAndShow(Routes.homeView);
-    //   } else {
-    //     snackBar.showSnackbar(message: res.data["message"]);
-    //   }
-    // } catch (e) {
-    //   log.i(e);
-    // }
+    try {
+      ApiResponse res = await repo.login({
+        "email": email.text,
+        "password": password.text
+      });
+      if (res.statusCode == 200) {
+        print('login response: ${res.data['homeowner']}');
+        userLoggedIn.value = true;
+        profile.value = Profile.fromJson(Map<String, dynamic>.from(res.data['homeowner']));
+        locator<LocalStorage>().save(LocalStorageDir.authToken, res.data['token']);
+        locator<LocalStorage>().save(LocalStorageDir.authRefreshToken, res.data['refreshToken']);
+        locator<LocalStorage>().save(LocalStorageDir.authUser, jsonEncode(res.data['homeowner']));
+        locator<LocalStorage>().save(LocalStorageDir.remember, remember);
+
+        if (remember) {
+          locator<LocalStorage>().save(LocalStorageDir.lastEmail, email.text);
+        } else {
+          locator<LocalStorage>().delete(LocalStorageDir.lastEmail);
+        }
+        locator<NavigationService>().clearStackAndShow(Routes.homeView);
+      } else {
+        snackBar.showSnackbar(message: res.data["message"]);
+      }
+    } catch (e) {
+      log.i(e);
+    }
 
     setBusy(false);
   }
@@ -158,13 +163,13 @@ class AuthViewModel extends BaseViewModel {
 
     try {
       ApiResponse res = await repo.register({
-        "firstname": firstname.text,
-        "lastname": lastname.text,
+        "firstName": firstname.text,
+        "lastName": lastname.text,
         "email": email.text,
-        "phone": phoneNumber.completeNumber,
-        "country": countryId,
+        "address": addressValue,
+        "city": cityValue,
         "password": password.text,
-        "confirm_password": password.text
+
 
       });
       if (res.statusCode == 201) {
@@ -174,7 +179,6 @@ class AuthViewModel extends BaseViewModel {
         firstname.text = "";
         lastname.text = "";
         email.text = "";
-        phone.text = "";
         password.text = "";
         terms = false;
         setBusy(false);
@@ -197,10 +201,14 @@ class AuthViewModel extends BaseViewModel {
 
       }
     } catch (e) {
+
       log.e(e);
       setBusy(false);
       return RegistrationResult.failure;
 
+    } finally {
+      setBusy(false);
+      notifyListeners();
     }
 
   }

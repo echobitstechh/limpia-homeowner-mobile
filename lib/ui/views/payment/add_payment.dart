@@ -30,7 +30,7 @@ class AddPaymentView extends StatelessWidget {
           },
         ),
         title: const Text(
-          "AddPayment Methods",
+          "Add Payment Methods",
           style: TextStyle(fontWeight: FontWeight.bold, color: kcWhiteColor,),
         ),
         centerTitle: true,

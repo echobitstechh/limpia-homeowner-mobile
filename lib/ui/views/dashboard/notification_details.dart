@@ -1,9 +1,14 @@
+import 'package:board_datetime_picker/board_datetime_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:limpia/ui/common/ui_helpers.dart';
 import 'package:flutter/material.dart';
+import 'package:limpia/ui/views/dashboard/track_map.dart';
 import 'package:stacked/stacked.dart';
 import '../../common/app_colors.dart';
+import '../draws/booked_view.dart';
+import '../draws/draws_view.dart';
 import '../notification/notification_viewmodel.dart';
+import 'dashboard_view.dart';
 
 class NotificationDetails extends StackedView<NotificationViewModel> {
   NotificationDetails({Key? key}) : super(key: key);
@@ -34,10 +39,10 @@ class NotificationDetails extends StackedView<NotificationViewModel> {
 
   @override
   Widget builder(
-      BuildContext context,
-      NotificationViewModel viewModel,
-      Widget? child,
-      ) {
+    BuildContext context,
+    NotificationViewModel viewModel,
+    Widget? child,
+  ) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -50,7 +55,7 @@ class NotificationDetails extends StackedView<NotificationViewModel> {
             Navigator.pop(context); // Navigates back
           },
         ),
-        title:    Text(
+        title: Text(
           "Notification",
           style: TextStyle(
             fontWeight: FontWeight.bold,
@@ -68,9 +73,7 @@ class NotificationDetails extends StackedView<NotificationViewModel> {
             ),
             // Background color overlay for readability
             Positioned.fill(
-              child: Container(
-                  color: kcPrimaryColor
-              ),
+              child: Container(color: kcPrimaryColor),
             ),
           ],
         ),
@@ -194,7 +197,7 @@ class NotificationDetails extends StackedView<NotificationViewModel> {
                                               fontSize: 16,
                                               fontWeight: FontWeight.bold,
                                               color:
-                                              Colors.green, // Success color
+                                                  Colors.green, // Success color
                                             ),
                                           ),
                                           const SizedBox(height: 16),
@@ -211,7 +214,7 @@ class NotificationDetails extends StackedView<NotificationViewModel> {
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor:
-                                kcWhiteColor, // Replace with your primary color
+                                    kcWhiteColor, // Replace with your primary color
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(8),
                                   side: BorderSide(
@@ -233,15 +236,19 @@ class NotificationDetails extends StackedView<NotificationViewModel> {
                     ),
                   ),
                 );
-
               },
             ),
           ),
-
           Column(
             children: [
               buildButton('Choose another cleaner', kcPrimaryColor),
-              buildButton('Reschedule', kcPrimaryColor),
+              GestureDetector(
+                onTap: () {
+                  showBottomSheetDatePicker(
+                      context); // Show BottomSheet for rescheduling
+                },
+                child: buildButton('Reschedule', kcPrimaryColor),
+              ),
               buildButton('Cancel booking', kcPrimaryColor),
             ],
           ),
@@ -269,7 +276,7 @@ class NotificationDetails extends StackedView<NotificationViewModel> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(bottom:16.0),
+                  padding: const EdgeInsets.only(bottom: 16.0),
                   child: Text(
                     label,
                     style: TextStyle(
@@ -287,9 +294,161 @@ class NotificationDetails extends StackedView<NotificationViewModel> {
     );
   }
 
+  void showBottomSheetDatePicker(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          padding: const EdgeInsets.all(16),
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text(
+                'Select Date and Time',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 16),
+              BoardDateTimeInputField(
+                initialDate: DateTime.now(),
+                onChanged: (DateTime selectedDateTime) {
+                  // Handle selected date and time here
+                  print('Selected DateTime: $selectedDateTime');
+                },
+                pickerType: DateTimePickerType.datetime,
+                options: const BoardDateTimeOptions(
+                  languages: BoardPickerLanguages.en(),
+                ),
+              ),
+              const SizedBox(height: 16),
+              Align(
+                alignment: Alignment.centerRight,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context); // Close the BottomSheet
+                    showSuccessDialog(context); // Show success dialog
+                  },
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  child: const Text(
+                    "Next",
+                    style: TextStyle(fontSize: 12, color: kcPrimaryColor),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  void showSuccessDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12), // Rounded corners
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min, // Ensure the column takes minimum space
+            children: [
+              Center(child: Image.asset('assets/images/success.png')),
+              verticalSpaceSmall,
+              Text(
+                'Booking Completed',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              verticalSpaceSmall,
+              Text(
+                'Your booking for service has been successfully booked',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.grey[700],
+                ),
+                textAlign: TextAlign.center,
+              ),
+              verticalSpaceMedium,
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const DrawsView()),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor:
+                          kcPrimaryColor, // Replace with your primary color
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      padding: EdgeInsets.symmetric(vertical: 14),
+                    ),
+                    child: Text(
+                      "View booking services",
+                      style: TextStyle(fontSize: 16, color: Colors.white),
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>  RideDetailView()),
+                      );
+
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        side: BorderSide(
+                            color:
+                                kcPrimaryColor), // Replace with your primary color
+                      ),
+                      padding: EdgeInsets.symmetric(vertical: 14),
+                    ),
+                    child: Text(
+                      "Track Booking",
+                      style: TextStyle(
+                          fontSize: 16,
+                          color:
+                              kcPrimaryColor), // Replace with your primary color
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   @override
   NotificationViewModel viewModelBuilder(
-      BuildContext context,
-      ) =>
+    BuildContext context,
+  ) =>
       NotificationViewModel();
 }

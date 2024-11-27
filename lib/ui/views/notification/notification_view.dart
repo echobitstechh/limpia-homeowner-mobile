@@ -18,18 +18,26 @@ class NotificationView extends StackedView<NotificationViewModel> {
         clipBehavior: Clip.none,
         children: [
           // Background image for the entire body with reduced opacity
-          Center(
-            child: Opacity(
-              opacity: 0.8, // Control the transparency of the background image
-              child: SizedBox(
-                height: 400, // Set your desired height
-                width: 400,  // Set your desired width
-                child: Image.asset(
-                  'assets/images/limpiar_bg.png', // Replace with your image asset
-                  fit: BoxFit.contain,
+          Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 80.0),
+                child: Center(
+                  child: Opacity(
+                    opacity: 0.8, // Control the transparency of the background image
+                    child: SizedBox(
+                      height: 400, // Set your desired height
+                      width: 400,  // Set your desired width
+                      child: Image.asset(
+                        'assets/images/limpiar_bg.png', // Replace with your image asset
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ),
                 ),
               ),
-            ),
+            ],
           ),
 
 

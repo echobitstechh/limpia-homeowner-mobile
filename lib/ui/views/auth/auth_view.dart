@@ -13,7 +13,7 @@ import 'login.dart';
 
 
 class AuthView extends StatefulWidget {
-  const AuthView({Key? key}) : super(key: key);
+  const AuthView({Key? key, required bool isLogin}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -86,7 +86,7 @@ class _AuthViewState extends State<AuthView> with TickerProviderStateMixin {
                             setState(() {
                               isLogin = value;
                             });
-                          }),
+                          }, isLogin: true,),
                         ),
                       ),
                     ],
