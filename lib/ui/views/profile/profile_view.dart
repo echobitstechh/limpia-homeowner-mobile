@@ -24,6 +24,8 @@ import 'profile_viewmodel.dart';
 class ProfileView extends StatelessWidget {
   const ProfileView({Key? key}) : super(key: key);
 
+  get isBiometricLoginEnabled => false;
+
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<ProfileViewModel>.reactive(
@@ -37,98 +39,117 @@ class ProfileView extends StatelessWidget {
               centerTitle: true,
               title: const Text("Profile"),
             ),
-            body: viewModel.isBusy
+            body:viewModel.isBusy
                 ? const Center(child: CircularProgressIndicator())
                 : ListView(
                     padding: const EdgeInsets.all(20),
                     children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Stack(
-                            alignment: Alignment.bottomRight,
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  showModalBottomSheet(
-                                    context: context,
-                                    isScrollControlled: true,
-                                    // barrierColor: Colors.black.withAlpha(50),
-                                    // backgroundColor: Colors.transparent,
-                                    backgroundColor:
-                                        Colors.black.withOpacity(0.7),
-                                    builder: (BuildContext context) {
-                                      return const FractionallySizedBox(
-                                        heightFactor:
-                                            1.0, // 70% of the screen's height
-                                        child: ProfileScreen(),
-                                      );
-                                    },
-                                  );
-                                  // viewModel.updateProfilePicture();
-                                },
-                                child: ProfilePicture(
-                                    size: 100,
-                                      url: profile.value.profilePic?.url,
+                      Container(
+                        child: Card(
+                          color: Colors.white,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 20.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Stack(
+                                  alignment: Alignment.bottomRight,
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                        showModalBottomSheet(
+                                          context: context,
+                                          isScrollControlled: true,
+                                          // barrierColor: Colors.black.withAlpha(50),
+                                          // backgroundColor: Colors.transparent,
+                                          backgroundColor:
+                                              Colors.black.withOpacity(0.7),
+                                          builder: (BuildContext context) {
+                                            return const FractionallySizedBox(
+                                              heightFactor:
+                                                  1.0, // 70% of the screen's height
+                                              child: ProfileScreen(),
+                                            );
+                                          },
+                                        );
+                                        // viewModel.updateProfilePicture();
+                                      },
+                                      child: ProfilePicture(
+                                          size: 100,
+                                            url: profile.value.profilePic?.url,
+                                          ),
                                     ),
-                              ),
-                              // horizontalSpaceLarge,
-                              GestureDetector(
-                                onTap: () {
-                                  showModalBottomSheet(
-                                    context: context,
-                                    isScrollControlled: true,
-                                    // barrierColor: Colors.black.withAlpha(50),
-                                    // backgroundColor: Colors.transparent,
-                                    backgroundColor:
-                                        Colors.black.withOpacity(0.7),
-                                    builder: (BuildContext context) {
-                                      return const FractionallySizedBox(
-                                        heightFactor:
-                                            1.0, // 70% of the screen's height
-                                        child: ProfileScreen(),
-                                      );
-                                    },
-                                  );
-                                  // viewModel.updateProfilePicture();
-                                },
-                                child: Container(
-                                  width: 30, // Width and height of the circle
-                                  height: 30,
-                                  decoration: BoxDecoration(
-                                    color:
-                                        kcPrimaryColor, // Background color of the circle
-                                    shape: BoxShape.circle,
-                                    border: Border.all(
-                                      color:
-                                          kcWhiteColor, // Border color of the circle
-                                      width: 2, // Border width
+                                    // horizontalSpaceLarge,
+                                    GestureDetector(
+                                      onTap: () {
+                                        showModalBottomSheet(
+                                          context: context,
+                                          isScrollControlled: true,
+                                          // barrierColor: Colors.black.withAlpha(50),
+                                          // backgroundColor: Colors.transparent,
+                                          backgroundColor:
+                                              Colors.black.withOpacity(0.7),
+                                          builder: (BuildContext context) {
+                                            return const FractionallySizedBox(
+                                              heightFactor:
+                                                  1.0, // 70% of the screen's height
+                                              child: ProfileScreen(),
+                                            );
+                                          },
+                                        );
+                                        // viewModel.updateProfilePicture();
+                                      },
+                                      child: Container(
+                                        width: 30, // Width and height of the circle
+                                        height: 30,
+                                        decoration: BoxDecoration(
+                                          color:
+                                              kcPrimaryColor, // Background color of the circle
+                                          shape: BoxShape.circle,
+                                          border: Border.all(
+                                            color:
+                                                kcWhiteColor, // Border color of the circle
+                                            width: 2, // Border width
+                                          ),
+                                        ),
+                                        child: const Icon(
+                                          Icons.remove_red_eye_outlined,
+                                          color: kcWhiteColor, // Icon color
+                                          size: 18, // Icon size
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                horizontalSpaceMedium,
+                                Container(
+                                  height: 100,
+                                  width: 370,
+                                  child: Card(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          "${profile.value.firstname} ${profile.value.lastname}",
+                                          style: const TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        Text(profile.value.username ?? ""),
+                                        Text(
+                                            style: TextStyle(
+                                            ),
+                                            '@layemi'
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                  child: const Icon(
-                                    Icons.remove_red_eye_outlined,
-                                    color: kcWhiteColor, // Icon color
-                                    size: 18, // Icon size
-                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                          horizontalSpaceMedium,
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                "${profile.value.firstname} ${profile.value.lastname}",
-                                style: const TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Text(profile.value.username ?? "")
-                            ],
-                          ),
-                        ],
+                        ),
                       ),
                       viewModel.showChangePP
                           ? Column(
@@ -153,189 +174,430 @@ class ProfileView extends StatelessWidget {
                       verticalSpaceMedium,
                       Column(
                         children: [
-                          ListTile(
-                            onTap: () {
-                              showModalBottomSheet(
-                                context: context,
-                                isScrollControlled: true,
-                                // barrierColor: Colors.black.withAlpha(50),
-                                // backgroundColor: Colors.transparent,
-                                backgroundColor: Colors.black.withOpacity(0.7),
-                                builder: (BuildContext context) {
-                                  return const FractionallySizedBox(
-                                    heightFactor:
-                                        1.0, // 70% of the screen's height
-                                    child: ProfileScreen(),
-                                  );
-                                },
-                              );
-                            },
-                            leading: SvgPicture.asset(
-                              'assets/images/person.svg', // Replace with your SVG file path
-                              color: kcSecondaryColor,        // Set the color for the icon
-                              height: 24,
-                              width: 24,
-                            ),
-                            title: const Text("Profile"),
-                          ),
-                          ListTile(
-                            onTap: () {
-                              locator<NavigationService>()
-                                  .navigateToWallet()
-                                  .whenComplete(() => viewModel.getProfile());
-                            },
-                            leading: SvgPicture.asset(
-                              'assets/images/wallet.svg', // Replace with your SVG file path
-                              color: kcSecondaryColor,        // Set the color for the icon
-                              height: 24,
-                              width: 24,
-                            ),
-                            title: const Text("My wallet"),
-                          ),
-                          // ListTile(
-                          //   onTap: () {
-                          //     // locator<NavigationService>().navigateToTrack();
-                          //     Navigator.of(context)
-                          //         .push(MaterialPageRoute(builder: (c) {
-                          //       return const OrderList();
-                          //     }));
-                          //   },
-                          //   leading: const Icon(
-                          //     Icons.wallet,
-                          //     color: kcSecondaryColor,
-                          //   ),
-                          //   title: const Text("My orders"),
-                          // ),
-                          ListTile(
-                            onTap: () {
-                              // locator<NavigationService>().navigateToTrack();
-                              Navigator.of(context)
-                                  .push(MaterialPageRoute(builder: (c) {
-                                return const TicketList();
-                              }));
-                            },
-                            leading: SvgPicture.asset(
-                              'assets/images/ticket.svg', // Replace with your SVG file path
-                              color: kcSecondaryColor,
-                              height: 17,
-                              width: 17,
-                            ),
-                            title: const Text("My tickets"),
-                          ),
-                          ListTile(
-                            onTap: () {
-                              // locator<NavigationService>().navigateToTrack();
-                              Navigator.of(context)
-                                  .push(MaterialPageRoute(builder: (c) {
-                                return const Referral();
-                              }));
-                            },
-                            leading: SvgPicture.asset(
-                              'assets/images/gift.svg', // Replace with your SVG file path
-                              color: kcSecondaryColor,        // Set the color for the icon
-                              height: 24,
-                              width: 24,
-                            ),
-                            title: const Text("Referrals"),
-                          ),
-                          ListTile(
-                            onTap: () {
-                              Navigator.of(context)
-                                  .push(MaterialPageRoute(builder: (c) {
-                                return const Support();
-                              }));
-                            },
-                            leading: SvgPicture.asset(
-                              'assets/images/phone-outgoing.svg', // Replace with your SVG file path
-                              color: kcSecondaryColor,        // Set the color for the icon
-                              height: 24,
-                              width: 24,
-                            ),
-                            title: const Text("Support"),
-                          ),
-                          ListTile(
-                            onTap: () {
-                              Navigator.of(context)
-                                  .push(MaterialPageRoute(builder: (c) {
-                                return Settings();
-                              }));
-                            },
-                            leading: SvgPicture.asset(
-                              'assets/images/phone-outgoing.svg', // Replace with your SVG file path
-                              color: kcSecondaryColor,        // Set the color for the icon
-                              height: 24,
-                              width: 24,
-                            ),
-                            title: const Text("Settings"),
-                          ),
-                          ListTile(
-                            onTap: () {
-                              locator<NavigationService>()
-                                  .navigateToChangePasswordView();
-                            },
-                            leading: SvgPicture.asset(
-                              'assets/images/lock-closed.svg', // Replace with your SVG file path
-                              color: kcSecondaryColor,        // Set the color for the icon
-                              height: 24,
-                              width: 24,
-                            ),
-                            title: const Text("Change password"),
-                          ),
-                          ListTile(
-                            onTap: () {},
-                            leading: SvgPicture.asset(
-                              'assets/images/sun.svg', // Replace with your SVG file path
-                              color: kcSecondaryColor,        // Set the color for the icon
-                              height: 24,
-                              width: 24,
-                            ),
-                            title: const Text("Dark Theme"),
-                            trailing: ValueListenableBuilder<AppUiModes>(
-                              valueListenable: uiMode,
-                              builder: (context, value, child) => Switch(
-                                value: value == AppUiModes.dark ? true : false,
-                                onChanged: (val) async {
-                                  if (value == AppUiModes.light) {
-                                    uiMode.value = AppUiModes.dark;
-                                    await locator<LocalStorage>()
-                                        .save(LocalStorageDir.uiMode, "dark");
-                                  } else {
-                                    uiMode.value = AppUiModes.light;
-                                    await locator<LocalStorage>()
-                                        .save(LocalStorageDir.uiMode, "light");
-                                  }
-                                },
+                          Card(
+                            child: Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    style: TextStyle(
+                                      fontSize: 25
+                                    ),
+                                      'Home Owner data'
+                                  ),
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      ListTile(
+                                        // onTap: () {
+                                        //   showModalBottomSheet(
+                                        //     context: context,
+                                        //     isScrollControlled: true,
+                                        //     // barrierColor: Colors.black.withAlpha(50),
+                                        //     // backgroundColor: Colors.transparent,
+                                        //     backgroundColor: Colors.black.withOpacity(0.7),
+                                        //     builder: (BuildContext context) {
+                                        //       return const FractionallySizedBox(
+                                        //         heightFactor:
+                                        //             1.0, // 70% of the screen's height
+                                        //         child: ProfileScreen(),
+                                        //       );
+                                        //     },
+                                        //   );
+                                        // },
+                                        leading: Padding(
+                                          padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                                          child: SizedBox(
+                                            height: 50,
+                                            width: 50,
+                                            child: IconButton(
+                                              icon: Icon(Icons.person_outline_outlined),
+                                              iconSize: 50, // Adjust the icon size
+                                              onPressed: () {
+                                              },
+                                            ),
+                                          ),
+                                        ),
+                                        title: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            const Text(
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold
+                                              ),
+                                                "View details"
+                                            ),
+                                            const Text(
+                                                "Full Name, email, phone no etc"
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
                             ),
                           ),
-                          ListTile(
-                              onTap: () async {
-                                final res = await locator<DialogService>()
-                                    .showConfirmationDialog(
-                                        title: "Are you sure?",
-                                        cancelTitle: "No",
-                                        confirmationTitle: "Yes");
-                                if (res!.confirmed) {
-                                  userLoggedIn.value = false;
-                                  await locator<LocalStorage>()
-                                      .delete(LocalStorageDir.authToken);
-                                  await locator<LocalStorage>()
-                                      .delete(LocalStorageDir.authUser);
-                                  await locator<LocalStorage>()
-                                      .delete(LocalStorageDir.cart);
-                                  await locator<LocalStorage>()
-                                      .delete(LocalStorageDir.authRefreshToken);
-                                  raffleCart.value.clear();
-                                  raffleCart.notifyListeners();
-                                  locator<NavigationService>()
-                                      .clearStackAndShow(Routes.authView);
-                                }
-                              },
-                              leading: Icon(
-                                Icons.logout,
-                                color: kcSecondaryColor,
+                        ],
+                      ),
+                      verticalSpaceSmall,
+                      Column(
+                        children: [
+                          Card(
+                            child: Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    style: TextStyle(
+                                      fontSize: 25
+                                    ),
+                                      'Security'
+                                  ),
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      ListTile(
+                                        // onTap: () {
+                                        //   showModalBottomSheet(
+                                        //     context: context,
+                                        //     isScrollControlled: true,
+                                        //     // barrierColor: Colors.black.withAlpha(50),
+                                        //     // backgroundColor: Colors.transparent,
+                                        //     backgroundColor: Colors.black.withOpacity(0.7),
+                                        //     builder: (BuildContext context) {
+                                        //       return const FractionallySizedBox(
+                                        //         heightFactor:
+                                        //             1.0, // 70% of the screen's height
+                                        //         child: ProfileScreen(),
+                                        //       );
+                                        //     },
+                                        //   );
+                                        // },
+                                        leading: Padding(
+                                          padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                                          child: SizedBox(
+                                            height: 50,
+                                            width: 50,
+                                            child: IconButton(
+                                              icon: Icon(Icons.lock_outline_sharp),
+                                              iconSize: 50, // Adjust the icon size
+                                              onPressed: () {
+                                              },
+                                            ),
+                                          ),
+                                        ),
+                                        title: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            const Text(
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold
+                                              ),
+                                                "Change Password"
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      verticalSpaceMedium,
+                                      ListTile(
+                                        leading: Padding(
+                                          padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                                          child: SizedBox(
+                                            height: 50,
+                                            width: 50,
+                                            child: IconButton(
+                                              icon: Icon(Icons.fingerprint),
+                                              iconSize: 50, // Adjust the icon size
+                                              onPressed: () {
+                                              },
+                                            ),
+                                          ),
+                                        ),
+                                        title: Text('Biometric Login'),
+                                        trailing: Switch(
+                                          value: isBiometricLoginEnabled,
+                                          onChanged: (value) {
+                                          },
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
-                              title: Text("Signout")),
+                            ),
+                          ),
+                        ],
+                      ),
+                      verticalSpaceMedium,
+                      Column(
+                        children: [
+                          Card(
+                            child: Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                      style: TextStyle(
+                                          fontSize: 25
+                                      ),
+                                      'Others'
+                                  ),
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      ListTile(
+                                        // onTap: () {
+                                        //   showModalBottomSheet(
+                                        //     context: context,
+                                        //     isScrollControlled: true,
+                                        //     // barrierColor: Colors.black.withAlpha(50),
+                                        //     // backgroundColor: Colors.transparent,
+                                        //     backgroundColor: Colors.black.withOpacity(0.7),
+                                        //     builder: (BuildContext context) {
+                                        //       return const FractionallySizedBox(
+                                        //         heightFactor:
+                                        //         1.0, // 70% of the screen's height
+                                        //         child: ProfileScreen(),
+                                        //       );
+                                        //     },
+                                        //   );
+                                        // },
+                                        leading: Padding(
+                                          padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                                          child: SizedBox(
+                                            height: 50,
+                                            width: 50,
+                                            child: IconButton(
+                                              icon: Icon(Icons.call),
+                                              iconSize: 50, // Adjust the icon size
+                                              onPressed: () {
+                                              },
+                                            ),
+                                          ),
+                                        ),
+                                        title: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            const Text(
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold
+                                                ),
+                                                "Customer Support"
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      verticalSpaceMedium,
+                                      ListTile(
+                                        // onTap: () {
+                                        //   showModalBottomSheet(
+                                        //     context: context,
+                                        //     isScrollControlled: true,
+                                        //     // barrierColor: Colors.black.withAlpha(50),
+                                        //     // backgroundColor: Colors.transparent,
+                                        //     backgroundColor: Colors.black.withOpacity(0.7),
+                                        //     builder: (BuildContext context) {
+                                        //       return const FractionallySizedBox(
+                                        //         heightFactor:
+                                        //         1.0, // 70% of the screen's height
+                                        //         child: ProfileScreen(),
+                                        //       );
+                                        //     },
+                                        //   );
+                                        // },
+                                        leading: Padding(
+                                          padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                                          child: SizedBox(
+                                            height: 50,
+                                            width: 50,
+                                            child: IconButton(
+                                              icon: Icon(Icons.settings_sharp),
+                                              iconSize: 50, // Adjust the icon size
+                                              onPressed: () {
+                                              },
+                                            ),
+                                          ),
+                                        ),
+                                        title: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            const Text(
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold
+                                                ),
+                                                "Preferences"
+                                            ),
+                                            const Text(
+                                                "Themes, Language, Notifications etc"
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      verticalSpaceMedium,
+                                      ListTile(
+                                        onTap: () {
+                                          // showModalBottomSheet(
+                                          //   context: context,
+                                          //   isScrollControlled: true,
+                                          //   // barrierColor: Colors.black.withAlpha(50),
+                                          //   // backgroundColor: Colors.transparent,
+                                          //   backgroundColor: Colors.black.withOpacity(0.7),
+                                          //   builder: (BuildContext context) {
+                                          //     return const FractionallySizedBox(
+                                          //       heightFactor:
+                                          //       1.0, // 70% of the screen's height
+                                          //       child: ProfileScreen(),
+                                          //     );
+                                          //   },
+                                          // );
+                                        },
+                                        leading: Padding(
+                                          padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                                          child: SizedBox(
+                                            height: 50,
+                                            width: 50,
+                                            child: IconButton(
+                                              icon: Icon(Icons.refresh_outlined),
+                                              iconSize: 50, // Adjust the icon size
+                                              onPressed: () {
+                                              },
+                                            ),
+                                          ),
+                                        ),
+                                        title: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            const Text(
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold
+                                                ),
+                                                "Referral program"
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      verticalSpaceMedium,
+                                      ListTile(
+                                        onTap: () {
+                                          // showModalBottomSheet(
+                                          //   context: context,
+                                          //   isScrollControlled: true,
+                                          //   // barrierColor: Colors.black.withAlpha(50),
+                                          //   // backgroundColor: Colors.transparent,
+                                          //   backgroundColor: Colors.black.withOpacity(0.7),
+                                          //   builder: (BuildContext context) {
+                                          //     return const FractionallySizedBox(
+                                          //       heightFactor:
+                                          //       1.0, // 70% of the screen's height
+                                          //       child: ProfileScreen(),
+                                          //     );
+                                          //   },
+                                          // );
+                                        },
+                                        leading: Padding(
+                                          padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                                          child: SizedBox(
+                                            height: 50,
+                                            width: 50,
+                                            child: IconButton(
+                                              icon: Icon(Icons.people),
+                                              iconSize: 50, // Adjust the icon size
+                                              onPressed: () {
+                                              },
+                                            ),
+                                          ),
+                                        ),
+                                        title: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            const Text(
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold
+                                                ),
+                                                "About us"
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      verticalSpaceMedium,
+                      Column(
+                        children: [
+                          Card(
+                            child: Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Center(
+                                        child: ListTile(
+                                          // onTap: () {
+                                          //   showModalBottomSheet(
+                                          //     context: context,
+                                          //     isScrollControlled: true,
+                                          //     // barrierColor: Colors.black.withAlpha(50),
+                                          //     // backgroundColor: Colors.transparent,
+                                          //     backgroundColor: Colors.black.withOpacity(0.7),
+                                          //     builder: (BuildContext context) {
+                                          //       return const FractionallySizedBox(
+                                          //         heightFactor:
+                                          //             1.0, // 70% of the screen's height
+                                          //         child: ProfileScreen(),
+                                          //       );
+                                          //     },
+                                          //   );
+                                          // },
+                                          leading: Padding(
+                                            padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                                            child: SizedBox(
+                                              height: 50,
+                                              width: 50,
+                                              child: IconButton(
+                                                icon: Icon(Icons.logout),
+                                                iconSize: 50, // Adjust the icon size
+                                                onPressed: () {
+                                                },
+                                              ),
+                                            ),
+                                          ),
+                                          title: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              const Text(
+                                                  style: TextStyle(
+                                                      fontWeight: FontWeight.bold
+                                                  ),
+                                                  "Logout"
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                       verticalSpaceMedium,

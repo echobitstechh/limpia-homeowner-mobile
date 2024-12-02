@@ -290,7 +290,7 @@ class StackedRouter extends _i1.RouterBase {
     },
     _i10.ProfileView: (data) {
       return _i21.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i10.ProfileView(),
+        builder: (context) =>  _i10.ProfileView(),
         settings: data,
       );
     },
