@@ -209,14 +209,14 @@ class BottomNavBar extends StatelessWidget {
         icon: _navBarItemIcon('book.svg', 'book.svg', viewModel.selectedRafflesTab == 1, iconColor),
         label: "Book",
       ),
-      // BottomNavigationBarItem(
-      //   icon: _navBarItemIcon('profile.svg', 'profile.svg', viewModel.selectedRafflesTab == 2, iconColor),
-      //   label: "Profile",
-      // ),
       BottomNavigationBarItem(
         icon: _navBarItemIcon('profile.svg', 'profile.svg', viewModel.selectedRafflesTab == 2, iconColor),
         label: "Profile",
       ),
+      // BottomNavigationBarItem(
+      //   icon: _navBarItemIcon('profile.svg', 'profile.svg', viewModel.selectedRafflesTab == 2, iconColor),
+      //   label: "Profile",
+      // ),
     ];
   }
 
