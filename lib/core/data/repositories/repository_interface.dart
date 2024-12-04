@@ -7,6 +7,8 @@ abstract class IRepository {
 
   Future<ApiResponse> refresh();
 
+  Future<ApiResponse> createBooking(Map<String, dynamic> req);
+
   Future<ApiResponse> register(Map<String, dynamic> req);
 
   Future<ApiResponse> verify(Map<String, dynamic> req);

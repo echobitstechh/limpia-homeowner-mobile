@@ -94,6 +94,8 @@ dependencies:
   google_maps_flutter: ^2.6.1
   google_maps_webservice: ^0.0.19
   location: ^5.0.0
+  multi_date_picker: ^0.0.1-beta.1
+
 
 
 
