@@ -3,6 +3,7 @@ import 'package:limpia/core/data/repositories/repository_interface.dart';
 import 'package:limpia/core/network/api_response.dart';
 import 'package:limpia/core/network/api_service.dart';
 import 'package:dio/dio.dart';
+import 'package:limpia/ui/views/dashboard/dashboard_viewmodel.dart';
 
 class Repository extends IRepository {
   final api = locator<ApiService>();
@@ -47,6 +48,19 @@ class Repository extends IRepository {
 
     return response;
   }
+
+
+  @override
+  Future<ApiResponse> createBooking(Map<String, dynamic> req) async {
+    ApiResponse response = await api.call(
+      method: HttpMethod.post,
+      endpoint: "/bookings",
+      reqBody: req,
+    );
+
+    return response;
+  }
+
 
   @override
   Future<ApiResponse> verify(Map<String, dynamic> req) async {
