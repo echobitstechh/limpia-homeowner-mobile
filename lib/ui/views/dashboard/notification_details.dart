@@ -2,6 +2,7 @@ import 'package:board_datetime_picker/board_datetime_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:limpia/ui/common/ui_helpers.dart';
 import 'package:flutter/material.dart';
+import 'package:limpia/ui/views/dashboard/time-and-date.dart';
 import 'package:limpia/ui/views/dashboard/track_map.dart';
 import 'package:stacked/stacked.dart';
 import '../../common/app_colors.dart';
@@ -244,8 +245,10 @@ class NotificationDetails extends StackedView<NotificationViewModel> {
               buildButton('Choose another cleaner', kcPrimaryColor),
               GestureDetector(
                 onTap: () {
-                  showBottomSheetDatePicker(
-                      context); // Show BottomSheet for rescheduling
+                 // showBottomSheetDatePicker(context); // Show BottomSheet for rescheduling
+                 Navigator.push(
+                 context,
+                 MaterialPageRoute(builder: (context) => HomePage()),);
                 },
                 child: buildButton('Reschedule', kcPrimaryColor),
               ),
@@ -294,60 +297,6 @@ class NotificationDetails extends StackedView<NotificationViewModel> {
     );
   }
 
-  void showBottomSheetDatePicker(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return Container(
-          padding: const EdgeInsets.all(16),
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Text(
-                'Select Date and Time',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 16),
-              BoardDateTimeInputField(
-                initialDate: DateTime.now(),
-                onChanged: (DateTime selectedDateTime) {
-                  // Handle selected date and time here
-                  print('Selected DateTime: $selectedDateTime');
-                },
-                pickerType: DateTimePickerType.datetime,
-                options: const BoardDateTimeOptions(
-                  languages: BoardPickerLanguages.en(),
-                ),
-              ),
-              const SizedBox(height: 16),
-              Align(
-                alignment: Alignment.centerRight,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(context); // Close the BottomSheet
-                    showSuccessDialog(context); // Show success dialog
-                  },
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  child: const Text(
-                    "Next",
-                    style: TextStyle(fontSize: 12, color: kcPrimaryColor),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
 
   void showSuccessDialog(BuildContext context) {
     showDialog(
