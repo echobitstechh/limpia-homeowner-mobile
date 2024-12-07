@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:limpia/app/app.locator.dart';
 import 'package:limpia/app/app.logger.dart';
 import 'package:limpia/core/data/models/cart_item.dart';
@@ -8,6 +10,8 @@ import 'package:limpia/core/network/api_response.dart';
 import 'package:limpia/core/utils/local_store_dir.dart';
 import 'package:limpia/core/utils/local_stotage.dart';
 import 'package:limpia/state.dart';
+import 'package:limpia/ui/common/app_colors.dart';
+import 'package:multi_date_picker/multi_date_picker.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:video_player/video_player.dart';
@@ -15,6 +19,17 @@ import 'package:video_player/video_player.dart';
 import '../../../core/data/models/app_notification.dart';
 import '../../../core/data/models/profile.dart';
 import '../../../core/data/models/project.dart';
+
+
+
+
+
+enum BookingResult { success, failure }
+
+enum AvailabilityTime { morning, afternoon, evening }
+enum AvailabilityDay { weekdays, weekends }
+
+
 
 class DashboardViewModel extends BaseViewModel {
   final repo = locator<Repository>();
@@ -29,10 +44,112 @@ class DashboardViewModel extends BaseViewModel {
 
   bool? onboarded;
 
-  bool showDialog = true;  // Controls when to show the modal
   bool modalShown = false; // Flag to track if the modal was shown
   bool appBarLoading = false;
-  bool shouldShowShowcase = true;  // Controls when to show showcase
+  bool shouldShowShowcase = true;// Controls when to show showcase
+
+  bool isSpecificDateSelected = false;
+  final snackBar = locator<SnackbarService>();
+
+  int selectedRooms = 1; // Default selected room number
+  double selectedBathrooms = 0; // Default selected bathroom count
+  bool isIndividualCleaner = true;
+  int selectedCleaners = 1;
+
+  final Color kcDefaultColor = Colors.grey; // Default border and text color
+  final Set<String> selectedDaysHomeOwner = {}; // To track selected days
+  final Set<String> selectedTimesHomeOwner = {};
+
+  List<DateTime> selectedDates = [];
+  List<AvailabilityDay> selectedDays = [];
+  List<AvailabilityTime> selectedTimes = [];
+
+  final List<String> cleaningType = [
+    'Regular cleaning ',
+    'Standard cleaning',
+    'Deep cleaning ',
+    'moving cleaning ',
+    'Hybrid cleaning '
+  ];
+  List<String> imagePaths = [
+    'assets/images/image-clean.png',
+    'assets/images/image-clean.png',
+    'assets/images/image-clean.png',
+    'assets/images/image-clean.png',
+    'assets/images/image-clean.png',
+  ];
+
+  final List<String> generalAreas = [
+    "Dusting",
+    "Vacuuming & Sweeping",
+    "Moping",
+    "Doors & Handle",
+    "Mirrors & glass all surface",
+    "Windows",
+  ];
+  final List<String> kitchen = [
+    "Counters & surfaces",
+    "Appliances",
+    "Cabinet & Drawers",
+    "Flooring",
+  ];
+  final List<String> bathrooms = [
+    "Glass surface",
+    "Toilet",
+    "Shower/Bathtub",
+    "Sink & Counters",
+    "Cabinets & Drawers",
+    "Flooring (Bathrooms)",
+  ];
+
+   // To track selected times
+
+  // String _selectedCleaningType = "";  // Private instance variable
+  //
+  // String get selectedCleaningType => _selectedCleaningType;  // Getter
+  //
+  // set selectedCleaningType(String value) {
+  //   if (_selectedCleaningType != value) {
+  //     _selectedCleaningType = value;
+  //     notifyListeners();  // Notify listeners when the value changes
+  //   }
+  // }
+  void showMultiDatePicker(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(
+            'Select Dates',
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          ),
+          content: SizedBox(
+            width: double.maxFinite, // Make the dialog take up available width
+            height: 400.0, // Set a fixed height to avoid intrinsic dimensions
+            child: MultiDatePicker(
+              calendarStartDate: DateTime.now(),
+              calendarEndDate: DateTime(2100),
+              enableMultiSelect: true,
+              onDateSelected: (List<DateTime> dates) {
+
+                isSpecificDateSelected = true;
+                selectedDates = dates;
+                selectedDays.clear();
+                selectedTimes.clear();
+                notifyListeners();
+              },
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Done'),
+            ),
+          ],
+        );
+      },
+    );
+  }
 
 
   @override
@@ -59,11 +176,12 @@ class DashboardViewModel extends BaseViewModel {
   }
 
 
+
   Future<void> init() async {
     setBusy(true);
     onboarded = await locator<LocalStorage>().fetch(LocalStorageDir.onboarded) ?? false;
     if (!onboarded!) {
-      showDialog = true; // Show modal if not onboarded
+      //showDialog = true; // Show modal if not onboarded
     }
     notifyListeners();
     await loadRaffles();
@@ -126,6 +244,9 @@ class DashboardViewModel extends BaseViewModel {
 
   }
 
+
+
+
   Future<void> loadWinners() async {
 
     if (raffleList.isEmpty) {
@@ -185,7 +306,7 @@ class DashboardViewModel extends BaseViewModel {
     }
   }
 
-  Future<void> getRaffles() async {
+   Future<void> getRaffles() async {
     setBusy(true);
     notifyListeners();
     try {
@@ -429,6 +550,61 @@ class DashboardViewModel extends BaseViewModel {
       raffleCart.notifyListeners();
     }
   }
+
+
+
+
+  Future<BookingResult> createBooking() async {
+    setBusy(true);
+
+
+    try {
+      ApiResponse res = await repo.createBooking({
+        "date": selectedDaysHomeOwner,
+        "time": selectedTimesHomeOwner,
+        "cleaningType": cleaningType,
+        "numberOfRooms": selectedRooms.toString(),
+        "numberOfBathrooms": selectedBathrooms,
+        "numberOfCleaners": selectedCleaners,
+        "checklistKitchen": kitchen,
+        "checklistBathrooms": bathrooms,
+      });
+      if (res.statusCode == 201) {
+        print('login response: ${res.data['homeowner']}');
+        userLoggedIn.value = true;
+        snackBar.showSnackbar(message: res.data["message"]);
+        setBusy(false);
+        return BookingResult.success;
+      } else {
+        setBusy(false);
+
+        if (res.data["message"] is String) {
+          snackBar.showSnackbar(message: res.data["message"]);
+          return BookingResult.failure; // Return failure since it's an error message
+        }
+        else if (res.data["message"] is List<String>) {
+          snackBar.showSnackbar(message: res.data["message"].join('\n'));
+          return BookingResult.failure; // Return failure since it's an error message
+        }
+        else if (res.data["message"] is List) {
+          snackBar.showSnackbar(message: res.data["message"].join('\n'));
+          return BookingResult.failure; // Return failure since it's an error message
+        } else {
+          // Handle unexpected data type (e.g., it's not a string or list)
+          snackBar.showSnackbar(message: "Unexpected response format");
+          return BookingResult.failure;
+        }
+
+      }
+    } catch (e) {
+      log.e(e);
+      setBusy(false);
+      return BookingResult.failure;
+
+   }
+  }
+
+
 
 
 

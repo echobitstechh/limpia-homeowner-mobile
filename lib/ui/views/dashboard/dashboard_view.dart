@@ -1,22 +1,20 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:limpia/ui/common/app_colors.dart';
-import 'package:limpia/ui/common/ui_helpers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:limpia/ui/views/dashboard/raffle_detail.dart';
+import 'package:multi_date_picker/multi_date_picker.dart';
+import 'package:slide_countdown/slide_countdown.dart';
 import 'package:stacked/stacked.dart';
-import 'package:stacked_services/stacked_services.dart';
 import 'package:top_bottom_sheet_flutter/top_bottom_sheet_flutter.dart';
-import '../../../app/app.locator.dart';
-import '../../../app/app.router.dart';
 import '../../../state.dart';
+import '../../common/ui_helpers.dart';
 import '../draws/booked_view.dart';
-import '../draws/draws_view.dart';
-import '../notification/notification_view.dart';
 import '../notification/reviewview.dart';
 import '../payment/payment_view.dart';
 import 'dashboard_viewmodel.dart';
-import 'package:animated_segmented_tab_control/animated_segmented_tab_control.dart';
 import 'notification_details.dart';
 import 'package:board_datetime_picker/board_datetime_picker.dart';
 
@@ -26,7 +24,7 @@ class DashboardView extends StackedView<DashboardViewModel> {
   final List<String> names = [
     'Regular cleaning ',
     'Standard cleaning',
-    'Deeep cleaning ',
+    'Deep cleaning ',
     'moving cleaning ',
     'Hybrid cleaning '
   ];
@@ -69,7 +67,6 @@ class DashboardView extends StackedView<DashboardViewModel> {
               onTap: () {
                 //_showTopSheet(context);
                 _showNotificationSheet(context, viewModel);
-
               },
               child: Icon(
                 Icons.notifications_active_outlined,
@@ -188,7 +185,8 @@ class DashboardView extends StackedView<DashboardViewModel> {
                           children: List.generate(names.length, (index) {
                             return GestureDetector(
                               onTap: () {
-                                showCustomBottomSheet(context);
+                                showCustomBottomSheet(
+                                    context, DashboardViewModel());
                               },
                               child: Container(
                                 padding: EdgeInsets.symmetric(
@@ -226,7 +224,6 @@ class DashboardView extends StackedView<DashboardViewModel> {
                         ),
                       ),
                     ),
-
                   ],
                 ),
               ),
@@ -243,8 +240,7 @@ class DashboardView extends StackedView<DashboardViewModel> {
                     //showBtbSheet(context);
                   },
                   child: Text('Book Now',
-                      style: TextStyle(
-                          fontSize: 14, color: kcPrimaryColor)),
+                      style: TextStyle(fontSize: 14, color: kcPrimaryColor)),
                 ),
               ],
             ),
@@ -290,7 +286,8 @@ class DashboardView extends StackedView<DashboardViewModel> {
                                 "You'll be notified once complete",
                                 style: TextStyle(
                                   fontSize: 14,
-                                  color: Colors.grey[600] ?? Colors.grey, // Fallback color
+                                  color: Colors.grey[600] ??
+                                      Colors.grey, // Fallback color
                                 ),
                               ),
                             ],
@@ -298,7 +295,8 @@ class DashboardView extends StackedView<DashboardViewModel> {
                         ),
                         Container(
                           decoration: BoxDecoration(
-                            color: Colors.orange[300] ?? Colors.orange, // Fallback color
+                            color: Colors.orange[300] ??
+                                Colors.orange, // Fallback color
                             borderRadius: BorderRadius.circular(12),
                           ),
                           padding: const EdgeInsets.symmetric(
@@ -336,7 +334,8 @@ class DashboardView extends StackedView<DashboardViewModel> {
                               'assets/images/janitor.png', // Ensure path is correct
                               height: 60,
                               width: 60,
-                              errorBuilder: (context, error, stackTrace) => Icon(
+                              errorBuilder: (context, error, stackTrace) =>
+                                  Icon(
                                 Icons.image_not_supported,
                                 size: 60,
                                 color: Colors.grey,
@@ -361,11 +360,16 @@ class DashboardView extends StackedView<DashboardViewModel> {
                                         'Rating: ',
                                         style: TextStyle(fontSize: 14),
                                       ),
-                                      const Icon(Icons.star, color: Colors.yellow, size: 16),
-                                      const Icon(Icons.star, color: Colors.yellow, size: 16),
-                                      const Icon(Icons.star, color: Colors.yellow, size: 16),
-                                      const Icon(Icons.star, color: Colors.yellow, size: 16),
-                                      const Icon(Icons.star_half, color: Colors.yellow, size: 16),
+                                      const Icon(Icons.star,
+                                          color: Colors.yellow, size: 16),
+                                      const Icon(Icons.star,
+                                          color: Colors.yellow, size: 16),
+                                      const Icon(Icons.star,
+                                          color: Colors.yellow, size: 16),
+                                      const Icon(Icons.star,
+                                          color: Colors.yellow, size: 16),
+                                      const Icon(Icons.star_half,
+                                          color: Colors.yellow, size: 16),
                                       const Text(
                                         ' (4.8/5)',
                                         style: TextStyle(fontSize: 14),
@@ -377,7 +381,8 @@ class DashboardView extends StackedView<DashboardViewModel> {
                             ),
                             Container(
                               decoration: BoxDecoration(
-                                color: Colors.green[300] ?? Colors.green, // Fallback color
+                                color: Colors.green[300] ??
+                                    Colors.green, // Fallback color
                                 borderRadius: BorderRadius.circular(12),
                               ),
                               padding: const EdgeInsets.symmetric(
@@ -400,18 +405,20 @@ class DashboardView extends StackedView<DashboardViewModel> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             const SizedBox(
-                              width: 300, // Adjust the width to control line-breaking
+                              width:
+                                  300, // Adjust the width to control line-breaking
                               child: Text(
                                 'Experience: 5 years in residential and commercial cleaning',
                                 style: TextStyle(
                                   fontSize: 14,
                                   color: Colors.black,
                                 ),
-                                maxLines: 2, // Ensure the text does not exceed two lines
-                                overflow: TextOverflow.ellipsis, // Add ellipsis if the text is too long
+                                maxLines:
+                                    2, // Ensure the text does not exceed two lines
+                                overflow: TextOverflow
+                                    .ellipsis, // Add ellipsis if the text is too long
                               ),
                             ),
-
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -423,7 +430,6 @@ class DashboardView extends StackedView<DashboardViewModel> {
                                     color: kcPrimaryColor,
                                   ),
                                 ),
-
                               ],
                             ),
                           ],
@@ -434,27 +440,31 @@ class DashboardView extends StackedView<DashboardViewModel> {
                           children: const [
                             Row(
                               children: [
-                                Icon(Icons.location_on, color: Colors.grey, size: 16),
+                                Icon(Icons.location_on,
+                                    color: Colors.grey, size: 16),
                                 SizedBox(width: 4),
                                 Text(
                                   'Location: California',
-                                  style: TextStyle(fontSize: 14, color: Colors.grey),
+                                  style: TextStyle(
+                                      fontSize: 14, color: Colors.grey),
                                 ),
                               ],
                             ),
                             Row(
                               children: [
-                                Icon(Icons.location_on, color: Colors.lightBlueAccent, size: 16),
+                                Icon(Icons.location_on,
+                                    color: Colors.lightBlueAccent, size: 16),
                                 Text(
                                   'Track cleaner',
-                                  style: TextStyle(fontSize: 14, color: Colors.lightBlueAccent),
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.lightBlueAccent),
                                 ),
                               ],
                             ),
                           ],
                         ),
                         const SizedBox(height: 8),
-
                         const SizedBox(height: 8),
                         Align(
                           alignment: Alignment.centerRight,
@@ -473,19 +483,18 @@ class DashboardView extends StackedView<DashboardViewModel> {
               ],
             ),
           )
-
         ],
       ),
     );
   }
 
-
-  void _showNotificationSheet(BuildContext context, DashboardViewModel viewModel) {
+  void _showNotificationSheet(
+      BuildContext context, DashboardViewModel viewModel) {
     TopModalSheet.show(
-        context: context,
-        isShowCloseButton: true,
-        closeButtonRadius: 20.0,
-        closeButtonBackgroundColor: kcPrimaryColor,
+      context: context,
+      isShowCloseButton: true,
+      closeButtonRadius: 20.0,
+      closeButtonBackgroundColor: kcPrimaryColor,
       child: Container(
         height: MediaQuery.of(context).size.height * 0.4,
         decoration: BoxDecoration(
@@ -504,8 +513,7 @@ class DashboardView extends StackedView<DashboardViewModel> {
         child: Column(
           children: [
             Padding(
-              padding:
-              const EdgeInsets.only(left: 18.0, right: 18, top: 18),
+              padding: const EdgeInsets.only(left: 18.0, right: 18, top: 18),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -543,11 +551,11 @@ class DashboardView extends StackedView<DashboardViewModel> {
                         ],
                       ),
                       child: InkWell(
-                        onTap: (){
-                            Navigator.of(context)
-                                .push(MaterialPageRoute(builder: (c) {
-                              return  NotificationDetails();
-                            }));
+                        onTap: () {
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(builder: (c) {
+                            return NotificationDetails();
+                          }));
                         },
                         child: ListTile(
                           leading: ClipOval(
@@ -561,7 +569,7 @@ class DashboardView extends StackedView<DashboardViewModel> {
                               ),
                             ),
                           ),
-                          title: Text(
+                          title: const Text(
                             '🔔Cleaner Accepted',
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
@@ -590,7 +598,7 @@ class DashboardView extends StackedView<DashboardViewModel> {
                         leading: ClipOval(
                           child: Container(
                             color: Colors.grey[
-                            200], // Background color for the circular shape
+                                200], // Background color for the circular shape
                             child: SvgPicture.asset(
                               'assets/images/book.svg',
                               height: 20,
@@ -627,7 +635,7 @@ class DashboardView extends StackedView<DashboardViewModel> {
                         leading: ClipOval(
                           child: Container(
                             color: Colors.grey[
-                            200], // Background color for the circular shape
+                                200], // Background color for the circular shape
                             child: SvgPicture.asset(
                               'assets/images/cancel.svg',
                               height: 20,
@@ -665,7 +673,8 @@ class DashboardView extends StackedView<DashboardViewModel> {
                                     height: 70,
                                     decoration: BoxDecoration(
                                       border: Border.all(
-                                          color: Colors.grey.shade300, width: 1),
+                                          color: Colors.grey.shade300,
+                                          width: 1),
                                       borderRadius: BorderRadius.circular(8),
                                       boxShadow: [
                                         BoxShadow(
@@ -676,8 +685,7 @@ class DashboardView extends StackedView<DashboardViewModel> {
                                         ),
                                       ],
                                     ),
-                                    child:
-                                    ClipRRect(
+                                    child: ClipRRect(
                                       borderRadius: BorderRadius.circular(30.0),
                                       child: Container(
                                         color: Colors.lightBlueAccent,
@@ -685,11 +693,9 @@ class DashboardView extends StackedView<DashboardViewModel> {
                                             fit: BoxFit.cover,
                                             width: 100,
                                             height: 100,
-                                            'assets/images/Frame14.png'
-                                        ),
+                                            'assets/images/Frame14.png'),
                                       ),
-                                    )
-                                ),
+                                    )),
                               ),
                               SizedBox(width: 16),
                               Expanded(
@@ -698,7 +704,8 @@ class DashboardView extends StackedView<DashboardViewModel> {
                                   children: [
                                     SizedBox(height: 2),
                                     Row(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Column(
                                           children: [
@@ -706,22 +713,24 @@ class DashboardView extends StackedView<DashboardViewModel> {
                                               '🔔 Tracy Mavin marked your work\n as completed.',
                                               style: TextStyle(
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: 18, ),
+                                                fontSize: 18,
+                                              ),
                                             ),
                                             GestureDetector(
                                               onTap: () {
-                                                Navigator.of(context)
-                                                    .push(MaterialPageRoute(builder: (c) {
-                                                  return  Reviewview();
+                                                Navigator.of(context).push(
+                                                    MaterialPageRoute(
+                                                        builder: (c) {
+                                                  return Reviewview();
                                                 }));
-
                                               },
                                               child: Text(
                                                 'Review Tracy’s work',
                                                 style: TextStyle(
                                                   fontWeight: FontWeight.bold,
                                                   color: kcPrimaryColor,
-                                                  fontSize: 14, ),
+                                                  fontSize: 14,
+                                                ),
                                               ),
                                             ),
                                           ],
@@ -745,7 +754,6 @@ class DashboardView extends StackedView<DashboardViewModel> {
       ),
     );
   }
-
 
   void showBtbSheet(BuildContext context) {
     showModalBottomSheet(
@@ -980,12 +988,7 @@ class DashboardView extends StackedView<DashboardViewModel> {
       DashboardViewModel();
 }
 
-void showCustomBottomSheet(BuildContext context) {
-  int selectedRooms = 1; // Default selected room number
-  double selectedBathrooms = 0; // Default selected bathroom count
-  bool isIndividualCleaner = true;
-  int selectedCleaners = 1;
-
+void showCustomBottomSheet(BuildContext context, DashboardViewModel model) {
   showModalBottomSheet(
     context: context,
     isScrollControlled: true,
@@ -1028,7 +1031,7 @@ void showCustomBottomSheet(BuildContext context) {
 
                   // Number of rooms
                   Text(
-                    "Numbers of rooms*",
+                    "Numbers of rooms?*",
                     style: TextStyle(fontSize: 16, color: Colors.grey[700]),
                   ),
                   SizedBox(height: 10),
@@ -1038,16 +1041,18 @@ void showCustomBottomSheet(BuildContext context) {
                         padding: const EdgeInsets.symmetric(horizontal: 5.0),
                         child: ChoiceChip(
                           label: Text("${index + 1}"),
-                          selected: selectedRooms == index + 1,
+                          selected: model.selectedRooms == index + 1,
                           onSelected: (selected) {
                             setState(() {
-                              selectedRooms = index + 1;
+                              model.selectedRooms = index + 1;
+                              debugPrint(
+                                  "Selected Rooms: $model.selectedRooms");
                             });
                           },
                           selectedColor: kcPrimaryColor,
                           backgroundColor: Colors.grey[300],
                           labelStyle: TextStyle(
-                            color: selectedRooms == index + 1
+                            color: model.selectedRooms == index + 1
                                 ? Colors.white
                                 : Colors.black,
                           ),
@@ -1066,7 +1071,7 @@ void showCustomBottomSheet(BuildContext context) {
                   Row(
                     children: [
                       Text(
-                        selectedBathrooms.toInt().toString(),
+                        model.selectedBathrooms.toInt().toString(),
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -1075,7 +1080,7 @@ void showCustomBottomSheet(BuildContext context) {
                       ),
                       Expanded(
                         child: Slider(
-                          value: selectedBathrooms,
+                          value: model.selectedBathrooms,
                           min: 0,
                           max: 6,
                           divisions: 6,
@@ -1083,13 +1088,48 @@ void showCustomBottomSheet(BuildContext context) {
                           inactiveColor: Colors.grey[300],
                           onChanged: (value) {
                             setState(() {
-                              selectedBathrooms = value;
+                              model.selectedBathrooms = value;
                             });
                           },
                         ),
                       ),
                     ],
                   ),
+                  SizedBox(height: 10),
+
+                  Text(
+                    "Numbers of Cleaners*",
+                    style: TextStyle(fontSize: 16, color: Colors.grey[700]),
+                  ),
+                  SizedBox(height: 10),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Row(
+                      children: List.generate(3, (index) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                          child: ChoiceChip(
+                            label: Text("${index + 1}"),
+                            selected: model.selectedCleaners == index + 1,
+                            onSelected: (selected) {
+                              setState(() {
+                                model.selectedCleaners = index + 1;
+                              });
+                            },
+                            selectedColor: kcPrimaryColor,
+                            backgroundColor: Colors.grey[300],
+                            labelStyle: TextStyle(
+                              color: model.selectedCleaners == index + 1
+                                  ? Colors.white
+                                  : Colors.black,
+                            ),
+                          ),
+                        );
+                      }),
+                    ),
+                  ),
+                  SizedBox(height: 20),
+
                   SizedBox(height: 20),
 
                   // Next button
@@ -1098,7 +1138,7 @@ void showCustomBottomSheet(BuildContext context) {
                     child: ElevatedButton(
                       onPressed: () {
                         Navigator.pop(context);
-                        showBottomSheet(context);
+                        showBottomSheet(context, DashboardViewModel());
                       },
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
@@ -1122,7 +1162,7 @@ void showCustomBottomSheet(BuildContext context) {
   );
 }
 
-void showBottomSheet(BuildContext context) {
+void showBottomSheet(BuildContext context, DashboardViewModel viewModel) {
   showModalBottomSheet(
     context: context,
     isScrollControlled: true,
@@ -1200,13 +1240,15 @@ void showBottomSheet(BuildContext context) {
                     child: ElevatedButton(
                       onPressed: () {
                         Navigator.pop(context);
-                        showBottomSheetDatePicker(context); // Close the bottom sheet
+                        showBottomSheetDatePicker(
+                            context, viewModel); // Close the bottom sheet
                       },
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        backgroundColor: kcWhiteColor, // Adjust to your primary color
+                        backgroundColor:
+                            kcWhiteColor, // Adjust to your primary color
                       ),
                       child: Text(
                         "Next",
@@ -1254,65 +1296,345 @@ Widget buildCleaningTypeCard(String imagePath, String title) {
   );
 }
 
+void showBottomSheetDatePicker(
+    BuildContext context, DashboardViewModel viewModel) {
+  void toggleDaySelection(String day) {
+    if (viewModel.selectedDaysHomeOwner.contains(day)) {
+      viewModel.selectedDaysHomeOwner
+          .remove(day); // Deselect if already selected
+    } else {
+      viewModel.selectedDaysHomeOwner.add(day); // Add to selected
+    }
+    print(
+        "Selected Days: $viewModel.selectedDaysHomeOwner"); // Print selected days
+  }
 
-void showBottomSheetDatePicker(BuildContext context) {
+  void toggleTimeSelection(String day) {
+    if (viewModel.selectedTimesHomeOwner.contains(day)) {
+      viewModel.selectedTimesHomeOwner
+          .remove(day); // Deselect if already selected
+    } else {
+      viewModel.selectedTimesHomeOwner.add(day); // Add to selected
+    }
+    print(
+        "Selected times: $viewModel.selectedTimesHomeOwner"); // Print selected days
+  }
+
   showModalBottomSheet(
     context: context,
     builder: (BuildContext context) {
-      return Container(
-        padding: EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              'Select Date and Time',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+      return StatefulBuilder(
+        builder: (context, setState) {
+          return Container(
+            padding: EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
             ),
-            SizedBox(height: 16),
-            BoardDateTimeInputField(
-              initialDate: DateTime.now(),
-              onChanged: (DateTime selectedDateTime) {
-                // Handle selected date and time here
-                print('Selected DateTime: $selectedDateTime');
-              },
-              pickerType:  DateTimePickerType.datetime,
-              options: const BoardDateTimeOptions(
-                languages: BoardPickerLanguages.en(),
-      ),
-            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'Select Date and Time',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(height: 16),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          toggleDaySelection("Weekdays");
+                        });
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12.0,
+                          vertical: 10.0,
+                        ),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: viewModel.selectedDaysHomeOwner
+                                    .contains("Weekdays")
+                                ? kcPrimaryColor
+                                : viewModel.kcDefaultColor,
+                          ),
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: Text(
+                          "Weekdays",
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: viewModel.selectedDaysHomeOwner
+                                    .contains("Weekdays")
+                                ? kcPrimaryColor
+                                : viewModel.kcDefaultColor,
+                          ),
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          toggleDaySelection("Weekends");
+                        });
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12.0,
+                          vertical: 10.0,
+                        ),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: viewModel.selectedDaysHomeOwner
+                                    .contains("Weekends")
+                                ? kcPrimaryColor
+                                : viewModel.kcDefaultColor,
+                          ),
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: Text(
+                          "Weekends",
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: viewModel.selectedDaysHomeOwner
+                                    .contains("Weekends")
+                                ? kcPrimaryColor
+                                : viewModel.kcDefaultColor,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 16),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          toggleTimeSelection("morning");
+                        });
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12.0,
+                          vertical: 10.0,
+                        ),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: viewModel.selectedTimesHomeOwner
+                                    .contains("morning")
+                                ? kcPrimaryColor
+                                : viewModel.kcDefaultColor,
+                          ),
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: Column(
+                          children: [
+                            Text(
+                              "Morning",
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: viewModel.selectedTimesHomeOwner
+                                        .contains("morning")
+                                    ? kcPrimaryColor
+                                    : viewModel.kcDefaultColor,
+                              ),
+                            ),
+                            Text(
+                              "6AM-12PM",
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: viewModel.selectedTimesHomeOwner
+                                        .contains("morning")
+                                    ? kcPrimaryColor
+                                    : viewModel.kcDefaultColor,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          toggleTimeSelection("afternoon");
+                        });
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12.0,
+                          vertical: 10.0,
+                        ),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: viewModel.selectedTimesHomeOwner
+                                    .contains("afternoon")
+                                ? kcPrimaryColor
+                                : viewModel.kcDefaultColor,
+                          ),
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: Column(
+                          children: [
+                            Text(
+                              "Afternoon",
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: viewModel.selectedTimesHomeOwner
+                                        .contains("afternoon")
+                                    ? kcPrimaryColor
+                                    : viewModel.kcDefaultColor,
+                              ),
+                            ),
+                            Text(
+                              "12pM-6PM",
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: viewModel.selectedTimesHomeOwner
+                                        .contains("afternoon")
+                                    ? kcPrimaryColor
+                                    : viewModel.kcDefaultColor,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          toggleTimeSelection("evening");
+                        });
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12.0,
+                          vertical: 10.0,
+                        ),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: viewModel.selectedTimesHomeOwner
+                                    .contains("evening")
+                                ? kcPrimaryColor
+                                : viewModel.kcDefaultColor,
+                          ),
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: Column(
+                          children: [
+                            Text(
+                              "Evening",
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: viewModel.selectedTimesHomeOwner
+                                        .contains("evening")
+                                    ? kcPrimaryColor
+                                    : viewModel.kcDefaultColor,
+                              ),
+                            ),
+                            Text(
+                              "6PM-12AM",
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: viewModel.selectedTimesHomeOwner
+                                        .contains("evening")
+                                    ? kcPrimaryColor
+                                    : viewModel.kcDefaultColor,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                verticalSpaceMedium,
+                SizedBox(height: 16),
+                Row(
+                  children: [
+                    Text(
+                      "Schedule Date (Optional)",
+                      style: const TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    SizedBox(width: 8),
+                    GestureDetector(
+                      onTap: () => viewModel.showMultiDatePicker(context),
+                      child: const Icon(Icons.calendar_today),
+                    ),
+                  ],
+                ),
+                if (viewModel.selectedDates.isNotEmpty)
+                  Wrap(
+                    spacing: 8.0,
+                    runSpacing: 8.0,
+                    children: viewModel.selectedDates
+                        .map((date) => Chip(
+                              label: Text(
+                                "${date.day}-${date.month}-${date.year}",
+                                style: const TextStyle(fontSize: 12),
+                              ),
+                              deleteIcon: const Icon(Icons.close),
+                              onDeleted: () {
+                                viewModel.selectedDates.remove(date);
 
-            SizedBox(height: 16),
-            Align(
-              alignment: Alignment.centerRight,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                  showBottomSheetCheck(context); // Close this bottom sheet
-                },
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
+                                // Enable availability section if no dates are selected
+                                if (viewModel.selectedDates.isEmpty) {
+                                  viewModel.isSpecificDateSelected = false;
+                                }
+                                viewModel.notifyListeners();
+                              },
+                            ))
+                        .toList(),
+                  ),
+                SizedBox(height: 32),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      showBottomSheetCheck(
+                          context, viewModel); // Close the bottom sheet
+                    },
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      backgroundColor:
+                          kcWhiteColor, // Adjust to your primary color
+                    ),
+                    child: Text(
+                      "Next",
+                      style: TextStyle(fontSize: 14, color: kcPrimaryColor),
+                    ),
                   ),
                 ),
-                child: Text(
-                  "Next",
-                  style: TextStyle(fontSize: 12, color: kcPrimaryColor),
-                ),
-              ),
+              ],
             ),
-          ],
-        ),
+          );
+        },
       );
     },
   );
 }
 
+void showBottomSheetCheck(BuildContext context, DashboardViewModel viewModel) {
+  // List of checkbox labels
 
-void showBottomSheetCheck(BuildContext context) {
+  // State management for each checkbox
+  List<bool> isCheckedGeneralAreas =
+      List.generate(viewModel.generalAreas.length, (index) => false);
+  List<bool> isCheckedKitchen =
+      List.generate(viewModel.kitchen.length, (index) => false);
+  List<bool> isCheckedBathrooms =
+      List.generate(viewModel.bathrooms.length, (index) => false);
+
   showModalBottomSheet(
     context: context,
     isScrollControlled: true,
@@ -1322,9 +1644,9 @@ void showBottomSheetCheck(BuildContext context) {
     builder: (BuildContext context) {
       return StatefulBuilder(
         builder: (BuildContext context, StateSetter setModalState) {
-          bool isDefaultPayment = false;
           return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
             child: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -1341,433 +1663,201 @@ void showBottomSheetCheck(BuildContext context) {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  const Text(
-                    'Check List Details',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
+                  const Center(
+                    child: Text(
+                      'Check List Details',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
                     ),
                   ),
-                  const Text(
-                    'General Areas (Living Room, 3 Bedrooms)',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,)
-                  ),
-                  Row(
+                  const SizedBox(height: 8),
+                  // Dynamically generate checkboxes
+                  Column(
                     children: [
-                      StatefulBuilder(
-                        builder: (BuildContext context, StateSetter setState) {
-                          return Checkbox(
-                            value: isDefaultPayment,
-                            activeColor: kcPrimaryColor,
-                            checkColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            onChanged: (value) {
-                              setState(() {
-                                isDefaultPayment = value ?? false;
-                              });
-                            },
-                          );
-                        },
-                      ),
-                      const Text("Dusting"),
-                      Row(
-                        children: [
-                          StatefulBuilder(
-                            builder: (BuildContext context, StateSetter setState) {
-                              return Checkbox(
-                                value: isDefaultPayment,
-                                activeColor: kcPrimaryColor,
-                                checkColor: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                onChanged: (value) {
-                                  setState(() {
-                                    isDefaultPayment = value ?? false;
-                                  });
-                                },
-                              );
-                            },
-                          ),
-                          const Text("Vacuuming & Sweeping"),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      StatefulBuilder(
-                        builder: (BuildContext context, StateSetter setState) {
-                          return Checkbox(
-                            value: isDefaultPayment,
-                            activeColor: kcPrimaryColor,
-                            checkColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            onChanged: (value) {
-                              setState(() {
-                                isDefaultPayment = value ?? false;
-                              });
-                            },
-                          );
-                        },
-                      ),
-                      const Text("Mooping"),
-                      Row(
-                        children: [
-                          StatefulBuilder(
-                            builder: (BuildContext context, StateSetter setState) {
-                              return Checkbox(
-                                value: isDefaultPayment,
-                                activeColor: kcPrimaryColor,
-                                checkColor: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                onChanged: (value) {
-                                  setState(() {
-                                    isDefaultPayment = value ?? false;
-                                  });
-                                },
-                              );
-                            },
-                          ),
-                          const Text("Doors & Handle"),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      StatefulBuilder(
-                        builder: (BuildContext context, StateSetter setState) {
-                          return Checkbox(
-                            value: isDefaultPayment,
-                            activeColor: kcPrimaryColor,
-                            checkColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            onChanged: (value) {
-                              setState(() {
-                                isDefaultPayment = value ?? false;
-                              });
-                            },
-                          );
-                        },
-                      ),
-                      const Text("Mirrors & glass all surface"),
-                      Row(
-                        children: [
-                          StatefulBuilder(
-                            builder: (BuildContext context, StateSetter setState) {
-                              return Checkbox(
-                                value: isDefaultPayment,
-                                activeColor: kcPrimaryColor,
-                                checkColor: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                onChanged: (value) {
-                                  setState(() {
-                                    isDefaultPayment = value ?? false;
-                                  });
-                                },
-                              );
-                            },
-                          ),
-                          const Text("Windows"),
-                        ],
-                      ),
-                    ],
-                  ),
-                  const Text(
-                      'Kitchen',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,)
-                  ),
-                  Row(
-                    children: [
-                      StatefulBuilder(
-                        builder: (BuildContext context, StateSetter setState) {
-                          return Checkbox(
-                            value: isDefaultPayment,
-                            activeColor: kcPrimaryColor,
-                            checkColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            onChanged: (value) {
-                              setState(() {
-                                isDefaultPayment = value ?? false;
-                              });
-                            },
-                          );
-                        },
-                      ),
-                      const Text("Counters  & surfaces"),
-                      Row(
-                        children: [
-                          StatefulBuilder(
-                            builder: (BuildContext context, StateSetter setState) {
-                              return Checkbox(
-                                value: isDefaultPayment,
-                                activeColor: kcPrimaryColor,
-                                checkColor: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                onChanged: (value) {
-                                  setState(() {
-                                    isDefaultPayment = value ?? false;
-                                  });
-                                },
-                              );
-                            },
-                          ),
-                          const Text("Appliances"),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      StatefulBuilder(
-                        builder: (BuildContext context, StateSetter setState) {
-                          return Checkbox(
-                            value: isDefaultPayment,
-                            activeColor: kcPrimaryColor,
-                            checkColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            onChanged: (value) {
-                              setState(() {
-                                isDefaultPayment = value ?? false;
-                              });
-                            },
-                          );
-                        },
-                      ),
-                      const Text("Cabinet & Drawers"),
-                      Row(
-                        children: [
-                          StatefulBuilder(
-                            builder: (BuildContext context, StateSetter setState) {
-                              return Checkbox(
-                                value: isDefaultPayment,
-                                activeColor: kcPrimaryColor,
-                                checkColor: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                onChanged: (value) {
-                                  setState(() {
-                                    isDefaultPayment = value ?? false;
-                                  });
-                                },
-                              );
-                            },
-                          ),
-                          const Text("Flooring"),
-                        ],
-                      ),
-                    ],
-                  ),
-                  const Text(
-                      'Bathrooms',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,)
-                  ),
-                  Row(
-                    children: [
-                      StatefulBuilder(
-                        builder: (BuildContext context, StateSetter setState) {
-                          return Checkbox(
-                            value: isDefaultPayment,
-                            activeColor: kcPrimaryColor,
-                            checkColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            onChanged: (value) {
-                              setState(() {
-                                isDefaultPayment = value ?? false;
-                              });
-                            },
-                          );
-                        },
-                      ),
-                      const Text("Sink & Counters"),
-                      Row(
-                        children: [
-                          StatefulBuilder(
-                            builder: (BuildContext context, StateSetter setState) {
-                              return Checkbox(
-                                value: isDefaultPayment,
-                                activeColor: kcPrimaryColor,
-                                checkColor: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                onChanged: (value) {
-                                  setState(() {
-                                    isDefaultPayment = value ?? false;
-                                  });
-                                },
-                              );
-                            },
-                          ),
-                          const Text("Toilet"),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      StatefulBuilder(
-                        builder: (BuildContext context, StateSetter setState) {
-                          return Checkbox(
-                            value: isDefaultPayment,
-                            activeColor: kcPrimaryColor,
-                            checkColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            onChanged: (value) {
-                              setState(() {
-                                isDefaultPayment = value ?? false;
-                              });
-                            },
-                          );
-                        },
-                      ),
-                      const Text("Shower/Bathtub"),
-                      Row(
-                        children: [
-                          StatefulBuilder(
-                            builder: (BuildContext context, StateSetter setState) {
-                              return Checkbox(
-                                value: isDefaultPayment,
-                                activeColor: kcPrimaryColor,
-                                checkColor: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                onChanged: (value) {
-                                  setState(() {
-                                    isDefaultPayment = value ?? false;
-                                  });
-                                },
-                              );
-                            },
-                          ),
-                          const Text("Mirrors & Glass surface"),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      StatefulBuilder(
-                        builder: (BuildContext context, StateSetter setState) {
-                          return Checkbox(
-                            value: isDefaultPayment,
-                            activeColor: kcPrimaryColor,
-                            checkColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            onChanged: (value) {
-                              setState(() {
-                                isDefaultPayment = value ?? false;
-                              });
-                            },
-                          );
-                        },
-                      ),
-                      const Text("Cabinets & Drawers"),
-                      Row(
-                        children: [
-                          StatefulBuilder(
-                            builder: (BuildContext context, StateSetter setState) {
-                              return Checkbox(
-                                value: isDefaultPayment,
-                                activeColor: kcPrimaryColor,
-                                checkColor: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                onChanged: (value) {
-                                  setState(() {
-                                    isDefaultPayment = value ?? false;
-                                  });
-                                },
-                              );
-                            },
-                          ),
-                          const Text("Flooring"),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                              showBottomSheetCost(context); // Ensure `showBottomSheetCost` is defined
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: kcPrimaryColor, // Replace with your primary color
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              padding: const EdgeInsets.symmetric(vertical: 14),
-                            ),
-                            child: const Text(
-                              "Proceed",
-                              style: TextStyle(fontSize: 16, color: Colors.white),
-                            ),
-                          ),
+                      Text("General Areas (Living Room, 3 Bedrooms)",
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                      GridView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2, // Number of columns
+                          crossAxisSpacing: 10.0, // Spacing between columns
+                          mainAxisSpacing: 10.0, // Spacing between rows
+                          childAspectRatio:
+                              7, // Width-to-height ratio of each grid item
                         ),
-                        const SizedBox(height: 10),
-                        SizedBox(
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
-                                side: BorderSide(color: kcPrimaryColor), // Replace with your primary color
+                        itemCount: viewModel.generalAreas.length,
+                        itemBuilder: (context, index) {
+                          return Row(
+                            children: [
+                              Checkbox(
+                                value: isCheckedGeneralAreas[index],
+                                activeColor: kcPrimaryColor,
+                                onChanged: (value) {
+                                  setModalState(() {
+                                    isCheckedGeneralAreas[index] =
+                                        value ?? false;
+                                  });
+                                  if (value == true) {
+                                    print(
+                                        "Checked: ${viewModel.generalAreas[index]}");
+                                  } else {
+                                    print(
+                                        "Unchecked: ${viewModel.generalAreas[index]}");
+                                  }
+                                },
                               ),
-                              padding: const EdgeInsets.symmetric(vertical: 14),
-                            ),
-                            child: Text(
-                              "Edit Booking",
-                              style: TextStyle(fontSize: 16, color: kcPrimaryColor), // Replace with your primary color
-                            ),
-                          ),
+                              Flexible(
+                                child: Text(
+                                  viewModel.generalAreas[index],
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      ),
+                      verticalSpaceMedium,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text("Kitchen",
+                              style: TextStyle(fontWeight: FontWeight.bold)),
+                        ],
+                      ),
+                      GridView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2, // Number of columns
+                          crossAxisSpacing: 10.0, // Spacing between columns
+                          mainAxisSpacing: 10.0, // Spacing between rows
+                          childAspectRatio:
+                              7, // Width-to-height ratio of each grid item
                         ),
-                      ],
+                        itemCount: viewModel.kitchen.length,
+                        itemBuilder: (context, index) {
+                          return Row(
+                            children: [
+                              Checkbox(
+                                value: isCheckedKitchen[index],
+                                activeColor: kcPrimaryColor,
+                                onChanged: (value) {
+                                  setModalState(() {
+                                    isCheckedKitchen[index] = value ?? false;
+                                  });
+                                  if (value == true) {
+                                    print(
+                                        "Checked: ${viewModel.kitchen[index]}");
+                                  } else {
+                                    print(
+                                        "Unchecked: ${viewModel.kitchen[index]}");
+                                  }
+                                },
+                              ),
+                              Text(viewModel.kitchen[index]),
+                            ],
+                          );
+                        },
+                      ),
+                      verticalSpaceMedium,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text("Bathrooms",
+                              style: TextStyle(fontWeight: FontWeight.bold)),
+                        ],
+                      ),
+                      GridView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2, // Number of columns
+                          crossAxisSpacing: 10.0, // Spacing between columns
+                          mainAxisSpacing: 10.0, // Spacing between rows
+                          childAspectRatio:
+                              7, // Width-to-height ratio of each grid item
+                        ),
+                        itemCount: viewModel.bathrooms.length,
+                        itemBuilder: (context, index) {
+                          return Row(
+                            children: [
+                              Checkbox(
+                                value: isCheckedBathrooms[index],
+                                activeColor: kcPrimaryColor,
+                                onChanged: (value) {
+                                  setModalState(() {
+                                    isCheckedBathrooms[index] = value ?? false;
+                                  });
+                                  if (value == true) {
+                                    print(
+                                        "Checked: ${viewModel.bathrooms[index]}");
+                                  } else {
+                                    print(
+                                        "Unchecked: ${viewModel.bathrooms[index]}");
+                                  }
+                                },
+                              ),
+                              Text(viewModel.bathrooms[index]),
+                            ],
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(height: 24),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                        showBottomSheetCost(context);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            kcPrimaryColor, // Replace with kcPrimaryColor
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                      ),
+                      child: const Text(
+                        "Proceed",
+                        style: TextStyle(fontSize: 16, color: Colors.white),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          side: BorderSide(
+                              color:
+                                  kcPrimaryColor), // Replace with kcPrimaryColor
+                        ),
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                      ),
+                      child: Text(
+                        "Edit Booking",
+                        style: TextStyle(
+                            fontSize: 16,
+                            color:
+                                kcPrimaryColor), // Replace with kcPrimaryColor
+                      ),
                     ),
                   ),
                 ],
@@ -1796,14 +1886,14 @@ Widget _buildChecklistRow(List<String> items) {
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: items
         .map((item) => Expanded(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Text(
-          item,
-          style: const TextStyle(fontSize: 16),
-        ),
-      ),
-    ))
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  item,
+                  style: const TextStyle(fontSize: 16),
+                ),
+              ),
+            ))
         .toList(),
   );
 }
@@ -1973,7 +2063,9 @@ void showBottomSheetCost(BuildContext context) {
                     Navigator.pop(context); // Close the current bottom sheet
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => PaymentView()), // Navigate to the BookedView screen
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              PaymentView()), // Navigate to the BookedView screen
                     );
                   },
                   style: ElevatedButton.styleFrom(
