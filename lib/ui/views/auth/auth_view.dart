@@ -55,7 +55,7 @@ class _AuthViewState extends State<AuthView> with TickerProviderStateMixin {
                     Expanded(
                       child: Image.asset(
                         "assets/images/groupwash.png",
-                        height: 300,
+                        height: 250,
                         fit: BoxFit.fill,
                       ),
                     ),

@@ -52,9 +52,6 @@ class AuthViewModel extends BaseViewModel {
   String? cityValue;
 
 
-
-
-
   init() async {
 
     bool rem = await locator<LocalStorage>().fetch(LocalStorageDir.remember);
@@ -117,7 +114,6 @@ class AuthViewModel extends BaseViewModel {
     rebuildUi();
   }
 
-
   void login() async {
     setBusy(true);
 
@@ -151,17 +147,11 @@ class AuthViewModel extends BaseViewModel {
     setBusy(false);
   }
 
-
-
   Future<RegistrationResult> register() async {
 
-    // if (!terms) {
-    //   snackBar.showSnackbar(message: "Accept terms to continue");
-    //   return RegistrationResult.failure;
-    // }
     setBusy(true);
-
     try {
+
       ApiResponse res = await repo.register({
         "firstName": firstname.text,
         "lastName": lastname.text,
@@ -169,9 +159,8 @@ class AuthViewModel extends BaseViewModel {
         "address": addressValue,
         "city": cityValue,
         "password": password.text,
-
-
       });
+
       if (res.statusCode == 201) {
         snackBar.showSnackbar(message: res.data["message"]);
 
@@ -183,7 +172,8 @@ class AuthViewModel extends BaseViewModel {
         terms = false;
         setBusy(false);
         return RegistrationResult.success;
-      } else {
+      }
+      else {
         setBusy(false);
 
         if (res.data["message"] is String) {
@@ -200,16 +190,18 @@ class AuthViewModel extends BaseViewModel {
         }
 
       }
-    } catch (e) {
 
+    } catch (e) {
       log.e(e);
       setBusy(false);
       return RegistrationResult.failure;
 
     } finally {
+
       setBusy(false);
       notifyListeners();
     }
 
   }
+
 }

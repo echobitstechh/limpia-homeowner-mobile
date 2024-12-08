@@ -138,49 +138,32 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
                     return Column(
                       children: [
                         Expanded(
-                          child: Column(
-                            children: [
-                              Container(
-                                height: 500,
-                                child: Align(
-                                  alignment: Alignment.bottomCenter,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(bottom: 20.0),
-                                    child: Image.asset(
-                                      item.imageUrl,
-                                      height: 300,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
+                          child: Image.asset(
+                            item.imageUrl,
+                            fit: BoxFit.contain,
                           ),
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
                           child: Text(
                             item.title,
-                            style:  TextStyle(
+                            style: TextStyle(
                               fontSize: 26,
                               fontWeight: FontWeight.w700,
-                              color: item.textColor, // Set text color dynamically
-
+                              color: item.textColor,
                             ),
                           ),
-
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
                           child: Text(
                             item.description,
-                            style:  TextStyle(
+                            style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w400,
-                              color: item.textColor, // Set text color dynamically
-
+                              color: item.textColor,
                             ),
                           ),
-
                         ),
                       ],
                     );

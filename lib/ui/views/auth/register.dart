@@ -293,39 +293,6 @@ class _RegisterState extends State<Register> {
                           : buildAutocompleteResults(false, model.addressController, model),
                     ],
                   ),
-                  // verticalSpaceMedium,
-                  // DropdownButtonFormField(
-                  //   decoration: InputDecoration(
-                  //     labelText: 'City',
-                  //     labelStyle:
-                  //     const TextStyle(color: Colors.black, fontSize: 13),
-                  //     floatingLabelStyle: const TextStyle(color: Colors.black),
-                  //     border: OutlineInputBorder(
-                  //       borderRadius: BorderRadius.circular(10.0),
-                  //       borderSide: const BorderSide(color: Color(0xFFCC9933)),
-                  //     ),
-                  //     focusedBorder: OutlineInputBorder(
-                  //       borderRadius: BorderRadius.circular(10.0),
-                  //       borderSide: const BorderSide(color: Color(0xFFCC9933)),
-                  //     ),
-                  //   ),
-                  //   value: model
-                  //       .selectedGender, // You should add selectedGender to your model
-                  //   onSaved: (String? newValue) {
-                  //     model.selectedGender = newValue!;
-                  //   },
-                  //   onChanged: (String? newValue) {
-                  //     model.selectedGender = newValue!;
-                  //   },
-                  //   items: genderOptions
-                  //       .map<DropdownMenuItem<String>>((String value) {
-                  //     return DropdownMenuItem<String>(
-                  //       value: value,
-                  //       child: Text(value),
-                  //     );
-                  //   }).toList(),
-                  //   // validator: (value) => value == null ? 'Please select a city' : null,
-                  // ),
                   verticalSpace(30),
                   InkWell(
                     onTap: model.toggleTerms,
@@ -367,6 +334,7 @@ class _RegisterState extends State<Register> {
                     isLoading: model.isBusy,
                     label: "Continue",
                     submit: () async {
+
                       RegistrationResult registrationResult = await model.register();
                       if (registrationResult == RegistrationResult.success) {
                         Navigator.push(

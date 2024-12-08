@@ -7,18 +7,13 @@ import 'package:limpia/ui/components/submit_button.dart';
 import 'package:limpia/ui/components/text_field_widget.dart';
 import 'package:limpia/ui/views/auth/auth_viewmodel.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
-
 
 /// @author George David
 /// email: georgequin19@gmail.com
 /// Feb, 2024
 ///
-
 
 class Login extends StatefulWidget {
   final Function(bool) updateIsLogin;
@@ -43,38 +38,19 @@ class _LoginState extends State<Login> {
           viewModelBuilder: () => AuthViewModel(),
           builder: (context, model, child) => ListView(
             children: [
-              const Text(
-                "Sign in",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              verticalSpaceTiny,
-          Row(
-            children:  [
-                const Text(
-                  "Don't have an account? ",
-                  style: TextStyle(
-                      fontSize: 12,
-                      ),
-                ),
-              GestureDetector(
-                onTap: () {
-                  gotoRegister();
-
-                },
-                child: const Text(
-                  "Create Account",
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: kcPrimaryColor,
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Sign in",
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'roboto'
+                    ),
                   ),
-                ),
-              )
-
-            ]
-          ),
+                ],
+              ),
 
               verticalSpaceMedium,
               TextFieldWidget(
@@ -116,26 +92,26 @@ class _LoginState extends State<Login> {
                                         : kcPrimaryColor)),
                             child: model.remember
                                 ? const Center(
-                              child: Icon(
-                                Icons.check,
-                                color: kcWhiteColor,
-                                size: 14,
-                              ),
-                            )
+                                    child: Icon(
+                                      Icons.check,
+                                      color: kcWhiteColor,
+                                      size: 14,
+                                    ),
+                                  )
                                 : const SizedBox()),
                         horizontalSpaceSmall,
                         const Text(
                           "Remember Me",
                           style: TextStyle(
-                              fontSize: 14, decoration: TextDecoration.underline),
+                              fontSize: 14,
+                              decoration: TextDecoration.underline),
                         )
                       ],
                     ),
                   ),
                   InkWell(
                     onTap: () {
-                      locator<NavigationService>()
-                          .navigateToEnterEmailView();
+                      locator<NavigationService>().navigateToEnterEmailView();
                     },
                     child: const Text(
                       "Forgot password?",
@@ -173,36 +149,60 @@ class _LoginState extends State<Login> {
                 ],
               ),
               SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  IconButton(
-                    icon: SvgPicture.asset(
-                      'assets/icons/x.svg',
-                      height: 30,  // Adjust the height as needed
-                      width: 30,   // Adjust the width as needed
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    IconButton(
+                      icon: SvgPicture.asset(
+                        'assets/icons/x.svg',
+                        height: 30, // Adjust the height as needed
+                        width: 30, // Adjust the width as needed
+                      ),
+                      onPressed: () {},
                     ),
-                    onPressed: () {},
-                  ),
-                  IconButton(
-                    icon: SvgPicture.asset(
-                      'assets/icons/fb.svg',
-                      height: 30,  // Adjust the height as needed
-                      width: 30,   // Adjust the width as needed
+                    IconButton(
+                      icon: SvgPicture.asset(
+                        'assets/icons/fb.svg',
+                        height: 30, // Adjust the height as needed
+                        width: 30, // Adjust the width as needed
+                      ),
+                      onPressed: () {},
                     ),
-                    onPressed: () {},
-                  ),
-                  IconButton(
-                    icon: SvgPicture.asset(
-                      'assets/icons/ggl.svg',
-                      height: 30,  // Adjust the height as needed
-                      width: 30,   // Adjust the width as needed
+                    IconButton(
+                      icon: SvgPicture.asset(
+                        'assets/icons/ggl.svg',
+                        height: 30, // Adjust the height as needed
+                        width: 30, // Adjust the width as needed
+                      ),
+                      onPressed: () {},
                     ),
-                    onPressed: () {},
-                  ),
-                ],
+                  ],
+                ),
               ),
 
+              verticalSpaceTiny,
+              Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                const Text(
+                  "Don't have an account? ",
+                  style: TextStyle(
+                    fontSize: 12,
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    gotoRegister();
+                  },
+                  child: const Text(
+                    "Create Account",
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: kcPrimaryColor,
+                    ),
+                  ),
+                )
+              ]),
 
               // verticalSpaceMedium,
               // Row(
