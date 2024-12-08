@@ -5,6 +5,7 @@ import 'package:limpia/ui/common/app_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:limpia/ui/views/dashboard/raffle_detail.dart';
+import 'package:limpia/ui/views/dashboard/time-and-date.dart';
 import 'package:multi_date_picker/multi_date_picker.dart';
 import 'package:slide_countdown/slide_countdown.dart';
 import 'package:stacked/stacked.dart';
@@ -293,22 +294,30 @@ class DashboardView extends StackedView<DashboardViewModel> {
                             ],
                           ),
                         ),
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Colors.orange[300] ??
-                                Colors.orange, // Fallback color
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 4,
-                            horizontal: 8,
-                          ),
-                          child: const Text(
-                            'Processing',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
+                        InkWell(
+                          onTap: (){
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => HomePage()),
+                            );
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.orange[300] ??
+                                  Colors.orange, // Fallback color
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 4,
+                              horizontal: 8,
+                            ),
+                            child: const Text(
+                              'Processing',
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         ),
@@ -1240,9 +1249,10 @@ void showBottomSheet(BuildContext context, DashboardViewModel viewModel) {
                     child: ElevatedButton(
                       onPressed: () {
                         Navigator.pop(context);
-                        showBottomSheetDatePicker(
-                            context, viewModel); // Close the bottom sheet
-                      },
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => HomePage()),
+                        );                      },
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
