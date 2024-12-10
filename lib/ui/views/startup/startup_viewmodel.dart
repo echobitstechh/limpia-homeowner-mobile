@@ -34,10 +34,10 @@ class StartupViewModel extends BaseViewModel {
         userLoggedIn.value = true;
         profile.value = Profile.fromJson(Map<String, dynamic>.from(jsonDecode(user)));
         getProfile();
-
+        _navigationService.replaceWithHomeView();
       }
-      _navigationService.replaceWithHomeView();
-      // _navigationService.replaceWithAuthView();
+
+       _navigationService.replaceWithAuthView();
     }
   }
 
@@ -49,7 +49,6 @@ class StartupViewModel extends BaseViewModel {
             Profile.fromJson(Map<String, dynamic>.from(res.data['data']));
         await locator<LocalStorage>().save(LocalStorageDir.profileView, res.data["data"]);
         notifyListeners();
-        print(profile.value.accountPoints);
       }
     } catch (e) {
       throw Exception(e);

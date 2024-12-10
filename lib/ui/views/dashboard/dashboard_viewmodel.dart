@@ -432,7 +432,6 @@ class DashboardViewModel extends BaseViewModel {
             Profile.fromJson(Map<String, dynamic>.from(res.data['data']));
         await locator<LocalStorage>().save(LocalStorageDir.profileView, res.data["data"]);
         notifyListeners();
-        print(profile.value.accountPoints);
       }
     } catch (e) {
       throw Exception(e);

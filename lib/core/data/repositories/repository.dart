@@ -12,7 +12,7 @@ class Repository extends IRepository {
   Future<ApiResponse> login(Map<String, dynamic> req) async {
     ApiResponse response = await api.call(
       method: HttpMethod.post,
-      endpoint: "user/homeowner/signIn",
+      endpoint: "auth/signin",
       reqBody: req,
     );
 
@@ -42,7 +42,7 @@ class Repository extends IRepository {
   Future<ApiResponse> register(Map<String, dynamic> req) async {
     ApiResponse response = await api.call(
       method: HttpMethod.post,
-      endpoint: "user/homeowner/signUp",
+      endpoint: "auth/signup",
       reqBody: req,
     );
 

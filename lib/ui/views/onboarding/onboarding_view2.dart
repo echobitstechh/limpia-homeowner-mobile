@@ -4,8 +4,20 @@ import '../../../app/app.locator.dart';
 import '../../../app/app.router.dart';
 import '../../common/app_colors.dart';
 
-class OnboardingView2 extends StatelessWidget {
+class OnboardingView2 extends StatefulWidget {
   const OnboardingView2({Key? key}) : super(key: key);
+
+  @override
+  State<OnboardingView2> createState() => _OnboardingView2State();
+}
+
+class _OnboardingView2State extends State<OnboardingView2> {
+  @override
+  void initState() {
+    super.initState();
+    // Perform initialization logic here
+    // locator<LocalStorage>().save(LocalStorageDir.onboarded, true);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,26 +28,34 @@ class OnboardingView2 extends StatelessWidget {
           description:
           'Easily book experienced cleaners for your home or property. Choose the service, set the schedule, and leave the rest to us!',
           imageUrl: "assets/images/cleaner.png",
-          bgImage: "assets/images/backround.png", textColor: kcWhiteColor, bgColor: kcPrimaryColor,
+          bgImage: "assets/images/backround.png",
+          textColor: kcWhiteColor,
+          bgColor: kcPrimaryColor,
         ),
         OnboardingPageModel(
           title: 'Track Progress and Payments',
           description:
           'View your upcoming appointments, track cleaner arrival, and handle payments securely—all in one app.',
           imageUrl: 'assets/images/Object.png',
-          bgImage: "assets/images/backround2.png", textColor: kcWhiteColor, bgColor: Colors.blue,
+          bgImage: "assets/images/backround2.png",
+          textColor: kcWhiteColor,
+          bgColor: Colors.blue,
         ),
         OnboardingPageModel(
           title: 'Custom Cleaning for Every Need',
           description:
           'Whether it’s a one-time deep clean or regular maintenance, we offer personalized services that fit your schedule and needs.',
           imageUrl: 'assets/images/Object2.png',
-          bgImage: "assets/images/backround3.png", textColor: kcPrimaryColor, bgColor: kcWhiteColor,
+          bgImage: "assets/images/backround3.png",
+          textColor: kcPrimaryColor,
+          bgColor: kcWhiteColor,
         ),
       ]),
     );
   }
 }
+
+
 
 class OnboardingPagePresenter extends StatefulWidget {
   final List<OnboardingPageModel> pages;
@@ -115,7 +135,7 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
                     ),
                     onPressed: () {
                       widget.onSkip?.call();
-                      locator<NavigationService>().clearStackAndShow(Routes.homeView);
+                      locator<NavigationService>().clearStackAndShow(Routes.authView);
                     },
                     child: const Text(
                       "Skip",

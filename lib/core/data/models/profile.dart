@@ -4,101 +4,139 @@ import 'package:limpia/core/data/models/product.dart';
 
 class Profile {
   String? id;
-  String? firstname;
-  String? lastname;
+  String? firstName;
+  String? lastName;
   String? email;
-  String? username;
-  String? phone;
-  Country? country;
-  Media? profilePic;
-  bool? isUserVerified;
+  String? role;
   String? status;
-  String? accountType;
-  int? accountPoints;
-  String? accountPointsLocal;
+  Address? address;
+  String? token;
+  String? refreshToken;
   String? createdAt;
   String? updatedAt;
-  String? lastActivity;
-  NotificationPreferences? notificationPreferences;
 
   Profile({
     this.id,
-    this.firstname,
-    this.lastname,
+    this.firstName,
+    this.lastName,
     this.email,
-    this.username,
-    this.phone,
-    this.country,
-    this.profilePic,
-    this.isUserVerified,
+    this.role,
     this.status,
-    this.accountType,
-    this.accountPoints,
-    this.accountPointsLocal,
+    this.address,
+    this.token,
+    this.refreshToken,
     this.createdAt,
     this.updatedAt,
-    this.lastActivity,
-    this.notificationPreferences,
   });
 
-  // Updated Profile.fromJson method
   Profile.fromJson(Map<String, dynamic> json) {
-    id = json['_id'];
-    firstname = json['firstname'];
-    lastname = json['lastname'];
+    id = json['id'];
+    firstName = json['firstName'];
+    lastName = json['lastName'];
     email = json['email'];
-    username = json['username'];
-    phone = json['phone'];
-    // Country object handling
-    country = json['country'] != null ? Country.fromJson(json['country']) : null;
-    profilePic = json['profile_pic'] != null ? Media.fromJson(json['profile_pic']) : null; // Handle profile_pic
-    isUserVerified = json['is_user_verified'];
+    role = json['role'];
     status = json['status'];
-    accountType = json['account_type'];
-    accountPoints = json['account_points'];
-    accountPointsLocal = json['account_points_local'];
-
+    address = json['address'] != null ? Address.fromJson(json['address']) : null;
+    token = json['token'];
+    refreshToken = json['refreshToken'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
-    lastActivity = json['last_activity']; // New field added
-
-    // Notification preferences object handling
-    notificationPreferences = json['notification_preferences'] != null
-        ? NotificationPreferences.fromJson(json['notification_preferences'])
-        : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['_id'] = id;
-    data['firstname'] = firstname;
-    data['lastname'] = lastname;
+    data['id'] = id;
+    data['firstName'] = firstName;
+    data['lastName'] = lastName;
     data['email'] = email;
-    data['username'] = username;
-    data['phone'] = phone;
-
-    // Country object serialization
-    if (country != null) {
-      data['country'] = country!.toJson();
-    }
-    if (profilePic != null) {
-      data['profile_pic'] = profilePic!.toJson();
-    }
-
-    data['is_user_verified'] = isUserVerified;
+    data['role'] = role;
     data['status'] = status;
-    data['account_type'] = accountType;
-    data['account_points'] = accountPoints;
-    data['account_points_local'] = accountPointsLocal;
+    if (address != null) {
+      data['address'] = address!.toJson();
+    }
+    data['token'] = token;
+    data['refreshToken'] = refreshToken;
     data['createdAt'] = createdAt;
     data['updatedAt'] = updatedAt;
-    data['last_activity'] = lastActivity;
+    return data;
+  }
+}
 
-    // Notification preferences serialization
-    if (notificationPreferences != null) {
-      data['notification_preferences'] = notificationPreferences!.toJson();
+class Address {
+  String? id;
+  String? address;
+  String? street;
+  String? unitNumber;
+  String? city;
+  String? state;
+  String? country;
+  String? zipCode;
+  Location? location;
+  String? createdAt;
+  String? updatedAt;
+
+  Address({
+    this.id,
+    this.address,
+    this.street,
+    this.unitNumber,
+    this.city,
+    this.state,
+    this.country,
+    this.zipCode,
+    this.location,
+    this.createdAt,
+    this.updatedAt,
+  });
+
+  Address.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    address = json['address'];
+    street = json['street'];
+    unitNumber = json['unitNumber'];
+    city = json['city'];
+    state = json['state'];
+    country = json['country'];
+    zipCode = json['zipCode'];
+    location = json['location'] != null ? Location.fromJson(json['location']) : null;
+    createdAt = json['createdAt'];
+    updatedAt = json['updatedAt'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['address'] = address;
+    data['street'] = street;
+    data['unitNumber'] = unitNumber;
+    data['city'] = city;
+    data['state'] = state;
+    data['country'] = country;
+    data['zipCode'] = zipCode;
+    if (location != null) {
+      data['location'] = location!.toJson();
     }
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
+    return data;
+  }
+}
 
+class Location {
+  double? lat;
+  double? long;
+
+  Location({this.lat, this.long});
+
+  Location.fromJson(Map<String, dynamic> json) {
+    lat = json['lat'];
+    long = json['long'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['lat'] = lat;
+    data['long'] = long;
     return data;
   }
 }

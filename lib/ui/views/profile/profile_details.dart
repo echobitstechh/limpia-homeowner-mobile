@@ -14,7 +14,6 @@ import '../../../state.dart';
 import '../../common/app_colors.dart';
 import '../../common/ui_helpers.dart';
 import '../../components/profile_picture.dart';
-import '../cart/add_shipping.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({
@@ -194,10 +193,10 @@ class _ProfileScreen extends State<ProfileScreen> {
                           child: Stack(
                             alignment: Alignment.bottomRight,
                             children: [
-                              ProfilePicture(
-                                  size: 100,
-                                  url: profile.value.profilePic?.url,
-                                  ),
+                              // ProfilePicture(
+                              //     size: 100,
+                              //     url: profile.value.profilePic?.url,
+                              //     ),
                               GestureDetector(
                                 onTap: () {
                                   updateProfilePicture();
@@ -251,7 +250,7 @@ class _ProfileScreen extends State<ProfileScreen> {
                                   ),
                                 ),
                                 subtitle: Text(
-                                  "${profile.value.firstname} ${profile.value.lastname}",
+                                  "${profile.value.firstName} ${profile.value.lastName}",
                                   style: TextStyle(
                                     fontSize: 12,
                                     fontWeight: FontWeight.bold,
@@ -290,13 +289,13 @@ class _ProfileScreen extends State<ProfileScreen> {
                             Expanded(
                               child: ListTile(
                                 title: const Text(
-                                  'Phone Number',
+                                  'Emai Address',
                                   style: TextStyle(
                                     fontSize: 10,
                                   ),
                                 ),
                                 subtitle: Text(
-                                  "${profile.value.phone}",
+                                  "${profile.value.email}",
                                   style: TextStyle(
                                       color: uiMode.value == AppUiModes.dark
                                           ? Colors.white

@@ -12,9 +12,7 @@ import 'package:limpia/core/data/models/profile.dart' as _i25;
 import 'package:limpia/ui/components/payment_success_page.dart';
 import 'package:limpia/ui/views/auth/auth_view.dart' as _i5;
 import 'package:limpia/ui/views/auth/register.dart';
-import 'package:limpia/ui/views/cart/add_shipping.dart';
 import 'package:limpia/ui/views/cart/raffle_cart_view.dart' as _i8;
-import 'package:limpia/ui/views/cart/add_shipping.dart' as _i13;
 import 'package:limpia/ui/views/change_password/change_password_view.dart'
     as _i17;
 import 'package:limpia/ui/views/dashboard/dashboard_view.dart' as _i6;
@@ -221,10 +219,6 @@ class StackedRouter extends _i1.RouterBase {
       Routes.successView,
       page: PaymentSuccessPage,
     ),
-    _i1.RouteDef(
-      Routes.shippingView,
-      page: AddShipping,
-    ),
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
@@ -299,12 +293,6 @@ class StackedRouter extends _i1.RouterBase {
       return _i21.MaterialPageRoute<dynamic>(
         builder: (context) =>
             _i12.RaffleDetail(raffle: args.raffle, key: args.key),
-        settings: data,
-      );
-    },
-    _i13.AddShipping: (data) {
-      return _i21.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i13.AddShipping(),
         settings: data,
       );
     },

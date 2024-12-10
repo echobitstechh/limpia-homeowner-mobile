@@ -41,7 +41,7 @@ class DashboardView extends StackedView<DashboardViewModel> {
         automaticallyImplyLeading: false,
         centerTitle: false,
         title: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          padding: const EdgeInsets.symmetric(horizontal: 10.0),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -53,8 +53,8 @@ class DashboardView extends StackedView<DashboardViewModel> {
               ),
               SizedBox(width: 8),
               SvgPicture.asset(
-                "assets/images/Limpiador.svg",
-                height: 20,
+                "assets/images/limpia_home.svg",
+                height: 30,
                 fit: BoxFit.fitHeight,
                 color: kcPrimaryColor,
               ),
@@ -89,7 +89,7 @@ class DashboardView extends StackedView<DashboardViewModel> {
                 child: Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(10.0),
+                      padding: const EdgeInsets.only(bottom: 10.0, right: 10.0, left: 10.0),
                       child: Card(
                         color: kcPrimaryColor,
                         elevation: 2,
@@ -97,65 +97,83 @@ class DashboardView extends StackedView<DashboardViewModel> {
                           borderRadius: BorderRadius.circular(15),
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.all(16.0),
+                          padding: const EdgeInsets.all(0.0),
                           child: Column(
                             children: [
                               Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      SizedBox(
-                                        width: 150,
-                                        child: Text(
-                                          '40% OFF',
-                                          style: TextStyle(
-                                            fontSize: 30,
-                                            color: kcWhiteColor,
-                                            fontWeight: FontWeight.bold,
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Flexible(
+                                      flex: 2,
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        children: [
+
+                                          Text(
+                                            '40% OFF',
+                                            style: GoogleFonts.redHatDisplay(
+                                              textStyle: const TextStyle(
+                                                fontSize: 24,
+                                                fontWeight: FontWeight.w500,
+                                                color: kcWhiteColor,
+                                              ),
+                                            )
                                           ),
-                                        ),
+                                          const SizedBox(height: 8),
+                                          Text(
+                                            'On First Cleaning Service',
+                                            style: GoogleFonts.redHatDisplay(
+                                              textStyle: const TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w500,
+                                                color: kcWhiteColor,
+                                              ),
+                                            )
+                                          ),
+                                          const SizedBox(height: 16),
+                                          ElevatedButton(
+                                            onPressed: () {},
+                                            style: ElevatedButton.styleFrom(
+                                              foregroundColor: kcBlackColor,
+                                              backgroundColor: kcWhiteColor,
+                                              padding: const EdgeInsets.symmetric(
+                                                vertical: 12.0,
+                                                horizontal: 24.0,
+                                              ),
+                                              textStyle: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16,
+                                              ),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(30.0),
+                                              ),
+                                            ),
+                                            child: Text("Get Discount", style: GoogleFonts.redHatDisplay(
+                                              textStyle: const TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w500,
+                                                color: kcPrimaryColor,
+                                              ),
+                                            ),),
+                                          ),
+                                        ],
                                       ),
-                                      SizedBox(
-                                        width: 200,
-                                        child: Text(
-                                          'On First Cleaning Service',
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            color: kcWhiteColor,
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(height: 8),
-                                      ElevatedButton(
-                                        onPressed: () {},
-                                        style: ElevatedButton.styleFrom(
-                                          foregroundColor: kcBlackColor,
-                                          backgroundColor: kcWhiteColor,
-                                          padding: const EdgeInsets.symmetric(
-                                              vertical: 12.0, horizontal: 24.0),
-                                          textStyle: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16,
-                                          ),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
-                                          ),
-                                        ),
-                                        child: Text("Get Discount"),
-                                      ),
-                                    ],
+                                    ),
                                   ),
-                                  SizedBox(width: 8),
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(15),
-                                    child: Image.asset(
-                                      "assets/images/woman.png",
-                                      height: 150,
-                                      width: 130,
-                                      fit: BoxFit.cover,
+                                  const SizedBox(width: 8),
+                                  Flexible(
+                                    flex: 1,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(15),
+                                      child: Image.asset(
+                                        "assets/images/woman.png",
+                                        height: 180,
+                                        width: 130,
+                                        fit: BoxFit.cover,
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -163,7 +181,9 @@ class DashboardView extends StackedView<DashboardViewModel> {
                             ],
                           ),
                         ),
-                      ),
+                      )
+
+
                     ),
                     // Add Categories Section here
                     Padding(
@@ -191,7 +211,7 @@ class DashboardView extends StackedView<DashboardViewModel> {
                               },
                               child: Container(
                                 padding: EdgeInsets.symmetric(
-                                    vertical: 8.0, horizontal: 16.0),
+                                    vertical: 3.0, horizontal: 3.0),
                                 margin: EdgeInsets.symmetric(horizontal: 4.0),
                                 decoration: BoxDecoration(
                                   color: viewModel.selectedIndex == index
@@ -202,7 +222,7 @@ class DashboardView extends StackedView<DashboardViewModel> {
                                 ),
                                 child: Column(
                                   children: [
-                                    CircleAvatar(
+                                    const CircleAvatar(
                                       radius: 40,
                                       backgroundImage:
                                           AssetImage('assets/images/man.png'),
@@ -215,7 +235,7 @@ class DashboardView extends StackedView<DashboardViewModel> {
                                               viewModel.selectedIndex == index
                                                   ? kcPrimaryColor
                                                   : Colors.white,
-                                          fontSize: 14),
+                                          fontSize: 10),
                                     ),
                                   ],
                                 ),
@@ -225,273 +245,275 @@ class DashboardView extends StackedView<DashboardViewModel> {
                         ),
                       ),
                     ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('Bookings', style: TextStyle(fontSize: 16)),
+                          GestureDetector(
+                            onTap: () {
+                              showCustomBottomSheet(
+                                  context, DashboardViewModel());
+                            },
+                            child: Text('Book Now',
+                                style: TextStyle(fontSize: 14, color: kcPrimaryColor)),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        children: [
+                          // First Card: Pairing in Progress
+                          Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            elevation: 3,
+                            child: Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Row(
+                                children: [
+                                  Image.asset(
+                                    'assets/images/analysis.png', // Ensure path is correct
+                                    height: 60,
+                                    width: 60,
+                                    errorBuilder: (context, error, stackTrace) => Icon(
+                                      Icons.image_not_supported,
+                                      size: 60,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 12),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Pairing in progress...',
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        const SizedBox(height: 8),
+                                        Text(
+                                          "You'll be notified once complete",
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            color: Colors.grey[600] ??
+                                                Colors.grey, // Fallback color
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  InkWell(
+                                    onTap: (){
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: (context) => HomePage()),
+                                      );
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: Colors.orange[300] ??
+                                            Colors.orange, // Fallback color
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                      padding: const EdgeInsets.symmetric(
+                                        vertical: 4,
+                                        horizontal: 8,
+                                      ),
+                                      child: const Text(
+                                        'Processing',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          // Second Card: Cleaner Details
+                          Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            elevation: 3,
+                            child: Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Image.asset(
+                                        'assets/images/janitor.png', // Ensure path is correct
+                                        height: 60,
+                                        width: 60,
+                                        errorBuilder: (context, error, stackTrace) =>
+                                            Icon(
+                                              Icons.image_not_supported,
+                                              size: 60,
+                                              color: Colors.grey,
+                                            ),
+                                      ),
+                                      const SizedBox(width: 12),
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'Marvin Tracy',
+                                              style: const TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            const SizedBox(height: 4),
+                                            Row(
+                                              children: [
+                                                const Text(
+                                                  'Rating: ',
+                                                  style: TextStyle(fontSize: 14),
+                                                ),
+                                                const Icon(Icons.star,
+                                                    color: Colors.yellow, size: 16),
+                                                const Icon(Icons.star,
+                                                    color: Colors.yellow, size: 16),
+                                                const Icon(Icons.star,
+                                                    color: Colors.yellow, size: 16),
+                                                const Icon(Icons.star,
+                                                    color: Colors.yellow, size: 16),
+                                                const Icon(Icons.star_half,
+                                                    color: Colors.yellow, size: 16),
+                                                const Text(
+                                                  ' (4.8/5)',
+                                                  style: TextStyle(fontSize: 14),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.green[300] ??
+                                              Colors.green, // Fallback color
+                                          borderRadius: BorderRadius.circular(12),
+                                        ),
+                                        padding: const EdgeInsets.symmetric(
+                                          vertical: 4,
+                                          horizontal: 8,
+                                        ),
+                                        child: const Text(
+                                          'Accepted',
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 16),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      const SizedBox(
+                                        width:
+                                        300, // Adjust the width to control line-breaking
+                                        child: Text(
+                                          'Experience: 5 years in residential and commercial cleaning',
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            color: Colors.black,
+                                          ),
+                                          maxLines:
+                                          2, // Ensure the text does not exceed two lines
+                                          overflow: TextOverflow
+                                              .ellipsis, // Add ellipsis if the text is too long
+                                        ),
+                                      ),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          const Text(
+                                            '\$120',
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                              color: kcPrimaryColor,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: const [
+                                      Row(
+                                        children: [
+                                          Icon(Icons.location_on,
+                                              color: Colors.grey, size: 16),
+                                          SizedBox(width: 4),
+                                          Text(
+                                            'Location: California',
+                                            style: TextStyle(
+                                                fontSize: 14, color: Colors.grey),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          Icon(Icons.location_on,
+                                              color: Colors.lightBlueAccent, size: 16),
+                                          Text(
+                                            'Track cleaner',
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                color: Colors.lightBlueAccent),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 8),
+                                  const SizedBox(height: 8),
+                                  Align(
+                                    alignment: Alignment.centerRight,
+                                    child: const Text(
+                                      'Expected Time: Feb 27, 10:00AM',
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
                   ],
                 ),
               ),
             ),
           ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('Bookings', style: TextStyle(fontSize: 16)),
-                GestureDetector(
-                  onTap: () {
-                    //showBtbSheet(context);
-                  },
-                  child: Text('Book Now',
-                      style: TextStyle(fontSize: 14, color: kcPrimaryColor)),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              children: [
-                // First Card: Pairing in Progress
-                Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  elevation: 3,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Row(
-                      children: [
-                        Image.asset(
-                          'assets/images/analysis.png', // Ensure path is correct
-                          height: 60,
-                          width: 60,
-                          errorBuilder: (context, error, stackTrace) => Icon(
-                            Icons.image_not_supported,
-                            size: 60,
-                            color: Colors.grey,
-                          ),
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Pairing in progress...',
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              const SizedBox(height: 8),
-                              Text(
-                                "You'll be notified once complete",
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.grey[600] ??
-                                      Colors.grey, // Fallback color
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        InkWell(
-                          onTap: (){
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => HomePage()),
-                            );
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.orange[300] ??
-                                  Colors.orange, // Fallback color
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 4,
-                              horizontal: 8,
-                            ),
-                            child: const Text(
-                              'Processing',
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 20),
-                // Second Card: Cleaner Details
-                Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  elevation: 3,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Image.asset(
-                              'assets/images/janitor.png', // Ensure path is correct
-                              height: 60,
-                              width: 60,
-                              errorBuilder: (context, error, stackTrace) =>
-                                  Icon(
-                                Icons.image_not_supported,
-                                size: 60,
-                                color: Colors.grey,
-                              ),
-                            ),
-                            const SizedBox(width: 12),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Marvin Tracy',
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 4),
-                                  Row(
-                                    children: [
-                                      const Text(
-                                        'Rating: ',
-                                        style: TextStyle(fontSize: 14),
-                                      ),
-                                      const Icon(Icons.star,
-                                          color: Colors.yellow, size: 16),
-                                      const Icon(Icons.star,
-                                          color: Colors.yellow, size: 16),
-                                      const Icon(Icons.star,
-                                          color: Colors.yellow, size: 16),
-                                      const Icon(Icons.star,
-                                          color: Colors.yellow, size: 16),
-                                      const Icon(Icons.star_half,
-                                          color: Colors.yellow, size: 16),
-                                      const Text(
-                                        ' (4.8/5)',
-                                        style: TextStyle(fontSize: 14),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Colors.green[300] ??
-                                    Colors.green, // Fallback color
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 4,
-                                horizontal: 8,
-                              ),
-                              child: const Text(
-                                'Accepted',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 16),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const SizedBox(
-                              width:
-                                  300, // Adjust the width to control line-breaking
-                              child: Text(
-                                'Experience: 5 years in residential and commercial cleaning',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.black,
-                                ),
-                                maxLines:
-                                    2, // Ensure the text does not exceed two lines
-                                overflow: TextOverflow
-                                    .ellipsis, // Add ellipsis if the text is too long
-                              ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text(
-                                  '\$120',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    color: kcPrimaryColor,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 8),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
-                            Row(
-                              children: [
-                                Icon(Icons.location_on,
-                                    color: Colors.grey, size: 16),
-                                SizedBox(width: 4),
-                                Text(
-                                  'Location: California',
-                                  style: TextStyle(
-                                      fontSize: 14, color: Colors.grey),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                Icon(Icons.location_on,
-                                    color: Colors.lightBlueAccent, size: 16),
-                                Text(
-                                  'Track cleaner',
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.lightBlueAccent),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 8),
-                        const SizedBox(height: 8),
-                        Align(
-                          alignment: Alignment.centerRight,
-                          child: const Text(
-                            'Expected Time: Feb 27, 10:00AM',
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.grey,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          )
+
         ],
       ),
     );

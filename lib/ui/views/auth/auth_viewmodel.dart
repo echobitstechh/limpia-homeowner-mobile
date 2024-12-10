@@ -50,6 +50,11 @@ class AuthViewModel extends BaseViewModel {
   String? countryValue;
   String? addressValue;
   String? cityValue;
+  String? stateValue;
+  String? zipValue;
+  String? streetValue;
+  num? long;
+  num? lat;
 
 
   init() async {
@@ -116,21 +121,25 @@ class AuthViewModel extends BaseViewModel {
 
   void login() async {
     setBusy(true);
+    appLoading.value = true;
 
     try {
       ApiResponse res = await repo.login({
         "email": email.text,
-        "password": password.text
+        "password": password.text,
+        "role": 'HomeOwner'
       });
       if (res.statusCode == 200) {
-        print('login response: ${res.data['homeowner']}');
-        userLoggedIn.value = true;
-        profile.value = Profile.fromJson(Map<String, dynamic>.from(res.data['homeowner']));
-        locator<LocalStorage>().save(LocalStorageDir.authToken, res.data['token']);
-        locator<LocalStorage>().save(LocalStorageDir.authRefreshToken, res.data['refreshToken']);
-        locator<LocalStorage>().save(LocalStorageDir.authUser, jsonEncode(res.data['homeowner']));
-        locator<LocalStorage>().save(LocalStorageDir.remember, remember);
 
+        userLoggedIn.value = true;
+        print(res.data);
+        final profile = Profile.fromJson(res.data['user']);
+        profile.token = res.data['token'];
+        profile.refreshToken = res.data['refreshToken'];
+
+        print('User: ${profile.firstName} ${profile.lastName}');
+        print('Token: ${profile.token}');
+        print('Refresh Token: ${profile.refreshToken}');
         if (remember) {
           locator<LocalStorage>().save(LocalStorageDir.lastEmail, email.text);
         } else {
@@ -142,6 +151,8 @@ class AuthViewModel extends BaseViewModel {
       }
     } catch (e) {
       log.i(e);
+    }finally{
+      appLoading.value = false;
     }
 
     setBusy(false);
@@ -150,6 +161,7 @@ class AuthViewModel extends BaseViewModel {
   Future<RegistrationResult> register() async {
 
     setBusy(true);
+    appLoading.value = true;
     try {
 
       ApiResponse res = await repo.register({
@@ -158,13 +170,29 @@ class AuthViewModel extends BaseViewModel {
         "email": email.text,
         "address": addressValue,
         "city": cityValue,
+        "location": {
+          "long": long,
+          "lat": lat
+        },
+        "state": stateValue,
+        "country": countryValue,
+        "street": streetValue,
         "password": password.text,
+        "role": 'HomeOwner',
       });
 
       if (res.statusCode == 201) {
-        snackBar.showSnackbar(message: res.data["message"]);
 
-        locator<NavigationService>().replaceWithOtpView(email: email.text);
+        userLoggedIn.value = true;
+        print(res.data);
+        final profile = Profile.fromJson(res.data['user']);
+        profile.token = res.data['token'];
+        profile.refreshToken = res.data['refreshToken'];
+
+        print('User: ${profile.firstName} ${profile.lastName}');
+        print('Token: ${profile.token}');
+        print('Refresh Token: ${profile.refreshToken}');
+        locator<NavigationService>().clearStackAndShow(Routes.homeView);
         firstname.text = "";
         lastname.text = "";
         email.text = "";
@@ -188,7 +216,6 @@ class AuthViewModel extends BaseViewModel {
           snackBar.showSnackbar(message: "Unexpected response format");
           return RegistrationResult.failure;
         }
-
       }
 
     } catch (e) {
@@ -197,7 +224,7 @@ class AuthViewModel extends BaseViewModel {
       return RegistrationResult.failure;
 
     } finally {
-
+      appLoading.value = false;
       setBusy(false);
       notifyListeners();
     }

@@ -14,6 +14,7 @@ enum PaymentMethod { wallet, paystack, flutterwave, applePay }
 ValueNotifier<List<RaffleCartItem>> raffleCart = ValueNotifier([]);
 ValueNotifier<Profile> profile = ValueNotifier(Profile());
 ValueNotifier<bool> userLoggedIn = ValueNotifier(false);
+ValueNotifier<bool> appLoading = ValueNotifier(false);
 ValueNotifier<bool> isFirstLaunch = ValueNotifier(true);
 ValueNotifier<int> dollarRate = ValueNotifier(1500);
 ValueNotifier<AppUiModes> uiMode = ValueNotifier(AppUiModes.light);

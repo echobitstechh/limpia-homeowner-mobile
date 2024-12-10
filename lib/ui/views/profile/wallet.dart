@@ -161,7 +161,7 @@ class _WalletState extends State<Wallet> {
                                     ),
                                   ),
                                   Text(
-                                    '${profile.value.accountPoints ?? 0} pts',
+                                    ' pts',
                                     style: GoogleFonts.redHatDisplay(
                                       textStyle: const TextStyle(
                                         fontSize: 36,
@@ -174,7 +174,7 @@ class _WalletState extends State<Wallet> {
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       Text(
-                                        '${profile.value.accountPointsLocal ?? 0}',
+                                        '${ 0}',
                                         style: const TextStyle(
                                           fontFamily: 'Roboto',
                                           fontSize: 14, // Size for the dollar amount
