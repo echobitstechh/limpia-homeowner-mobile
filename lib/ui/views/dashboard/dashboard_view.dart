@@ -1,17 +1,19 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:limpia/app/app.router.dart';
 import 'package:limpia/ui/common/app_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:limpia/ui/views/dashboard/raffle_detail.dart';
 import 'package:limpia/ui/views/dashboard/time-and-date.dart';
-import 'package:multi_date_picker/multi_date_picker.dart';
-import 'package:slide_countdown/slide_countdown.dart';
+import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 import 'package:top_bottom_sheet_flutter/top_bottom_sheet_flutter.dart';
+import '../../../app/app.locator.dart';
 import '../../../state.dart';
 import '../../common/ui_helpers.dart';
+import '../../components/empty_state.dart';
 import '../draws/booked_view.dart';
 import '../notification/reviewview.dart';
 import '../payment/payment_view.dart';
@@ -32,11 +34,12 @@ class DashboardView extends StackedView<DashboardViewModel> {
 
   @override
   Widget builder(
-    BuildContext context,
-    DashboardViewModel viewModel,
-    Widget? child,
-  ) {
+      BuildContext context,
+      DashboardViewModel viewModel,
+      Widget? child,
+      ) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         centerTitle: false,
@@ -51,7 +54,7 @@ class DashboardView extends StackedView<DashboardViewModel> {
                 height: 30,
                 fit: BoxFit.fitHeight,
               ),
-              SizedBox(width: 8),
+              const SizedBox(width: 8),
               SvgPicture.asset(
                 "assets/images/limpia_home.svg",
                 height: 30,
@@ -66,7 +69,6 @@ class DashboardView extends StackedView<DashboardViewModel> {
             padding: const EdgeInsets.only(right: 16.0),
             child: GestureDetector(
               onTap: () {
-                //_showTopSheet(context);
                 _showNotificationSheet(context, viewModel);
               },
               child: Icon(
@@ -78,206 +80,234 @@ class DashboardView extends StackedView<DashboardViewModel> {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: RefreshIndicator(
-              onRefresh: () async {
-                await viewModel.refreshData();
-              },
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 10.0, right: 10.0, left: 10.0),
-                      child: Card(
-                        color: kcPrimaryColor,
-                        elevation: 2,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(0.0),
-                          child: Column(
-                            children: [
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+      body: RefreshIndicator(
+        onRefresh: () async {
+          await viewModel.refreshData();
+        },
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Promo Card Section
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Card(
+                  color: kcPrimaryColor,
+                  elevation: 2,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(0.0),
+                    child: Column(
+                      children: [
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Flexible(
+                              flex: 2,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Flexible(
-                                      flex: 2,
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        mainAxisAlignment: MainAxisAlignment.end,
-                                        children: [
-
-                                          Text(
-                                            '40% OFF',
-                                            style: GoogleFonts.redHatDisplay(
-                                              textStyle: const TextStyle(
-                                                fontSize: 24,
-                                                fontWeight: FontWeight.w500,
-                                                color: kcWhiteColor,
-                                              ),
-                                            )
-                                          ),
-                                          const SizedBox(height: 8),
-                                          Text(
-                                            'On First Cleaning Service',
-                                            style: GoogleFonts.redHatDisplay(
-                                              textStyle: const TextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w500,
-                                                color: kcWhiteColor,
-                                              ),
-                                            )
-                                          ),
-                                          const SizedBox(height: 16),
-                                          ElevatedButton(
-                                            onPressed: () {},
-                                            style: ElevatedButton.styleFrom(
-                                              foregroundColor: kcBlackColor,
-                                              backgroundColor: kcWhiteColor,
-                                              padding: const EdgeInsets.symmetric(
-                                                vertical: 12.0,
-                                                horizontal: 24.0,
-                                              ),
-                                              textStyle: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 16,
-                                              ),
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.circular(30.0),
-                                              ),
-                                            ),
-                                            child: Text("Get Discount", style: GoogleFonts.redHatDisplay(
-                                              textStyle: const TextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w500,
-                                                color: kcPrimaryColor,
-                                              ),
-                                            ),),
-                                          ),
-                                        ],
+                                  Text(
+                                    '40% OFF',
+                                    style: GoogleFonts.redHatDisplay(
+                                      textStyle: const TextStyle(
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.w500,
+                                        color: kcWhiteColor,
                                       ),
                                     ),
                                   ),
-                                  const SizedBox(width: 8),
-                                  Flexible(
-                                    flex: 1,
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(15),
-                                      child: Image.asset(
-                                        "assets/images/woman.png",
-                                        height: 180,
-                                        width: 130,
-                                        fit: BoxFit.cover,
+                                  const SizedBox(height: 8),
+                                  Text(
+                                    'On First Cleaning Service',
+                                    style: GoogleFonts.redHatDisplay(
+                                      textStyle: const TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500,
+                                        color: kcWhiteColor,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 16),
+                                  ElevatedButton(
+                                    onPressed: () {},
+                                    style: ElevatedButton.styleFrom(
+                                      foregroundColor: kcBlackColor,
+                                      backgroundColor: kcWhiteColor,
+                                      padding: const EdgeInsets.symmetric(
+                                        vertical: 12.0,
+                                        horizontal: 24.0,
+                                      ),
+                                      textStyle: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                      ),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(30.0),
+                                      ),
+                                    ),
+                                    child: Text(
+                                      "Get Discount",
+                                      style: GoogleFonts.redHatDisplay(
+                                        textStyle: const TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500,
+                                          color: kcPrimaryColor,
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ],
                               ),
+                            ),
+                            const SizedBox(width: 8),
+                            Flexible(
+                              flex: 1,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(15),
+                                child: Image.asset(
+                                  "assets/images/woman.png",
+                                  height: 180,
+                                  width: 130,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              // Categories Section
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text('Categories', style: TextStyle(fontSize: 16)),
+                    Text(
+                      'See all',
+                      style: TextStyle(fontSize: 14, color: kcPrimaryColor),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.all(16.0),
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: List.generate(names.length, (index) {
+                      return GestureDetector(
+                        onTap: () {
+                          showAboutHomeSheet(context, DashboardViewModel());
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 3.0, horizontal: 3.0),
+                          margin: const EdgeInsets.symmetric(horizontal: 4.0),
+                          decoration: BoxDecoration(
+                            color: viewModel.selectedIndex == index
+                                ? Colors.white
+                                : kcPrimaryColor.withOpacity(0.7),
+                            border: Border.all(color: Colors.grey),
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          child: Column(
+                            children: [
+                              const CircleAvatar(
+                                radius: 40,
+                                backgroundImage:
+                                AssetImage('assets/images/man.png'),
+                              ),
+                              const SizedBox(height: 8.0),
+                              Text(
+                                names[index],
+                                style: TextStyle(
+                                  color: viewModel.selectedIndex == index
+                                      ? kcPrimaryColor
+                                      : Colors.white,
+                                  fontSize: 10,
+                                ),
+                              ),
                             ],
                           ),
                         ),
-                      )
-
-
-                    ),
-                    // Add Categories Section here
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text('Categories', style: TextStyle(fontSize: 16)),
-                          Text('See all',
-                              style: TextStyle(
-                                  fontSize: 14, color: kcPrimaryColor)),
-                        ],
+                      );
+                    }),
+                  ),
+                ),
+              ),
+              // Bookings Section
+              if (viewModel.bookings.isNotEmpty)
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text('Bookings', style: TextStyle(fontSize: 16)),
+                      GestureDetector(
+                        onTap: () {
+                          showAboutHomeSheet(
+                              context, DashboardViewModel());
+                        },
+                        child: Text('Book Now',
+                            style: TextStyle(fontSize: 14, color: kcPrimaryColor)),
                       ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.all(16.0),
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: List.generate(names.length, (index) {
-                            return GestureDetector(
-                              onTap: () {
-                                showCustomBottomSheet(
-                                    context, DashboardViewModel());
-                              },
-                              child: Container(
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 3.0, horizontal: 3.0),
-                                margin: EdgeInsets.symmetric(horizontal: 4.0),
-                                decoration: BoxDecoration(
-                                  color: viewModel.selectedIndex == index
-                                      ? Colors.white
-                                      : kcPrimaryColor.withOpacity(0.7),
-                                  border: Border.all(color: Colors.grey),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                child: Column(
-                                  children: [
-                                    const CircleAvatar(
-                                      radius: 40,
-                                      backgroundImage:
-                                          AssetImage('assets/images/man.png'),
-                                    ),
-                                    SizedBox(height: 8.0),
-                                    Text(
-                                      names[index],
-                                      style: TextStyle(
-                                          color:
-                                              viewModel.selectedIndex == index
-                                                  ? kcPrimaryColor
-                                                  : Colors.white,
-                                          fontSize: 10),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          }),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text('Bookings', style: TextStyle(fontSize: 16)),
-                          GestureDetector(
-                            onTap: () {
-                              showCustomBottomSheet(
-                                  context, DashboardViewModel());
-                            },
-                            child: Text('Book Now',
-                                style: TextStyle(fontSize: 14, color: kcPrimaryColor)),
+                    ],
+                  ),
+                ),
+              viewModel.isBusy
+                  ? const Padding(
+                padding: EdgeInsets.all(26.0),
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              )
+                  : viewModel.bookings.isEmpty
+                  ? const EmptyState(
+                animation: "no_transactions.json",
+                label: "No Bookings yet",
+              )
+                  : Column(
+                children: [
+                  ...viewModel.bookings
+                      .take(4) // Take only the first 4 bookings
+                      .map(
+                        (booking) => Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16.0, vertical: 4.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: kcWhiteColor, // Pure white background
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                            color: Colors.grey, // Grey border color
+                            width: 1, // Border thickness
                           ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        children: [
-                          // First Card: Pairing in Progress
-                          Card(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5), // Shadow color with some opacity
+                              spreadRadius: 0, // Spread radius
+                              blurRadius: 6, // Blur radius for a soft shadow
+                              offset: Offset(0, 3), // Shadow position (horizontal, vertical)
                             ),
-                            elevation: 3,
-                            child: Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: Row(
+                          ],
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
                                 children: [
+                                  booking.cleanerId != null ?
                                   Image.asset(
-                                    'assets/images/analysis.png', // Ensure path is correct
+                                    'assets/images/janitor.png',
                                     height: 60,
                                     width: 60,
                                     errorBuilder: (context, error, stackTrace) => Icon(
@@ -285,239 +315,135 @@ class DashboardView extends StackedView<DashboardViewModel> {
                                       size: 60,
                                       color: Colors.grey,
                                     ),
-                                  ),
+                                  ) : Icon(Icons.access_time,  size: 50),
                                   const SizedBox(width: 12),
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Pairing in progress...',
-                                          style: const TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold,
+                                  if (booking.cleanerId == null) ...[
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'Pairing in progress...',
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                            ),
                                           ),
-                                        ),
-                                        const SizedBox(height: 8),
-                                        Text(
-                                          "You'll be notified once complete",
-                                          style: TextStyle(
-                                            fontSize: 14,
-                                            color: Colors.grey[600] ??
-                                                Colors.grey, // Fallback color
+                                          const SizedBox(height: 8),
+                                          Text(
+                                            "You'll be notified once matched",
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              color: Colors.grey[600] ?? Colors.grey,
+                                            ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                  InkWell(
-                                    onTap: (){
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(builder: (context) => HomePage()),
-                                      );
-                                    },
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.orange[300] ??
-                                            Colors.orange, // Fallback color
-                                        borderRadius: BorderRadius.circular(12),
-                                      ),
-                                      padding: const EdgeInsets.symmetric(
-                                        vertical: 4,
-                                        horizontal: 8,
-                                      ),
-                                      child: const Text(
-                                        'Processing',
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white,
-                                        ),
+                                  ] else ...[
+                                    // Cleaner information goes here
+                                  ],
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: _getStatusColor(booking.bookingStatus),
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 4,
+                                      horizontal: 8,
+                                    ),
+                                    child: Text(
+                                      booking.bookingStatus ?? 'Pending',
+                                      style: const TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
                                       ),
                                     ),
                                   ),
                                 ],
                               ),
-                            ),
-                          ),
-                          const SizedBox(height: 20),
-                          // Second Card: Cleaner Details
-                          Card(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            elevation: 3,
-                            child: Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                              verticalSpaceSmall,
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    '\$${booking.price ?? ' N/A'}',
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.blue,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 8),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Row(
                                     children: [
-                                      Image.asset(
-                                        'assets/images/janitor.png', // Ensure path is correct
-                                        height: 60,
-                                        width: 60,
-                                        errorBuilder: (context, error, stackTrace) =>
-                                            Icon(
-                                              Icons.image_not_supported,
-                                              size: 60,
-                                              color: Colors.grey,
-                                            ),
-                                      ),
-                                      const SizedBox(width: 12),
-                                      Expanded(
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              'Marvin Tracy',
-                                              style: const TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            const SizedBox(height: 4),
-                                            Row(
-                                              children: [
-                                                const Text(
-                                                  'Rating: ',
-                                                  style: TextStyle(fontSize: 14),
-                                                ),
-                                                const Icon(Icons.star,
-                                                    color: Colors.yellow, size: 16),
-                                                const Icon(Icons.star,
-                                                    color: Colors.yellow, size: 16),
-                                                const Icon(Icons.star,
-                                                    color: Colors.yellow, size: 16),
-                                                const Icon(Icons.star,
-                                                    color: Colors.yellow, size: 16),
-                                                const Icon(Icons.star_half,
-                                                    color: Colors.yellow, size: 16),
-                                                const Text(
-                                                  ' (4.8/5)',
-                                                  style: TextStyle(fontSize: 14),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          color: Colors.green[300] ??
-                                              Colors.green, // Fallback color
-                                          borderRadius: BorderRadius.circular(12),
-                                        ),
-                                        padding: const EdgeInsets.symmetric(
-                                          vertical: 4,
-                                          horizontal: 8,
-                                        ),
-                                        child: const Text(
-                                          'Accepted',
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white,
-                                          ),
-                                        ),
+                                      const Icon(Icons.location_on, color: Colors.grey, size: 16),
+                                      const SizedBox(width: 4),
+                                      Text(
+                                        '${booking.property.address.city}, ${booking.property.address.state}',
+                                        style: const TextStyle(fontSize: 14, color: Colors.grey),
                                       ),
                                     ],
                                   ),
-                                  const SizedBox(height: 16),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  const Row(
                                     children: [
-                                      const SizedBox(
-                                        width:
-                                        300, // Adjust the width to control line-breaking
-                                        child: Text(
-                                          'Experience: 5 years in residential and commercial cleaning',
-                                          style: TextStyle(
-                                            fontSize: 14,
-                                            color: Colors.black,
-                                          ),
-                                          maxLines:
-                                          2, // Ensure the text does not exceed two lines
-                                          overflow: TextOverflow
-                                              .ellipsis, // Add ellipsis if the text is too long
-                                        ),
-                                      ),
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          const Text(
-                                            '\$120',
-                                            style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                              color: kcPrimaryColor,
-                                            ),
-                                          ),
-                                        ],
+                                      Icon(Icons.location_on,
+                                          color: Colors.lightBlueAccent, size: 16),
+                                      Text(
+                                        'Track cleaner',
+                                        style: TextStyle(
+                                            fontSize: 14, color: Colors.lightBlueAccent),
                                       ),
                                     ],
-                                  ),
-                                  const SizedBox(height: 8),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: const [
-                                      Row(
-                                        children: [
-                                          Icon(Icons.location_on,
-                                              color: Colors.grey, size: 16),
-                                          SizedBox(width: 4),
-                                          Text(
-                                            'Location: California',
-                                            style: TextStyle(
-                                                fontSize: 14, color: Colors.grey),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Icon(Icons.location_on,
-                                              color: Colors.lightBlueAccent, size: 16),
-                                          Text(
-                                            'Track cleaner',
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                color: Colors.lightBlueAccent),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 8),
-                                  const SizedBox(height: 8),
-                                  Align(
-                                    alignment: Alignment.centerRight,
-                                    child: const Text(
-                                      'Expected Time: Feb 27, 10:00AM',
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.grey,
-                                      ),
-                                    ),
                                   ),
                                 ],
                               ),
-                            ),
+                              const SizedBox(height: 8),
+                              Align(
+                                alignment: Alignment.centerRight,
+                                child: Text(
+                                  'Expected Time: ${DateFormat('MMM d, yyyy h:mm a').format(booking.cleaningTime)}',
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
-                    )
-                  ],
-                ),
+                    ),
+                  ),
+                  if (viewModel.bookings.length > 4)
+                    TextButton(
+                      onPressed: () {
+                        locator<NavigationService>().navigateToDrawsView();
+                      },
+                      child: const Text(
+                        'See All',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue,
+                        ),
+                      ),
+                    ),
+                ],
               ),
-            ),
+            ],
           ),
-
-        ],
+        ),
       ),
     );
   }
+
 
   void _showNotificationSheet(
       BuildContext context, DashboardViewModel viewModel) {
@@ -1010,7 +936,7 @@ class DashboardView extends StackedView<DashboardViewModel> {
 
   @override
   void onViewModelReady(DashboardViewModel viewModel) {
-    // viewModel.init();
+     viewModel.init();
     super.onViewModelReady(viewModel);
   }
 
@@ -1019,7 +945,7 @@ class DashboardView extends StackedView<DashboardViewModel> {
       DashboardViewModel();
 }
 
-void showCustomBottomSheet(BuildContext context, DashboardViewModel model) {
+void showAboutHomeSheet(BuildContext context, DashboardViewModel model) {
   showModalBottomSheet(
     context: context,
     isScrollControlled: true,
@@ -1052,10 +978,12 @@ void showCustomBottomSheet(BuildContext context, DashboardViewModel model) {
                   // Title
                   Text(
                     "Tell Us about the home.",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: kcPrimaryColor,
+                    style: GoogleFonts.redHatDisplay(
+                      textStyle: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                        color: kcPrimaryColor,
+                      ),
                     ),
                   ),
                   SizedBox(height: 20),
@@ -1063,40 +991,70 @@ void showCustomBottomSheet(BuildContext context, DashboardViewModel model) {
                   // Number of rooms
                   Text(
                     "Numbers of rooms?*",
-                    style: TextStyle(fontSize: 16, color: Colors.grey[700]),
+                    style: GoogleFonts.redHatDisplay(
+                      textStyle: TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey[700],
+                      ),
+                    ),
                   ),
                   SizedBox(height: 10),
-                  Row(
-                    children: List.generate(6, (index) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                        child: ChoiceChip(
-                          label: Text("${index + 1}"),
-                          selected: model.selectedRooms == index + 1,
-                          onSelected: (selected) {
-                            setState(() {
-                              model.selectedRooms = index + 1;
-                              debugPrint(
-                                  "Selected Rooms: $model.selectedRooms");
-                            });
-                          },
-                          selectedColor: kcPrimaryColor,
-                          backgroundColor: Colors.grey[300],
-                          labelStyle: TextStyle(
-                            color: model.selectedRooms == index + 1
-                                ? Colors.white
-                                : Colors.black,
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal, // Enables horizontal scrolling
+                    child: Row(
+                      children: List.generate(6, (index) {
+                        final double baseSize = 18; // Starting font size
+                        final double sizeIncrement = 8; // Increment per index
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                          child: ChoiceChip(
+                            showCheckmark: false,
+                            label: Text(
+                              "${index + 1}",
+                              style: GoogleFonts.redHatDisplay(
+                                textStyle: TextStyle(
+                                  fontSize: baseSize + (index * sizeIncrement / 4),
+                                  color: model.selectedRooms == index + 1
+                                      ? Colors.white
+                                      : Colors.black,
+                                ),
+                              ),
+                            ),
+                            selected: model.selectedRooms == index + 1,
+                            onSelected: (selected) {
+                              setState(() {
+                                model.selectedRooms = index + 1;
+                                debugPrint("Selected Rooms: ${model.selectedRooms}");
+                              });
+                            },
+                            selectedColor: kcPrimaryColor,
+                            backgroundColor: Colors.grey[300],
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(
+                                (baseSize + (index * sizeIncrement)) * 0.6, // Adjust radius proportionally
+                              ),
+                            ),
+                            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            padding: EdgeInsets.all(
+                              baseSize * 0.3 + (index * sizeIncrement / 6), // Adjust padding incrementally
+                            ),
                           ),
-                        ),
-                      );
-                    }),
+                        );
+                      }),
+                    ),
                   ),
+
                   SizedBox(height: 20),
 
                   // Number of bathrooms
                   Text(
                     "Numbers of bathrooms*",
-                    style: TextStyle(fontSize: 16, color: Colors.grey[700]),
+                    style: GoogleFonts.redHatDisplay(
+                      textStyle: TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey[700],
+                      ),
+                    ),
                   ),
                   SizedBox(height: 10),
                   Row(
@@ -1113,8 +1071,8 @@ void showCustomBottomSheet(BuildContext context, DashboardViewModel model) {
                         child: Slider(
                           value: model.selectedBathrooms,
                           min: 0,
-                          max: 6,
-                          divisions: 6,
+                          max: 20,
+                          divisions: 20,
                           activeColor: kcPrimaryColor,
                           inactiveColor: Colors.grey[300],
                           onChanged: (value) {
@@ -1130,33 +1088,52 @@ void showCustomBottomSheet(BuildContext context, DashboardViewModel model) {
 
                   Text(
                     "Numbers of Cleaners*",
-                    style: TextStyle(fontSize: 16, color: Colors.grey[700]),
+                    style: GoogleFonts.redHatDisplay(
+                      textStyle: TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey[700],
+                      ),
+                    ),
                   ),
                   SizedBox(height: 10),
-                  Align(
-                    alignment: Alignment.center,
-                    child: Row(
-                      children: List.generate(3, (index) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                          child: ChoiceChip(
-                            label: Text("${index + 1}"),
-                            selected: model.selectedCleaners == index + 1,
-                            onSelected: (selected) {
-                              setState(() {
-                                model.selectedCleaners = index + 1;
-                              });
-                            },
-                            selectedColor: kcPrimaryColor,
-                            backgroundColor: Colors.grey[300],
-                            labelStyle: TextStyle(
-                              color: model.selectedCleaners == index + 1
-                                  ? Colors.white
-                                  : Colors.black,
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal, // Enables horizontal scrolling
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: List.generate(4, (index) {
+                          final bool isSelected = model.selectedCleaners == index + 1;
+                          final double size = isSelected ? 60 : 50; // Selected chip is larger
+
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                            child: ChoiceChip(
+                              label: Text(
+                                "${index + 1}",
+                                style: TextStyle(
+                                  fontSize: isSelected ? 18 : 14, // Adjust font size for selected
+                                  color: isSelected ? Colors.white : Colors.black,
+                                ),
+                              ),
+                              showCheckmark: false,
+                              selected: isSelected,
+                              onSelected: (selected) {
+                                setState(() {
+                                  model.selectedCleaners = index + 1;
+                                });
+                              },
+                              selectedColor: kcPrimaryColor,
+                              backgroundColor: Colors.grey[300],
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(size), // Circular shape
+                              ),
+                              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                              padding: EdgeInsets.all(size / 3), // Padding proportional to size
                             ),
-                          ),
-                        );
-                      }),
+                          );
+                        }),
+                      ),
                     ),
                   ),
                   SizedBox(height: 20),
@@ -1167,19 +1144,35 @@ void showCustomBottomSheet(BuildContext context, DashboardViewModel model) {
                   Align(
                     alignment: Alignment.centerRight,
                     child: ElevatedButton(
-                      onPressed: () {
+                      onPressed: model.selectedRooms != null &&
+                          model.selectedBathrooms != 0 &&
+                          model.selectedCleaners != null
+                          ? () {
                         Navigator.pop(context);
-                        showBottomSheet(context, DashboardViewModel());
-                      },
+                        showCleaningTypeSheet(context, DashboardViewModel());
+                      }
+                          : null, // Disable button if conditions are not met
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        backgroundColor: kcWhiteColor,
+                        backgroundColor:
+                        model.selectedRooms != null &&
+                            model.selectedBathrooms != 0 &&
+                            model.selectedCleaners != null
+                            ? kcPrimaryColor
+                            : Colors.grey, // Grey out button when disabled
                       ),
                       child: Text(
                         "Next",
-                        style: TextStyle(fontSize: 14, color: kcPrimaryColor),
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: model.selectedRooms != null &&
+                              model.selectedBathrooms != 0 &&
+                              model.selectedCleaners != null
+                              ? Colors.white
+                              : Colors.black, // Change text color accordingly
+                        ),
                       ),
                     ),
                   ),
@@ -1193,7 +1186,7 @@ void showCustomBottomSheet(BuildContext context, DashboardViewModel model) {
   );
 }
 
-void showBottomSheet(BuildContext context, DashboardViewModel viewModel) {
+void showCleaningTypeSheet(BuildContext context, DashboardViewModel viewModel) {
   showModalBottomSheet(
     context: context,
     isScrollControlled: true,
@@ -1236,9 +1229,8 @@ void showBottomSheet(BuildContext context, DashboardViewModel viewModel) {
                   SizedBox(height: 10),
 
                   // Cleaning SVG image
-                  Image.asset('assets/images/image 93.png'),
+                  Image.asset('assets/images/cleaner_dor.png', height: 300,),
                   SizedBox(height: 20),
-
                   // Cleaning types row
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -1390,7 +1382,7 @@ void showBottomSheetDatePicker(
                             color: viewModel.selectedDaysHomeOwner
                                     .contains("Weekdays")
                                 ? kcPrimaryColor
-                                : viewModel.kcDefaultColor,
+                                : Colors.grey,
                           ),
                           borderRadius: BorderRadius.circular(10.0),
                         ),
@@ -1401,7 +1393,7 @@ void showBottomSheetDatePicker(
                             color: viewModel.selectedDaysHomeOwner
                                     .contains("Weekdays")
                                 ? kcPrimaryColor
-                                : viewModel.kcDefaultColor,
+                                : Colors.grey,
                           ),
                         ),
                       ),
@@ -1422,7 +1414,7 @@ void showBottomSheetDatePicker(
                             color: viewModel.selectedDaysHomeOwner
                                     .contains("Weekends")
                                 ? kcPrimaryColor
-                                : viewModel.kcDefaultColor,
+                                : Colors.grey,
                           ),
                           borderRadius: BorderRadius.circular(10.0),
                         ),
@@ -1433,7 +1425,7 @@ void showBottomSheetDatePicker(
                             color: viewModel.selectedDaysHomeOwner
                                     .contains("Weekends")
                                 ? kcPrimaryColor
-                                : viewModel.kcDefaultColor,
+                                : Colors.grey,
                           ),
                         ),
                       ),
@@ -1460,7 +1452,7 @@ void showBottomSheetDatePicker(
                             color: viewModel.selectedTimesHomeOwner
                                     .contains("morning")
                                 ? kcPrimaryColor
-                                : viewModel.kcDefaultColor,
+                                : Colors.grey,
                           ),
                           borderRadius: BorderRadius.circular(10.0),
                         ),
@@ -1473,7 +1465,7 @@ void showBottomSheetDatePicker(
                                 color: viewModel.selectedTimesHomeOwner
                                         .contains("morning")
                                     ? kcPrimaryColor
-                                    : viewModel.kcDefaultColor,
+                                    : Colors.grey,
                               ),
                             ),
                             Text(
@@ -1483,7 +1475,7 @@ void showBottomSheetDatePicker(
                                 color: viewModel.selectedTimesHomeOwner
                                         .contains("morning")
                                     ? kcPrimaryColor
-                                    : viewModel.kcDefaultColor,
+                                    : Colors.grey,
                               ),
                             ),
                           ],
@@ -1506,7 +1498,7 @@ void showBottomSheetDatePicker(
                             color: viewModel.selectedTimesHomeOwner
                                     .contains("afternoon")
                                 ? kcPrimaryColor
-                                : viewModel.kcDefaultColor,
+                                : Colors.grey,
                           ),
                           borderRadius: BorderRadius.circular(10.0),
                         ),
@@ -1519,7 +1511,7 @@ void showBottomSheetDatePicker(
                                 color: viewModel.selectedTimesHomeOwner
                                         .contains("afternoon")
                                     ? kcPrimaryColor
-                                    : viewModel.kcDefaultColor,
+                                    : Colors.grey,
                               ),
                             ),
                             Text(
@@ -1529,7 +1521,7 @@ void showBottomSheetDatePicker(
                                 color: viewModel.selectedTimesHomeOwner
                                         .contains("afternoon")
                                     ? kcPrimaryColor
-                                    : viewModel.kcDefaultColor,
+                                    : Colors.grey,
                               ),
                             ),
                           ],
@@ -1552,7 +1544,7 @@ void showBottomSheetDatePicker(
                             color: viewModel.selectedTimesHomeOwner
                                     .contains("evening")
                                 ? kcPrimaryColor
-                                : viewModel.kcDefaultColor,
+                                : Colors.grey,
                           ),
                           borderRadius: BorderRadius.circular(10.0),
                         ),
@@ -1565,7 +1557,7 @@ void showBottomSheetDatePicker(
                                 color: viewModel.selectedTimesHomeOwner
                                         .contains("evening")
                                     ? kcPrimaryColor
-                                    : viewModel.kcDefaultColor,
+                                    : Colors.grey,
                               ),
                             ),
                             Text(
@@ -1575,7 +1567,7 @@ void showBottomSheetDatePicker(
                                 color: viewModel.selectedTimesHomeOwner
                                         .contains("evening")
                                     ? kcPrimaryColor
-                                    : viewModel.kcDefaultColor,
+                                    : Colors.grey,
                               ),
                             ),
                           ],
@@ -2120,20 +2112,22 @@ void showBottomSheetCost(BuildContext context) {
   );
 }
 
-class Profile {
-  final String name;
-  final String description;
-  final String rating;
-  final String date;
-  final String price;
-  final String profileImage;
-
-  Profile({
-    required this.name,
-    required this.description,
-    required this.rating,
-    required this.date,
-    required this.price,
-    required this.profileImage,
-  });
+Color _getStatusColor(String? status) {
+  print('status is $status');
+  switch (status) {
+    case 'CONFIRMED':
+      return Colors.green;
+    case 'PENDING':
+      return Colors.orangeAccent;
+    case 'CANCELLED':
+      return Colors.red;
+    case 'COMPLETED':
+      return Colors.green;
+    case 'IN_PROGRESS':
+      return Colors.brown;
+    default:
+      return uiMode.value == AppUiModes.dark ? kcLightGrey : kcMediumGrey;
+  }
 }
+
+

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:stacked_services/stacked_services.dart';
 import '../../../app/app.locator.dart';
 import '../../../app/app.router.dart';
+import '../../../core/utils/local_store_dir.dart';
+import '../../../core/utils/local_stotage.dart';
 import '../../common/app_colors.dart';
 
 class OnboardingView2 extends StatefulWidget {
@@ -82,6 +84,14 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
     _pageController.dispose();
     super.dispose();
   }
+
+  @override
+  void initState() {
+    locator<LocalStorage>().save(LocalStorageDir.onboarded, true);
+    super.initState();
+  }
+
+
 
   @override
   Widget build(BuildContext context) {

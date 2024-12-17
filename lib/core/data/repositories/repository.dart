@@ -33,7 +33,7 @@ class Repository extends IRepository {
   Future<ApiResponse> refresh() async {
     ApiResponse response = await api.call(
         method: HttpMethod.postRefresh,
-        endpoint: "auth/refresh_tokens"
+        endpoint: "auth/refresh-token"
     );
     return response;
   }
@@ -291,10 +291,10 @@ class Repository extends IRepository {
   }
 
   @override
-  Future<ApiResponse> getRaffle() async {
+  Future<ApiResponse> getBookings() async {
     ApiResponse response = await api.call(
       method: HttpMethod.get,
-      endpoint: "raffle/list",
+      endpoint: "booking",
     );
 
     return response;

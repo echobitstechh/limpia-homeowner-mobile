@@ -10,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
+import '../../../state.dart';
+
 /// @author George David
 /// email: georgequin19@gmail.com
 /// Feb, 2024
@@ -125,7 +127,7 @@ class _LoginState extends State<Login> {
               ),
               verticalSpaceLarge,
               SubmitButton(
-                isLoading: model.isBusy,
+                isLoading: appLoading.value,
                 boldText: true,
                 label: "Login Account",
                 submit: () {

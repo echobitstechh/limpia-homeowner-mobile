@@ -24,36 +24,36 @@ class StartupViewModel extends BaseViewModel {
 
     String? token = await locator<LocalStorage>().fetch(LocalStorageDir.authToken);
     String? user = await locator<LocalStorage>().fetch(LocalStorageDir.authUser);
-    bool? onboarded = false;
-   // bool? onboarded = await locator<LocalStorage>().fetch(LocalStorageDir.onboarded);
+    bool? onboarded = await locator<LocalStorage>().fetch(LocalStorageDir.onboarded);
     print('value of onboarded is: $onboarded');
     if (onboarded == null || onboarded == false) {
       _navigationService.replaceWithOnboardingView2();
     } else {
+      print('checking tokens');
       if (token != null && user != null) {
+        print('got token');
         userLoggedIn.value = true;
         profile.value = Profile.fromJson(Map<String, dynamic>.from(jsonDecode(user)));
-        getProfile();
         _navigationService.replaceWithHomeView();
+      }else{
+        _navigationService.clearStackAndShow(Routes.authView);
       }
-
-       _navigationService.replaceWithAuthView();
     }
   }
 
-  void getProfile() async {
-    try {
-      ApiResponse res = await repo.getProfile();
-      if (res.statusCode == 200) {
-        profile.value =
-            Profile.fromJson(Map<String, dynamic>.from(res.data['data']));
-        await locator<LocalStorage>().save(LocalStorageDir.profileView, res.data["data"]);
-        notifyListeners();
-      }
-    } catch (e) {
-      throw Exception(e);
-    }
-  }
+  // void getProfile() async {
+  //   try {
+  //     ApiResponse res = await repo.getProfile();
+  //     if (res.statusCode == 200) {
+  //       profile.value =
+  //           Profile.fromJson(Map<String, dynamic>.from(res.data['data']));
+  //       await locator<LocalStorage>().save(LocalStorageDir.profileView, res.data["data"]);
+  //       notifyListeners();
+  //     }
+  //   } catch (e) {
+  //     throw Exception(e);
+  //   }
+  // }
 
 
 }

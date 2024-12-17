@@ -16,7 +16,6 @@ import 'package:limpia/ui/views/cart/raffle_cart_view.dart' as _i8;
 import 'package:limpia/ui/views/change_password/change_password_view.dart'
     as _i17;
 import 'package:limpia/ui/views/dashboard/dashboard_view.dart' as _i6;
-import 'package:limpia/ui/views/dashboard/raffle_detail.dart' as _i12;
 import 'package:limpia/ui/views/delete_account/delete_account_view.dart'
     as _i19;
 import 'package:limpia/ui/views/draws/draws_view.dart' as _i7;
@@ -176,14 +175,6 @@ class StackedRouter extends _i1.RouterBase {
       page: _i10.ProfileView,
     ),
     _i1.RouteDef(
-      Routes.productDetail,
-      page: _i12.RaffleDetail,
-    ),
-    // _i1.RouteDef(
-    //   Routes.receipt,
-    //   page: _i13.Receipt,
-    // ),
-    _i1.RouteDef(
       Routes.wallet,
       page: _i14.Wallet,
     ),
@@ -288,27 +279,12 @@ class StackedRouter extends _i1.RouterBase {
         settings: data,
       );
     },
-    _i12.RaffleDetail: (data) {
-      final args = data.getArgs<RaffleDetailArguments>(nullOk: false);
-      return _i21.MaterialPageRoute<dynamic>(
-        builder: (context) =>
-            _i12.RaffleDetail(raffle: args.raffle, key: args.key),
-        settings: data,
-      );
-    },
     _i14.Wallet: (data) {
       return _i21.MaterialPageRoute<dynamic>(
         builder: (context) => const _i14.Wallet(),
         settings: data,
       );
     },
-    // _i15.Track: (data) {
-    //   final args = data.getArgs<TrackArguments>(nullOk: false);
-    //   return _i21.MaterialPageRoute<dynamic>(
-    //     builder: (context) => _i15.Track(item: args.item, key: args.key),
-    //     settings: data,
-    //   );
-    // },
     _i16.OtpView: (data) {
       final args = data.getArgs<OtpViewArguments>(nullOk: false);
       return _i21.MaterialPageRoute<dynamic>(

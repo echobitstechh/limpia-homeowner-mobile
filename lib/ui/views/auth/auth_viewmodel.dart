@@ -133,13 +133,13 @@ class AuthViewModel extends BaseViewModel {
 
         userLoggedIn.value = true;
         print(res.data);
-        final profile = Profile.fromJson(res.data['user']);
-        profile.token = res.data['token'];
-        profile.refreshToken = res.data['refreshToken'];
 
-        print('User: ${profile.firstName} ${profile.lastName}');
-        print('Token: ${profile.token}');
-        print('Refresh Token: ${profile.refreshToken}');
+        locator<LocalStorage>().save(LocalStorageDir.authToken, res.data['token']);
+        locator<LocalStorage>().save(LocalStorageDir.authRefreshToken, res.data['refreshToken']);
+        locator<LocalStorage>().save(LocalStorageDir.authUser, jsonEncode(res.data['user']));
+        profile.value =
+            Profile.fromJson(Map<String, dynamic>.from(res.data["user"]));
+
         if (remember) {
           locator<LocalStorage>().save(LocalStorageDir.lastEmail, email.text);
         } else {
@@ -185,13 +185,13 @@ class AuthViewModel extends BaseViewModel {
 
         userLoggedIn.value = true;
         print(res.data);
-        final profile = Profile.fromJson(res.data['user']);
-        profile.token = res.data['token'];
-        profile.refreshToken = res.data['refreshToken'];
 
-        print('User: ${profile.firstName} ${profile.lastName}');
-        print('Token: ${profile.token}');
-        print('Refresh Token: ${profile.refreshToken}');
+        locator<LocalStorage>().save(LocalStorageDir.authToken, res.data['token']);
+        locator<LocalStorage>().save(LocalStorageDir.authRefreshToken, res.data['refreshToken']);
+        locator<LocalStorage>().save(LocalStorageDir.authUser, jsonEncode(res.data['user']));
+        profile.value =
+            Profile.fromJson(Map<String, dynamic>.from(res.data["user"]));
+
         locator<NavigationService>().clearStackAndShow(Routes.homeView);
         firstname.text = "";
         lastname.text = "";
