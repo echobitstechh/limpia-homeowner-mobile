@@ -705,7 +705,7 @@ class DashboardView extends StackedView<DashboardViewModel> {
                                               '🔔 Tracy Mavin marked your work\n as completed.',
                                               style: TextStyle(
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: 18, ),
+                                                fontSize: 16, ),
                                             ),
                                             GestureDetector(
                                               onTap: () {
@@ -715,12 +715,15 @@ class DashboardView extends StackedView<DashboardViewModel> {
                                                 }));
 
                                               },
-                                              child: Text(
-                                                'Review Tracy’s work',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  color: kcPrimaryColor,
-                                                  fontSize: 14, ),
+                                              child: Align(
+                                                alignment: Alignment.centerRight,
+                                                child: Text(
+                                                  'Review Tracy’s work',
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: kcPrimaryColor,
+                                                    fontSize: 14, ),
+                                                ),
                                               ),
                                             ),
                                           ],
@@ -1091,7 +1094,7 @@ void showCustomBottomSheet(BuildContext context) {
                   ),
                   SizedBox(height: 20),
 
-                  // Next button
+                 // Next button
                   Align(
                     alignment: Alignment.centerRight,
                     child: ElevatedButton(
@@ -1322,493 +1325,126 @@ void showBottomSheetCheck(BuildContext context) {
       borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
     ),
     builder: (BuildContext context) {
-      return StatefulBuilder(
-        builder: (BuildContext context, StateSetter setModalState) {
-          bool isDefaultPayment = false;
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Center(
-                    child: Container(
-                      width: 50,
-                      height: 5,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[300],
-                        borderRadius: BorderRadius.circular(2.5),
-                      ),
-                    ),
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Container(
+                  width: 50,
+                  height: 5,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[300],
+                    borderRadius: BorderRadius.circular(2.5),
                   ),
-                  const SizedBox(height: 16),
-                  const Text(
-                    'Check List Details',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                  const Text(
-                    'General Areas (Living Room, 3 Bedrooms)',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,)
-                  ),
-                  Row(
-                    children: [
-                      StatefulBuilder(
-                        builder: (BuildContext context, StateSetter setState) {
-                          return Checkbox(
-                            value: isDefaultPayment,
-                            activeColor: kcPrimaryColor,
-                            checkColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            onChanged: (value) {
-                              setState(() {
-                                isDefaultPayment = value ?? false;
-                              });
-                            },
-                          );
-                        },
-                      ),
-                      const Text("Dusting"),
-                      Row(
-                        children: [
-                          StatefulBuilder(
-                            builder: (BuildContext context, StateSetter setState) {
-                              return Checkbox(
-                                value: isDefaultPayment,
-                                activeColor: kcPrimaryColor,
-                                checkColor: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                onChanged: (value) {
-                                  setState(() {
-                                    isDefaultPayment = value ?? false;
-                                  });
-                                },
-                              );
-                            },
-                          ),
-                          const Text("Vacuuming & Sweeping"),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      StatefulBuilder(
-                        builder: (BuildContext context, StateSetter setState) {
-                          return Checkbox(
-                            value: isDefaultPayment,
-                            activeColor: kcPrimaryColor,
-                            checkColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            onChanged: (value) {
-                              setState(() {
-                                isDefaultPayment = value ?? false;
-                              });
-                            },
-                          );
-                        },
-                      ),
-                      const Text("Mooping"),
-                      Row(
-                        children: [
-                          StatefulBuilder(
-                            builder: (BuildContext context, StateSetter setState) {
-                              return Checkbox(
-                                value: isDefaultPayment,
-                                activeColor: kcPrimaryColor,
-                                checkColor: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                onChanged: (value) {
-                                  setState(() {
-                                    isDefaultPayment = value ?? false;
-                                  });
-                                },
-                              );
-                            },
-                          ),
-                          const Text("Doors & Handle"),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      StatefulBuilder(
-                        builder: (BuildContext context, StateSetter setState) {
-                          return Checkbox(
-                            value: isDefaultPayment,
-                            activeColor: kcPrimaryColor,
-                            checkColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            onChanged: (value) {
-                              setState(() {
-                                isDefaultPayment = value ?? false;
-                              });
-                            },
-                          );
-                        },
-                      ),
-                      const Text("Mirrors & glass all surface"),
-                      Row(
-                        children: [
-                          StatefulBuilder(
-                            builder: (BuildContext context, StateSetter setState) {
-                              return Checkbox(
-                                value: isDefaultPayment,
-                                activeColor: kcPrimaryColor,
-                                checkColor: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                onChanged: (value) {
-                                  setState(() {
-                                    isDefaultPayment = value ?? false;
-                                  });
-                                },
-                              );
-                            },
-                          ),
-                          const Text("Windows"),
-                        ],
-                      ),
-                    ],
-                  ),
-                  const Text(
-                      'Kitchen',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,)
-                  ),
-                  Row(
-                    children: [
-                      StatefulBuilder(
-                        builder: (BuildContext context, StateSetter setState) {
-                          return Checkbox(
-                            value: isDefaultPayment,
-                            activeColor: kcPrimaryColor,
-                            checkColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            onChanged: (value) {
-                              setState(() {
-                                isDefaultPayment = value ?? false;
-                              });
-                            },
-                          );
-                        },
-                      ),
-                      const Text("Counters  & surfaces"),
-                      Row(
-                        children: [
-                          StatefulBuilder(
-                            builder: (BuildContext context, StateSetter setState) {
-                              return Checkbox(
-                                value: isDefaultPayment,
-                                activeColor: kcPrimaryColor,
-                                checkColor: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                onChanged: (value) {
-                                  setState(() {
-                                    isDefaultPayment = value ?? false;
-                                  });
-                                },
-                              );
-                            },
-                          ),
-                          const Text("Appliances"),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      StatefulBuilder(
-                        builder: (BuildContext context, StateSetter setState) {
-                          return Checkbox(
-                            value: isDefaultPayment,
-                            activeColor: kcPrimaryColor,
-                            checkColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            onChanged: (value) {
-                              setState(() {
-                                isDefaultPayment = value ?? false;
-                              });
-                            },
-                          );
-                        },
-                      ),
-                      const Text("Cabinet & Drawers"),
-                      Row(
-                        children: [
-                          StatefulBuilder(
-                            builder: (BuildContext context, StateSetter setState) {
-                              return Checkbox(
-                                value: isDefaultPayment,
-                                activeColor: kcPrimaryColor,
-                                checkColor: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                onChanged: (value) {
-                                  setState(() {
-                                    isDefaultPayment = value ?? false;
-                                  });
-                                },
-                              );
-                            },
-                          ),
-                          const Text("Flooring"),
-                        ],
-                      ),
-                    ],
-                  ),
-                  const Text(
-                      'Bathrooms',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,)
-                  ),
-                  Row(
-                    children: [
-                      StatefulBuilder(
-                        builder: (BuildContext context, StateSetter setState) {
-                          return Checkbox(
-                            value: isDefaultPayment,
-                            activeColor: kcPrimaryColor,
-                            checkColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            onChanged: (value) {
-                              setState(() {
-                                isDefaultPayment = value ?? false;
-                              });
-                            },
-                          );
-                        },
-                      ),
-                      const Text("Sink & Counters"),
-                      Row(
-                        children: [
-                          StatefulBuilder(
-                            builder: (BuildContext context, StateSetter setState) {
-                              return Checkbox(
-                                value: isDefaultPayment,
-                                activeColor: kcPrimaryColor,
-                                checkColor: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                onChanged: (value) {
-                                  setState(() {
-                                    isDefaultPayment = value ?? false;
-                                  });
-                                },
-                              );
-                            },
-                          ),
-                          const Text("Toilet"),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      StatefulBuilder(
-                        builder: (BuildContext context, StateSetter setState) {
-                          return Checkbox(
-                            value: isDefaultPayment,
-                            activeColor: kcPrimaryColor,
-                            checkColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            onChanged: (value) {
-                              setState(() {
-                                isDefaultPayment = value ?? false;
-                              });
-                            },
-                          );
-                        },
-                      ),
-                      const Text("Shower/Bathtub"),
-                      Row(
-                        children: [
-                          StatefulBuilder(
-                            builder: (BuildContext context, StateSetter setState) {
-                              return Checkbox(
-                                value: isDefaultPayment,
-                                activeColor: kcPrimaryColor,
-                                checkColor: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                onChanged: (value) {
-                                  setState(() {
-                                    isDefaultPayment = value ?? false;
-                                  });
-                                },
-                              );
-                            },
-                          ),
-                          const Text("Mirrors & Glass surface"),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      StatefulBuilder(
-                        builder: (BuildContext context, StateSetter setState) {
-                          return Checkbox(
-                            value: isDefaultPayment,
-                            activeColor: kcPrimaryColor,
-                            checkColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            onChanged: (value) {
-                              setState(() {
-                                isDefaultPayment = value ?? false;
-                              });
-                            },
-                          );
-                        },
-                      ),
-                      const Text("Cabinets & Drawers"),
-                      Row(
-                        children: [
-                          StatefulBuilder(
-                            builder: (BuildContext context, StateSetter setState) {
-                              return Checkbox(
-                                value: isDefaultPayment,
-                                activeColor: kcPrimaryColor,
-                                checkColor: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                onChanged: (value) {
-                                  setState(() {
-                                    isDefaultPayment = value ?? false;
-                                  });
-                                },
-                              );
-                            },
-                          ),
-                          const Text("Flooring"),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                              showBottomSheetCost(context); // Ensure `showBottomSheetCost` is defined
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: kcPrimaryColor, // Replace with your primary color
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              padding: const EdgeInsets.symmetric(vertical: 14),
-                            ),
-                            child: const Text(
-                              "Proceed",
-                              style: TextStyle(fontSize: 16, color: Colors.white),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        SizedBox(
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
-                                side: BorderSide(color: kcPrimaryColor), // Replace with your primary color
-                              ),
-                              padding: const EdgeInsets.symmetric(vertical: 14),
-                            ),
-                            child: Text(
-                              "Edit Booking",
-                              style: TextStyle(fontSize: 16, color: kcPrimaryColor), // Replace with your primary color
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+              const Text(
+                'Check List Details',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+              ),
+              const SizedBox(height: 8),
+              _buildChecklistSection(
+                context,
+                'General Areas (Living Room, 3 Bedrooms)',
+                ['Dusting', 'Vacuuming & Sweeping', 'Mopping', 'Doors & Handles'],
+              ),
+              _buildChecklistSection(
+                context,
+                'Kitchen',
+                ['Counters & Surfaces', 'Appliances', 'Cabinets & Drawers', 'Flooring'],
+              ),
+              _buildChecklistSection(
+                context,
+                'Bathrooms',
+                [
+                  'Sink & Counters',
+                  'Toilet',
+                  'Shower/Bathtub',
+                  'Mirrors & Glass Surfaces',
+                  'Cabinets & Drawers',
                 ],
               ),
-            ),
-          );
-        },
+              Align(
+                alignment: Alignment.centerRight,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    showBottomSheetDatePicker(context); // Close the bottom sheet
+                  },
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    backgroundColor: kcWhiteColor, // Adjust to your primary color
+                  ),
+                  child: Text(
+                    "Next",
+                    style: TextStyle(fontSize: 14, color: kcPrimaryColor),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       );
     },
   );
 }
 
-Widget _buildSectionTitle(String title) {
-  return Text(
-    title,
-    style: const TextStyle(
-      fontSize: 18,
-      fontWeight: FontWeight.bold,
-      color: Colors.black,
-    ),
+Widget _buildChecklistSection(
+    BuildContext context, String sectionTitle, List<String> items) {
+  return Row(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      const SizedBox(height: 16),
+      Text(
+        sectionTitle,
+        style: const TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+          color: Colors.black,
+        ),
+      ),
+      ...items.map((item) => _buildCheckbox(context, item)).toList(),
+    ],
   );
 }
 
-Widget _buildChecklistRow(List<String> items) {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: items
-        .map((item) => Expanded(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Text(
-          item,
-          style: const TextStyle(fontSize: 16),
-        ),
-      ),
-    ))
-        .toList(),
+Widget _buildCheckbox(BuildContext context, String label) {
+  return StatefulBuilder(
+    builder: (BuildContext context, StateSetter setState) {
+      bool isChecked = false;
+      return Row(
+        children: [
+          Checkbox(
+            value: isChecked,
+            activeColor: kcPrimaryColor,
+            checkColor: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5),
+            ),
+            onChanged: (value) {
+              setState(() {
+                isChecked = value ?? false;
+              });
+            },
+          ),
+          Text(label),
+        ],
+      );
+    },
   );
 }
+
 
 void showBottomSheetCost(BuildContext context) {
   showModalBottomSheet(
