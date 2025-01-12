@@ -120,7 +120,7 @@ class AuthViewModel extends BaseViewModel {
   }
 
   void login() async {
-    setBusy(true);
+
     appLoading.value = true;
 
     try {
@@ -155,12 +155,11 @@ class AuthViewModel extends BaseViewModel {
       appLoading.value = false;
     }
 
-    setBusy(false);
   }
 
   Future<RegistrationResult> register() async {
 
-    setBusy(true);
+
     appLoading.value = true;
     try {
 
@@ -202,7 +201,6 @@ class AuthViewModel extends BaseViewModel {
         return RegistrationResult.success;
       }
       else {
-        setBusy(false);
 
         if (res.data["message"] is String) {
           snackBar.showSnackbar(message: res.data["message"]);
@@ -220,12 +218,10 @@ class AuthViewModel extends BaseViewModel {
 
     } catch (e) {
       log.e(e);
-      setBusy(false);
       return RegistrationResult.failure;
 
     } finally {
       appLoading.value = false;
-      setBusy(false);
       notifyListeners();
     }
 

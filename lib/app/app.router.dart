@@ -12,13 +12,12 @@ import 'package:limpia/core/data/models/profile.dart' as _i25;
 import 'package:limpia/ui/components/payment_success_page.dart';
 import 'package:limpia/ui/views/auth/auth_view.dart' as _i5;
 import 'package:limpia/ui/views/auth/register.dart';
-import 'package:limpia/ui/views/cart/raffle_cart_view.dart' as _i8;
 import 'package:limpia/ui/views/change_password/change_password_view.dart'
     as _i17;
 import 'package:limpia/ui/views/dashboard/dashboard_view.dart' as _i6;
 import 'package:limpia/ui/views/delete_account/delete_account_view.dart'
     as _i19;
-import 'package:limpia/ui/views/draws/draws_view.dart' as _i7;
+import 'package:limpia/ui/views/bookings/bookings_view.dart' as _i7;
 import 'package:limpia/ui/views/enter_email/enter_email_view.dart' as _i18;
 import 'package:limpia/ui/views/home/home_view.dart' as _i2;
 import 'package:limpia/ui/views/notification/notification_view.dart' as _i9;
@@ -63,7 +62,7 @@ class Routes {
 
   static const orderView = '/order-view';
 
-  static const drawsView = '/draws-view';
+  static const bookingsView = '/bookings-view';
 
   static const cartView = '/cart-view';
 
@@ -106,7 +105,7 @@ class Routes {
     dashboardView,
     shopDashboardView,
     ticketView,
-    drawsView,
+    bookingsView,
     cartView,
     shopCartView,
     notificationView,
@@ -159,12 +158,8 @@ class StackedRouter extends _i1.RouterBase {
       page: _i6.DashboardView,
     ),
     _i1.RouteDef(
-      Routes.drawsView,
-      page: _i7.DrawsView,
-    ),
-    _i1.RouteDef(
-      Routes.cartView,
-      page: _i8.CartView,
+      Routes.bookingsView,
+      page: _i7.BookingView,
     ),
     _i1.RouteDef(
       Routes.notificationView,
@@ -255,15 +250,9 @@ class StackedRouter extends _i1.RouterBase {
         settings: data,
       );
     },
-    _i7.DrawsView: (data) {
+    _i7.BookingView: (data) {
       return _i21.MaterialPageRoute<dynamic>(
-        builder: (context) =>  const _i7.DrawsView(),
-        settings: data,
-      );
-    },
-    _i8.CartView: (data) {
-      return _i21.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i8.CartView(),
+        builder: (context) =>  const _i7.BookingView(),
         settings: data,
       );
     },
@@ -673,7 +662,7 @@ extension NavigatorStateExtension on _i27.NavigationService {
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
   ]) async {
-    return navigateTo<dynamic>(Routes.drawsView,
+    return navigateTo<dynamic>(Routes.bookingsView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -1002,7 +991,7 @@ extension NavigatorStateExtension on _i27.NavigationService {
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
   ]) async {
-    return replaceWith<dynamic>(Routes.drawsView,
+    return replaceWith<dynamic>(Routes.bookingsView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,

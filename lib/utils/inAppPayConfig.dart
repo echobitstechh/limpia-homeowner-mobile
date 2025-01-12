@@ -29,7 +29,7 @@ const String defaultApplePay = '''{
   "provider": "apple_pay",
   "data": {
     "merchantIdentifier": "merchant.echobitstech.com.mobile",
-    "displayName": "Afriprize",
+    "displayName": "Limpia",
     "merchantCapabilities": ["3DS", "debit", "credit"],
     "supportedNetworks": ["amex", "visa", "discover", "masterCard"],
     "countryCode": "NG",

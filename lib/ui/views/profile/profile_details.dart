@@ -318,33 +318,6 @@ class _ProfileScreen extends State<ProfileScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween, // Aligns items properly
-                            children: [
-                              Text(
-                                "Create Afritag",
-                                style: TextStyle(
-                                  color: uiMode.value == AppUiModes.dark
-                                      ? Colors.white
-                                      : Colors.black,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
-                          verticalSpaceSmall,
-                          Text(
-                            "Create a unique username to transfer shopping credits with family to purchase or donate.",
-                            style: TextStyle(
-                              color: uiMode.value == AppUiModes.dark
-                                  ? Colors.white
-                                  : Colors.black,
-                              fontSize: 12,
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ),
-                          verticalSpaceSmall,
 
                           Row(
                             children: [
@@ -368,16 +341,6 @@ class _ProfileScreen extends State<ProfileScreen> {
                                 ),
                               ),
                               SizedBox(width: 8), // Adds spacing between the icon and text
-                              Text(
-                                "Create Afri Tag",
-                                style: TextStyle(
-                                  color: uiMode.value == AppUiModes.dark
-                                      ? Colors.white
-                                      : kcSecondaryColor,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
                             ],
                           ),
 

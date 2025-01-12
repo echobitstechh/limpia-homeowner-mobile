@@ -42,7 +42,7 @@ class HomeView extends StackedView<HomeViewModel> {
               ValueListenableBuilder<List<dynamic>>(
                 valueListenable: raffleCart, // Replace with your cart notifier
                 builder: (context, cartItems, _) {
-                  if (raffleCart.value.isNotEmpty && viewModel.selectedRafflesTab != 3) {
+                  if (raffleCart.value.isNotEmpty && viewModel.selectedHomeTab != 3) {
 
                     // Calculate total number of tickets and total amount
                     int totalTickets = raffleCart.value.fold(0, (sum, item) => sum + (item.quantity ?? 0));
@@ -175,7 +175,7 @@ class BottomNavBar extends StatelessWidget {
             : _shopItems(iconColor, selectedColor);
 
         int currentIndex = (currentModule == AppModules.raffle)
-            ? viewModel.selectedRafflesTab
+            ? viewModel.selectedHomeTab
             : viewModel.selectedShopTab;
 
         return BottomNavigationBar(
@@ -199,15 +199,15 @@ class BottomNavBar extends StatelessWidget {
   List<BottomNavigationBarItem> _rafflesItems(Color iconColor, Color selectedColor) {
     return [
       BottomNavigationBarItem(
-        icon: _navBarItemIcon('main.svg', 'main.svg', viewModel.selectedRafflesTab == 0, iconColor),
+        icon: _navBarItemIcon('main.svg', 'main.svg', viewModel.selectedHomeTab == 0, iconColor),
         label: "Home",
       ),
       BottomNavigationBarItem(
-        icon: _navBarItemIcon('book.svg', 'book.svg', viewModel.selectedRafflesTab == 1, iconColor),
+        icon: _navBarItemIcon('book.svg', 'book.svg', viewModel.selectedHomeTab == 1, iconColor),
         label: "Book",
       ),
       BottomNavigationBarItem(
-        icon: _navBarItemIcon('profile.svg', 'profile.svg', viewModel.selectedRafflesTab == 2, iconColor),
+        icon: _navBarItemIcon('profile.svg', 'profile.svg', viewModel.selectedHomeTab == 2, iconColor),
         label: "Profile",
       ),
       // BottomNavigationBarItem(

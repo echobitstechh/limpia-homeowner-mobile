@@ -7,8 +7,8 @@ import 'package:limpia/app/app.router.dart';
 import 'package:limpia/core/utils/config.dart';
 import 'package:limpia/ui/common/app_colors.dart';
 import 'package:limpia/ui/common/app_strings.dart';
-import 'package:limpia/ui/components/submit_button.dart';
-import 'package:limpia/ui/views/cart/raffle_cart_view.dart';
+import 'package:limpia/ui/views/bookings/booked_view.dart';
+import 'package:limpia/ui/views/bookings/bookings_view.dart';
 import 'package:limpia/ui/views/dashboard/dashboard_view.dart';
 import 'package:limpia/ui/views/notification/notification_view.dart';
 import 'package:limpia/ui/views/profile/profile_view.dart';
@@ -18,15 +18,7 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:update_available/update_available.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import '../../../core/data/models/raffle_cart_item.dart';
-import '../../../core/network/api_response.dart';
-import '../../../core/network/interceptors.dart';
-import '../../../core/utils/local_store_dir.dart';
-import '../../../core/utils/local_stotage.dart';
 import '../../../state.dart';
-import '../../common/ui_helpers.dart';
-import '../draws/draws_view.dart';
 
 /// @author George David
 /// email: georgequin19@gmail.com
@@ -38,13 +30,13 @@ class HomeViewModel extends BaseViewModel {
   final _bottomSheetService = locator<BottomSheetService>();
   List<Widget> pages = [
      DashboardView(),
-     const DrawsView(),
+     const BookingView(),
     // const CartView(),
     // const NotificationView(),
     const ProfileView()
   ];
 
-  int selectedRafflesTab = 0;
+  int selectedHomeTab = 0;
   int selectedShopTab = 0;
 
   @override
@@ -59,7 +51,7 @@ class HomeViewModel extends BaseViewModel {
   // Pages for the Raffles dashboard
   List<Widget> rafflesPages = [
     DashboardView(),
-     const DrawsView(),
+     const BookingView(),
     // const NotificationView(),
     const ProfileView()
   ];
@@ -67,7 +59,7 @@ class HomeViewModel extends BaseViewModel {
   // Pages for the Shop dashboard
   List<Widget> shopPages = [
     // ShopDashboardView(),
-     const DrawsView(),
+     const BookingView(),
      NotificationView(),
     const ProfileView()
   ];
@@ -131,14 +123,14 @@ class HomeViewModel extends BaseViewModel {
     //   return;
     //}
 
-      selectedRafflesTab = index;
+      selectedHomeTab = index;
       notifyListeners();
   }
 
 
   Widget get currentPage {
     return currentModuleNotifier.value == AppModules.raffle
-        ? rafflesPages[selectedRafflesTab]
+        ? rafflesPages[selectedHomeTab]
         : shopPages[selectedShopTab];
   }
 
@@ -183,7 +175,7 @@ class HomeViewModel extends BaseViewModel {
                 const ListTile(
                   title: Text('App Updates', style: TextStyle(fontSize: 22,
                     fontFamily: "Panchang", fontWeight: FontWeight.bold, color: kcSecondaryColor)),
-                  subtitle: Text('A new version of Afriprize is now available.'
+                  subtitle: Text('A new version of Limpia is now available.'
                       ' download now to enjoy our lastest features.', style: TextStyle(fontSize: 13,
                     fontFamily: "Panchang",)),
                 ),

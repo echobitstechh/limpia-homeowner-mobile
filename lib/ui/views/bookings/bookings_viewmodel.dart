@@ -8,7 +8,7 @@ import '../../../core/network/interceptors.dart';
 import '../../../core/utils/local_store_dir.dart';
 import '../../../core/utils/local_stotage.dart';
 
-class DrawsViewModel extends BaseViewModel {
+class BookingsViewModel extends BaseViewModel {
 
   bool isDrawSelected = true;
   // Example data lists

@@ -3,8 +3,8 @@ import 'package:limpia/ui/common/app_colors.dart';
 
 import 'booked_view.dart';
 
-class DrawsView extends StatelessWidget {
-  const DrawsView({super.key});
+class BookingView extends StatelessWidget {
+  const BookingView({super.key});
 
   @override
   Widget build(BuildContext context) {

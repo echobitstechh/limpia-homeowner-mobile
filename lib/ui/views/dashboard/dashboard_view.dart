@@ -14,7 +14,7 @@ import '../../../app/app.locator.dart';
 import '../../../state.dart';
 import '../../common/ui_helpers.dart';
 import '../../components/empty_state.dart';
-import '../draws/booked_view.dart';
+import '../bookings/booked_view.dart';
 import '../notification/reviewview.dart';
 import '../payment/payment_view.dart';
 import 'dashboard_viewmodel.dart';

@@ -39,10 +39,10 @@ class _ModuleSwitchState extends State<ModuleSwitch> {
             onTap: () => widget.onToggle(!widget.isRafflesSelected),
           ),
 
-          // AfriShop Button
+
           buildOption(
             context: context,
-            text: 'AfriShop',
+            text: 'Shop',
             icon: 'bag.svg',
             isSelected: !widget.isRafflesSelected,
             onTap: () => widget.onToggle(false),

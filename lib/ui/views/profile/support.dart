@@ -34,7 +34,7 @@ class _SupportState extends State<Support> {
           SupportOption(
             icon: Icons.email_outlined,
             title: "Email Us",
-            //subtitle: "support@afriprize.com",
+            //subtitle: "support@Limpia.com",
             onTap: () async {
               sendEmail("support@echobitstech.com", context);
             },

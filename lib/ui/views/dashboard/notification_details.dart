@@ -2,12 +2,11 @@ import 'package:board_datetime_picker/board_datetime_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:limpia/ui/common/ui_helpers.dart';
 import 'package:flutter/material.dart';
+import 'package:limpia/ui/views/bookings/bookings_view.dart';
 import 'package:limpia/ui/views/dashboard/time-and-date.dart';
 import 'package:limpia/ui/views/dashboard/track_map.dart';
 import 'package:stacked/stacked.dart';
 import '../../common/app_colors.dart';
-import '../draws/booked_view.dart';
-import '../draws/draws_view.dart';
 import '../notification/notification_viewmodel.dart';
 import 'dashboard_view.dart';
 
@@ -337,7 +336,7 @@ class NotificationDetails extends StackedView<NotificationViewModel> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const DrawsView()),
+                            builder: (context) => const BookingView()),
                       );
                     },
                     style: ElevatedButton.styleFrom(
